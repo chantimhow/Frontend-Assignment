@@ -68,22 +68,24 @@ html {
     background-color: #FA5B1C;
 }
 
-.hero-text{
-    font-size:15rem;
-    font-family:"Archivo Black";
-    font-weight:400;
-    color:#ffffff;
+.hero-text {
+    font-size: 15rem;
+    font-family: "Archivo Black";
+    font-weight: 400;
+    color: #ffffff;
 
 }
 
-.lead{
-max-width: auto;
+.lead {
+    max-width: auto;
     background-color: #FA5B1C;
 }
-.hero-text2{
+
+.hero-text2 {
     font-size: 3rem;
     font-family: "Archivo Black";
 }
+
 .btn {
     background-color: #ffffff;
     font-size: 1rem;
@@ -108,9 +110,12 @@ max-width: auto;
 
 
 .second-container {
-    background-color: #FA5B1C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
     min-height: 20vh;
-    padding:3rem;
+    padding: 3rem;
 }
 
 .plan {
@@ -123,6 +128,7 @@ max-width: auto;
 }
 
 @media (min-width: 768px) {
+
     /* Full-screen sections, so each scroll-snap stop lands on a
        section that fills the viewport rather than a partial one.
        Desktop only — forcing 100vh on phones just causes overflow,
@@ -148,6 +154,7 @@ max-width: auto;
     font-style: normal;
     font-size: clamp(2rem, 8vw, 4rem);
 }
+
 .news {
     background-color: #101010;
     color: #ffffff;
@@ -232,7 +239,6 @@ hr {
 
 .text-highlight {
     color: #FA5B1C;
-    margin-right: 0.5rem;
     font-weight: bolder;
 
 
@@ -366,4 +372,65 @@ hr {
     line-height: 1.5;
     color: #7c7a85;
     margin-bottom: 0;
+}
+
+
+.container-spec-sheet {
+    display: flex;
+    /* Column, so the heading stacks above the table instead of sitting
+       next to it. align-items centers them on the cross axis. */
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 4rem;
+}
+
+.spec-sheet-title {
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+    margin-bottom: 0.75rem;
+}
+
+.spec-sheet-subtitle {
+    color: #a9a6b3;
+    text-align: center;
+    max-width: 40rem;
+    margin-bottom: 2.5rem;
+}
+
+table {
+    width: 75%;
+    table-layout: fixed;
+    border-collapse: collapse;
+
+    
+
+}
+
+th,
+td {
+    background-color: #171717;
+    border: none;
+    border-bottom: 0.5px solid #555555;
+    text-align: center;
+    padding: 0.5em;
+    
+
+}
+
+th{
+    color:#7f7f7f;
+}
+
+.left-data{
+    text-align:left;
+    padding-left: 30px;
+    color:#ffffff;
+    font-weight:400;
+}
+
+.left-header{
+    text-align:left;
+    padding-left: 30px;
+
 }
