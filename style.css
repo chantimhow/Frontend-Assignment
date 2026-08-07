@@ -1,0 +1,369 @@
+body {
+    background-color: #FFFFFF;
+}
+
+/* Scroll snapping: a scroll gesture settles on the start of the next
+   section rather than stopping halfway between two of them. */
+html {
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+}
+
+.hero,
+.second-container,
+.membership,
+.news {
+    scroll-snap-align: start;
+}
+
+/* Snapping and smooth scrolling both animate the viewport, which can
+   trigger motion sickness. Respect the OS-level "reduce motion" setting. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-snap-type: none;
+        scroll-behavior: auto;
+    }
+}
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+
+    background-color: transparent;
+    padding-top: 1.5rem;
+}
+
+/* The collapsed menu needs its own backdrop, or it opens as
+   unreadable text floating over the hero image. */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: rgba(0, 0, 0, 0.85);
+        padding: 1rem;
+    }
+}
+
+.nav-item {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.hero {
+    background-image:
+        linear-gradient(rgba(12, 24, 33, 0.1), rgba(12, 24, 33, 0.1)),
+        url("images/hero.png");
+    background-size: cover;
+    background-position: center;
+
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+
+    color: #ffffff;
+}
+
+.hero-container {
+    background-color: #FA5B1C;
+}
+
+.hero-text{
+    font-size:15rem;
+    font-family:"Archivo Black";
+    font-weight:400;
+    color:#ffffff;
+
+}
+
+.lead{
+max-width: auto;
+    background-color: #FA5B1C;
+}
+.hero-text2{
+    font-size: 3rem;
+    font-family: "Archivo Black";
+}
+.btn {
+    background-color: #ffffff;
+    font-size: 1rem;
+    border-radius: 0rem;
+    color: #000000;
+    border-color: #000000;
+    font-family: "Archivo Black";
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    letter-spacing: 0.1rem;
+
+
+}
+
+.btn:hover {
+    background-color: #000000;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+
+.second-container {
+    background-color: #FA5B1C;
+    min-height: 20vh;
+    padding:3rem;
+}
+
+.plan {
+    display: flex;
+    flex-direction: column;
+
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 0.5px solid #000000;
+}
+
+@media (min-width: 768px) {
+    /* Full-screen sections, so each scroll-snap stop lands on a
+       section that fills the viewport rather than a partial one.
+       Desktop only — forcing 100vh on phones just causes overflow,
+       since the content is taller than a phone screen to begin with. */
+    .second-container,
+    .membership {
+        min-height: 100vh;
+    }
+
+    .plan {
+        flex: 1;
+        padding: 3rem;
+    }
+}
+
+.plan-normal {}
+
+.plan-special {}
+
+.archivo-black-regular {
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: clamp(2rem, 8vw, 4rem);
+}
+.news {
+    background-color: #101010;
+    color: #ffffff;
+    padding: 4rem 1.5rem;
+}
+
+.view-all {
+    display: inline-block;
+    margin-top: 0.5rem;
+
+    color: #FA5B1C;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    text-decoration: none;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 4rem;
+
+    margin-top: 3rem;
+}
+
+.news-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card img {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+
+    margin-bottom: 1.5rem;
+}
+
+.news-card-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+}
+
+.news-card-text {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #a9a6b3;
+    margin-bottom: 1.5rem;
+}
+
+.news-card-link {
+    margin-top: auto;
+
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.news-card-link:hover,
+.view-all:hover {
+    color: #FA5B1C;
+    text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+    .news {
+        padding: 7rem 3rem;
+    }
+}
+
+
+hr {
+    height: 1px;
+    /* Sets the thickness */
+    background-color: #333;
+    /* Sets the line color */
+    border: none;
+}
+
+.text-highlight {
+    color: #FA5B1C;
+    margin-right: 0.5rem;
+    font-weight: bolder;
+
+
+}
+
+.membership-description {
+    margin-top: 1em;
+    font-size: clamp(1rem, 3.5vw, 1.5rem);
+}
+
+
+/* ==========================================================
+   membership.html  ·  pricing page
+   Everything below is scoped to .pricing-* so it cannot leak
+   into the .plan teaser panels on index.html.
+   ========================================================== */
+
+.pricing-page {
+    background-color: #101010;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+.pricing-header {
+    text-align: center;
+    /* The navbar is position:absolute, so it takes up no space in
+       the flow. This top padding is what stops it overlapping. */
+    padding: 8rem 1.5rem 3rem;
+}
+
+.pricing-eyebrow {
+    color: #a9a6b3;
+    font-size: 0.875rem;
+    letter-spacing: 0.15rem;
+    margin-bottom: 0.5rem;
+}
+
+.pricing-subtitle {
+    color: #a9a6b3;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    max-width: 40rem;
+    margin: 1rem auto 3rem;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem 6rem;
+}
+
+.pricing-card {
+    display: flex;
+    flex-direction: column;
+
+    background-color: #171717;
+    border: 1px solid #2f2f2f;
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+.pricing-card-title {
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 0.75rem;
+}
+
+.pricing-card-desc {
+    color: #a9a6b3;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.pricing-price {
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 1.5rem;
+}
+
+.pricing-period {
+    /* Step back out of Archivo Black, which only ships one very heavy
+       weight and would swamp the price it sits next to. */
+    font-family: var(--bs-body-font-family);
+    font-size: 1rem;
+    font-weight: 400;
+    color: #a9a6b3;
+}
+
+.pricing-cta {
+    width: 100%;
+    border-radius: 999px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.pricing-included {
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+}
+
+.pricing-features {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 2rem;
+}
+
+.pricing-features li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: start;
+
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* .text-highlight carries its own margin-right for the index.html
+   markers; here the flex gap already handles the spacing. */
+.pricing-features .text-highlight {
+    margin-right: 0;
+}
+
+/* Pins the footnote to the bottom of the card so the two cards line
+   up even when one has more features. Same trick as .news-card-link. */
+.pricing-footnote {
+    margin-top: auto;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #7c7a85;
+    margin-bottom: 0;
+}
