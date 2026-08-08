@@ -51,9 +51,8 @@ html {
 }
 
 .hero {
-    background-image:
-        linear-gradient(rgba(12, 24, 33, 0.1), rgba(12, 24, 33, 0.1)),
-        url("images/hero.png");
+    background-color: #101010;
+
     background-size: cover;
     background-position: center;
 
@@ -69,7 +68,7 @@ html {
 }
 
 .hero-text {
-    font-size: 15rem;
+    font-size: 3rem;
     font-family: "Archivo Black";
     font-weight: 400;
     color: #ffffff;
@@ -82,8 +81,9 @@ html {
 }
 
 .hero-text2 {
-    font-size: 3rem;
-    font-family: "Archivo Black";
+    font-size: 1rem;
+    font-family: "Roboto";
+    font-weight: 350;
 }
 
 .btn {
