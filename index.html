@@ -36,121 +36,83 @@
                 </div>
             </div>
         </nav>
-        <section class="hero">
-            <div class="container-sm text-center">
-                <p>made for students, by students</p>
+        <!-- Scroll-spy dots. Built by script.js from the [data-section]
+             elements below, so adding a section is a one-place change. -->
+        <nav class="dot-nav" aria-label="Section navigation"></nav>
+
+        <section class="hero" data-section="Home">
+            <div class="container-sm text-center ">
+
                 <h1 class="hero-text">WELCOME TO <span class="text-highlight">UTAR ESPORT</span></h1>
                 <h2 class="hero-text2">Empowering student gamers at UTAR to connect, compete, and excel in regional and
                     national esports tournaments.</h2>
+                    <button type = "button"class = "btn welcome-section-button">JOIN NOW</button>
 
 
 
 
             </div>
         </section>
-        <div
-            class="container-fluid second-container d-flex flex-column flex-md-row justify-content-between align-items-md-center py-4">
-            <div>
-                <h1 class="fw-bolder archivo-black-regular mb-0 text-white">JOIN US</h1>
-                <h1 class="fw-bolder archivo-black-regular mb-0 text-white">NOW</h1>
+        <section class="about about-who" data-section="Who We Are">
+            <div class="about-inner">
+                <p class="about-eyebrow">WHO WE ARE</p>
+                <h2 class="about-title">MORE THAN JUST A <span class="text-highlight">GAMING CLUB</span></h2>
+                <p class="about-text">
+                    UTAR Esport Club is the university's home for competitive gaming. We bring together students from
+                    every faculty — players, shoutcasters, analysts and organisers — and give them a place to train,
+                    compete and represent UTAR on the regional and national stage.
+                </p>
             </div>
+        </section>
+
+        <section class="about about-what" data-section="What We Do">
+            <div class="about-inner">
+                <p class="about-eyebrow">WHAT WE DO</p>
+                <h2 class="about-title">THREE WAYS TO <span class="text-highlight">GET INVOLVED</span></h2>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h4 class="about-card-title">Compete</h4>
+                        <p class="about-card-text">
+                            We field teams in Valorant, Mobile Legends, League of Legends and more, from campus
+                            scrims right up to national inter-university championships.
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <h4 class="about-card-title">Train</h4>
+                        <p class="about-card-text">
+                            Weekly practice nights, VOD reviews and coaching sessions run by our senior players, so
+                            newcomers improve fast and veterans stay sharp.
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <h4 class="about-card-title">Connect</h4>
+                        <p class="about-card-text">
+                            LAN parties, watch parties and community tournaments open to all members — the easiest
+                            way to meet people who play what you play.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- data-nav-theme flips the dots to dark ink, since this is the
+             one section with a white background. -->
+        <div class="second-container d-flex flex-row justify-content-center" data-section="Membership"
+            data-nav-theme="light">
+
             <a href="membership.html"><img src="images/TICKET.png"></a>
-            <a href="membership.html" class="btn btn-primary btn-lg align-self-md-end">MEMBERSHIP</a>
+
         </div>
 
-        <div class="news">
-            <h1 class="archivo-black-regular">LATEST NEWS</h1>
-            <a class="view-all" href="#">View All <span aria-hidden="true">&rarr;</span></a>
-
-            <div class="news-grid">
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="UTAR roster on stage at the campus finals">
-                    <h3 class="news-card-title">UTAR finish 2nd at Campus Masters</h3>
-                    <p class="news-card-text">Thank you to everyone who turned up and cheered the roster on
-                        throughout the weekend.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Team celebrating with the Inter-Varsity trophy">
-                    <h3 class="news-card-title">Your Inter-Varsity Stage 1 champions</h3>
-                    <p class="news-card-text">Thank you for all your support, no matter where you were watching
-                        from.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Players qualifying for the national finals">
-                    <h3 class="news-card-title">UTAR qualify for the National Finals</h3>
-                    <p class="news-card-text">Our third qualification this season, this time as the top seed from
-                        the northern region.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Roster holding up second place medals">
-                    <h3 class="news-card-title">Runners-up at the Open Invitational</h3>
-                    <p class="news-card-text">Only the beginning &mdash; we'll come back stronger in Stage 2.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Roster holding up second place medals">
-                    <h3 class="news-card-title">Runners-up at the Open Invitational</h3>
-                    <p class="news-card-text">Only the beginning &mdash; we'll come back stronger in Stage 2.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Roster holding up second place medals">
-                    <h3 class="news-card-title">Runners-up at the Open Invitational</h3>
-                    <p class="news-card-text">Only the beginning &mdash; we'll come back stronger in Stage 2.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Roster holding up second place medals">
-                    <h3 class="news-card-title">Runners-up at the Open Invitational</h3>
-                    <p class="news-card-text">Only the beginning &mdash; we'll come back stronger in Stage 2.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Roster holding up second place medals">
-                    <h3 class="news-card-title">Runners-up at the Open Invitational</h3>
-                    <p class="news-card-text">Only the beginning &mdash; we'll come back stronger in Stage 2.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Roster holding up second place medals">
-                    <h3 class="news-card-title">Runners-up at the Open Invitational</h3>
-                    <p class="news-card-text">Only the beginning &mdash; we'll come back stronger in Stage 2.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Roster holding up second place medals">
-                    <h3 class="news-card-title">Runners-up at the Open Invitational</h3>
-                    <p class="news-card-text">Only the beginning &mdash; we'll come back stronger in Stage 2.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Roster holding up second place medals">
-                    <h3 class="news-card-title">Runners-up at the Open Invitational</h3>
-                    <p class="news-card-text">Only the beginning &mdash; we'll come back stronger in Stage 2.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-                <article class="news-card">
-                    <img src="images/news-1.webp" alt="Roster holding up second place medals">
-                    <h3 class="news-card-title">Runners-up at the Open Invitational</h3>
-                    <p class="news-card-text">Only the beginning &mdash; we'll come back stronger in Stage 2.</p>
-                    <a class="news-card-link" href="#">Read More <span aria-hidden="true">&rarr;</span></a>
-                </article>
-            </div>
-        </div>
-
+        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
             integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
             crossorigin="anonymous"></script>
+        <script src="script.js"></script>
     </body>
 
 </html>
