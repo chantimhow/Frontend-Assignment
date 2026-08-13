@@ -172,7 +172,11 @@
         <!-- Sign-up dialog. script.js keeps whatever is typed here in
              browser storage: the club details in localStorage so they
              survive a restart, the card fields in sessionStorage so they
-             do not. Opened by JOIN NOW, the nav CTA, or a #register hash. -->
+             do not. Opened by JOIN NOW, the nav CTA, or a #register hash.
+
+             membership.html carries its own copy of this block so its
+             JOIN NOW buttons open the dialog there rather than bouncing
+             the visitor here. Edit one, edit the other. -->
         <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

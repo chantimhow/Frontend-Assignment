@@ -42,7 +42,7 @@
                         <a class="site-nav-social" href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
                         <a class="site-nav-social" href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
                         <a class="site-nav-social" href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                        <a class="btn site-nav-cta" href="index.html#register">JOIN US</a>
+                        <a class="btn site-nav-cta" href="#register">JOIN US</a>
                     </div>
                 </div>
             </div>
@@ -64,9 +64,9 @@
                         to a competitive schedule.</p>
                     <hr>
                     <p class="pricing-price">RM5 <span class="pricing-period">/ year*</span></p>
-                    <!-- The hash opens the sign-up dialog on the home page
-                         with this plan already selected. -->
-                    <a class="btn pricing-cta" href="index.html#register-casual">JOIN NOW</a>
+                    <!-- Opens the dialog on this page with the plan already
+                         selected — script.js intercepts the #register hash. -->
+                    <a class="btn pricing-cta" href="#register-casual">JOIN NOW</a>
 
                     <p class="pricing-included">What's included:</p>
                     <ul class="pricing-features">
@@ -89,7 +89,7 @@
                         tournament fees.</p>
                     <hr>
                     <p class="pricing-price">RM15 <span class="pricing-period">/ year*</span></p>
-                    <a class="btn pricing-cta" href="index.html#register-competitive">JOIN NOW</a>
+                    <a class="btn pricing-cta" href="#register-competitive">JOIN NOW</a>
 
                     <p class="pricing-included">What's included:</p>
                     <ul class="pricing-features">
@@ -132,19 +132,19 @@
                         </tr>
                         <tr>
                             <th scope="row" class="left-data">Priority event seating</th>
-                            <td>─</td>
+                            <td>â”€</td>
                             <td><span class="text-highlight">&#10003</span></td>
 
                         </tr>
                         <tr>
                             <th scope="row" class="left-data">Main roster trial</th>
-                            <td>─</td>
+                            <td>â”€</td>
                             <td><span class="text-highlight">&#10003</span></td>
 
                         </tr>
                         <tr>
                             <th scope="row" class="left-data">Booked practice blocks</th>
-                            <td>─</td>
+                            <td>â”€</td>
                             <td><span class="text-highlight">3/week</span></td>
 
                         </tr>
@@ -156,7 +156,7 @@
                         </tr>
                         <tr>
                             <th scope="row" class="left-data">Entry fees covered</th>
-                            <td>─</td>
+                            <td>â”€</td>
                             <td><span class="text-highlight">Up to 4 /yr</span></td>
 
                         </tr>
@@ -177,6 +177,101 @@
                 </table>
             </div>
         </main>
+
+        <!-- Sign-up dialog, same markup as index.html. Kept as its own
+             copy so JOIN NOW opens here instead of bouncing to the home
+             page; if you edit one, edit the other. -->        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content reg-modal">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="registerModalLabel">JOIN UTAR ESPORT</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ol class="reg-steps">
+                            <li class="is-current" data-step="1">YOUR DETAILS</li>
+                            <li data-step="2">PAYMENT</li>
+                        </ol>
+
+                        <form id="registerForm" novalidate>
+                            <fieldset class="reg-step" data-step="1">
+                                <div class="reg-field">
+                                    <label for="regName">FULL NAME</label>
+                                    <input type="text" id="regName" name="fullName" autocomplete="name" required>
+                                </div>
+                                <div class="reg-row">
+                                    <div class="reg-field">
+                                        <label for="regEmail">EMAIL</label>
+                                        <input type="email" id="regEmail" name="email" autocomplete="email" required>
+                                    </div>
+                                    <div class="reg-field">
+                                        <label for="regStudentId">STUDENT ID</label>
+                                        <input type="text" id="regStudentId" name="studentId" required>
+                                    </div>
+                                </div>
+                                <div class="reg-field">
+                                    <label for="regFavGame">MAIN GAME</label>
+                                    <select id="regFavGame" name="favGame">
+                                        <option value="valorant">Valorant</option>
+                                        <option value="mlbb">Mobile Legends</option>
+                                        <option value="lol">League of Legends</option>
+                                        <option value="other">Something else</option>
+                                    </select>
+                                </div>
+                                <div class="reg-plans">
+                                    <label class="reg-plan">
+                                        <input type="radio" name="plan" value="casual" checked>
+                                        Casual
+                                        <span class="reg-plan-price">RM5</span>
+                                    </label>
+                                    <label class="reg-plan">
+                                        <input type="radio" name="plan" value="competitive">
+                                        Competitive
+                                        <span class="reg-plan-price">RM15</span>
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="reg-step" data-step="2" hidden>
+                                <div class="reg-field">
+                                    <label for="regCardName">NAME ON CARD</label>
+                                    <input type="text" id="regCardName" name="cardName" autocomplete="off" required>
+                                </div>
+                                <div class="reg-field">
+                                    <label for="regCardNumber">CARD NUMBER</label>
+                                    <input type="text" id="regCardNumber" name="cardNumber" inputmode="numeric"
+                                        placeholder="4242 4242 4242 4242" autocomplete="off" required>
+                                </div>
+                                <div class="reg-row">
+                                    <div class="reg-field">
+                                        <label for="regCardExpiry">EXPIRY</label>
+                                        <input type="text" id="regCardExpiry" name="expiry" placeholder="MM/YY"
+                                            autocomplete="off" required>
+                                    </div>
+                                    <div class="reg-field">
+                                        <label for="regCardCvv">CVV</label>
+                                        <input type="text" id="regCardCvv" name="cvv" inputmode="numeric"
+                                            placeholder="123" autocomplete="off" required>
+                                    </div>
+                                </div>
+                                <p class="reg-note">Payment details are held for this browser session only and are
+                                    cleared the moment you close the browser. This form is a coursework
+                                    demonstration &mdash; nothing is submitted anywhere, so please do not enter a
+                                    real card.</p>
+                            </fieldset>
+
+                            <div class="reg-footer">
+                                <button type="button" class="btn reg-back" hidden>BACK</button>
+                                <button type="button" class="btn reg-next">CONTINUE</button>
+                                <button type="submit" class="btn reg-submit" hidden>COMPLETE SIGN-UP</button>
+                                <span class="reg-status" role="status" aria-live="polite"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
