@@ -7,12 +7,10 @@
         <title>UTAR Esport Website</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+            rel="stylesheet">
         <link href="style.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link
             href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bitcount+Prop+Single:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Spray+Paint&display=swap"
@@ -20,19 +18,32 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
-            <a class="navbar-brand mx-5" href="index.html">UTAR Esport Club</a>
-            <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-item nav-link active" aria-current="page" href="index.html">Home</a>
-                    <a class="nav-item nav-link" href="membership.html">Membership</a>
-                    <a class="nav-item nav-link" href="#">Events</a>
-
+        <!-- Shared site nav. Copied verbatim into every page — only the
+             .active link moves. script.js adds .is-solid once scrolled. -->
+        <nav class="navbar navbar-expand-lg site-nav" data-bs-theme="dark">
+            <div class="container-fluid site-nav-inner">
+                <a class="navbar-brand" href="index.html">UTAR <span class="text-highlight">ESPORT</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <div class="navbar-nav site-nav-links mx-auto">
+                        <a class="nav-item nav-link active" aria-current="page" href="index.html">HOME</a>
+                        <a class="nav-item nav-link" href="about.html">ABOUT</a>
+                        <a class="nav-item nav-link" href="tournament.html">TOURNAMENT</a>
+                        <a class="nav-item nav-link" href="events.html">PAST EVENTS</a>
+                        <a class="nav-item nav-link" href="membership.html">MEMBERSHIP</a>
+                        <a class="nav-item nav-link" href="contact.html">CONTACT</a>
+                    </div>
+                    <div class="site-nav-actions">
+                        <a class="site-nav-social" href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="Discord"><i class="bi bi-discord"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a class="btn site-nav-cta" href="#register">JOIN US</a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -94,16 +105,167 @@
                 </div>
             </div>
         </section>
-        <!-- data-nav-theme flips the dots to dark ink, since this is the
-             one section with a white background. -->
-        <div class="second-container d-flex flex-row justify-content-center" data-section="Membership"
-            data-nav-theme="light">
+        <!-- Teasers for the pages the rest of the team is building. The
+             whole card is the link, so there is no separate "read more"
+             target to miss. -->
+        <section class="news explore" data-section="Explore">
+            <div class="about-inner">
+                <p class="about-eyebrow">EXPLORE</p>
+                <h2 class="about-title">FIND YOUR PLACE IN <span class="text-highlight">THE CLUB</span></h2>
+                <div class="news-grid explore-grid">
+                    <a class="news-card explore-card" href="about.html">
+                        <img src="images/hero.jpg" alt="">
+                        <h3 class="news-card-title">ABOUT US</h3>
+                        <p class="news-card-text">Who runs the club, how we got here, and what we are building for
+                            the next intake.</p>
+                        <span class="news-card-link">Learn more &rarr;</span>
+                    </a>
+                    <a class="news-card explore-card" href="tournament.html">
+                        <img src="images/news-1.webp" alt="">
+                        <h3 class="news-card-title">TOURNAMENTS</h3>
+                        <p class="news-card-text">Fixtures, brackets and how to sign your team up for the next
+                            season.</p>
+                        <span class="news-card-link">See the schedule &rarr;</span>
+                    </a>
+                    <a class="news-card explore-card" href="events.html">
+                        <img src="images/20241104143535308_2TE6D2S2.jpg" alt="">
+                        <h3 class="news-card-title">PAST EVENTS</h3>
+                        <p class="news-card-text">Every LAN, watch party and championship run the club has put on so
+                            far.</p>
+                        <span class="news-card-link">Look back &rarr;</span>
+                    </a>
+                    <a class="news-card explore-card" href="contact.html">
+                        <img src="images/b26e334737dfcaf750febeab7490acf2ceed63f8-2048x1152.jpg" alt="">
+                        <h3 class="news-card-title">CONTACT</h3>
+                        <p class="news-card-text">Sponsorships, press, or you just want to play &mdash; reach the
+                            committee here.</p>
+                        <span class="news-card-link">Get in touch &rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-            <a href="membership.html"><img src="images/TICKET.png"></a>
+        <!-- The voucher. The ticket is one image split into two pieces at
+             its perforation (see .voucher-ticket-top / -stub in style.css)
+             so the stub can tear away on hover. Whole thing is a link. -->
+        <section class="voucher" data-section="Membership">
+            <div class="voucher-inner">
+                <div class="voucher-copy">
+                    <p class="about-eyebrow">MEMBER PERK</p>
+                    <h2 class="about-title">ONE RINGGIT OFF <span class="text-highlight">YOUR FIRST YEAR</span></h2>
+                    <p class="about-text">Every student who signs up this semester gets RM1 off the membership
+                        fee. Tear off the ticket and it comes straight off your first year.</p>
 
+                    <a class="btn voucher-cta" href="membership.html">CLAIM VOUCHER &rarr;</a>
+                    <p class="voucher-claimed" hidden></p>
+                </div>
+
+                <a class="voucher-ticket" href="membership.html"
+                    aria-label="Claim your RM1 off membership voucher">
+                    <span class="voucher-ticket-top" aria-hidden="true"></span>
+                    <span class="voucher-ticket-stub" aria-hidden="true"></span>
+                    <span class="voucher-stamp" aria-hidden="true" hidden>CLAIMED</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Sign-up dialog. script.js keeps whatever is typed here in
+             browser storage: the club details in localStorage so they
+             survive a restart, the card fields in sessionStorage so they
+             do not. Opened by JOIN NOW, the nav CTA, or a #register hash. -->
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content reg-modal">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="registerModalLabel">JOIN UTAR ESPORT</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ol class="reg-steps">
+                            <li class="is-current" data-step="1">YOUR DETAILS</li>
+                            <li data-step="2">PAYMENT</li>
+                        </ol>
+
+                        <form id="registerForm" novalidate>
+                            <fieldset class="reg-step" data-step="1">
+                                <div class="reg-field">
+                                    <label for="regName">FULL NAME</label>
+                                    <input type="text" id="regName" name="fullName" autocomplete="name" required>
+                                </div>
+                                <div class="reg-row">
+                                    <div class="reg-field">
+                                        <label for="regEmail">EMAIL</label>
+                                        <input type="email" id="regEmail" name="email" autocomplete="email" required>
+                                    </div>
+                                    <div class="reg-field">
+                                        <label for="regStudentId">STUDENT ID</label>
+                                        <input type="text" id="regStudentId" name="studentId" required>
+                                    </div>
+                                </div>
+                                <div class="reg-field">
+                                    <label for="regFavGame">MAIN GAME</label>
+                                    <select id="regFavGame" name="favGame">
+                                        <option value="valorant">Valorant</option>
+                                        <option value="mlbb">Mobile Legends</option>
+                                        <option value="lol">League of Legends</option>
+                                        <option value="other">Something else</option>
+                                    </select>
+                                </div>
+                                <div class="reg-plans">
+                                    <label class="reg-plan">
+                                        <input type="radio" name="plan" value="casual" checked>
+                                        Casual
+                                        <span class="reg-plan-price">RM5</span>
+                                    </label>
+                                    <label class="reg-plan">
+                                        <input type="radio" name="plan" value="competitive">
+                                        Competitive
+                                        <span class="reg-plan-price">RM15</span>
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="reg-step" data-step="2" hidden>
+                                <div class="reg-field">
+                                    <label for="regCardName">NAME ON CARD</label>
+                                    <input type="text" id="regCardName" name="cardName" autocomplete="off" required>
+                                </div>
+                                <div class="reg-field">
+                                    <label for="regCardNumber">CARD NUMBER</label>
+                                    <input type="text" id="regCardNumber" name="cardNumber" inputmode="numeric"
+                                        placeholder="4242 4242 4242 4242" autocomplete="off" required>
+                                </div>
+                                <div class="reg-row">
+                                    <div class="reg-field">
+                                        <label for="regCardExpiry">EXPIRY</label>
+                                        <input type="text" id="regCardExpiry" name="expiry" placeholder="MM/YY"
+                                            autocomplete="off" required>
+                                    </div>
+                                    <div class="reg-field">
+                                        <label for="regCardCvv">CVV</label>
+                                        <input type="text" id="regCardCvv" name="cvv" inputmode="numeric"
+                                            placeholder="123" autocomplete="off" required>
+                                    </div>
+                                </div>
+                                <p class="reg-note">Payment details are held for this browser session only and are
+                                    cleared the moment you close the browser. This form is a coursework
+                                    demonstration &mdash; nothing is submitted anywhere, so please do not enter a
+                                    real card.</p>
+                            </fieldset>
+
+                            <div class="reg-footer">
+                                <button type="button" class="btn reg-back" hidden>BACK</button>
+                                <button type="button" class="btn reg-next">CONTINUE</button>
+                                <button type="submit" class="btn reg-submit" hidden>COMPLETE SIGN-UP</button>
+                                <span class="reg-status" role="status" aria-live="polite"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

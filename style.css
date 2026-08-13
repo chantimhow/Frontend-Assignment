@@ -12,7 +12,7 @@ html {
 
 .hero,
 .about,
-.second-container,
+.voucher,
 .membership,
 .news {
     scroll-snap-align: start;
@@ -25,6 +25,14 @@ html {
 html.is-scrolling {
     scroll-snap-type: none;
     scroll-behavior: auto;
+}
+
+/* Bootstrap locks scrolling by putting overflow:hidden on <body>, but
+   the scroll container here is <html> (overflow-y above), so the page
+   carries on scrolling behind an open dialog. script.js adds this. */
+html.has-modal {
+    overflow: hidden;
+    scroll-snap-type: none;
 }
 
 /* Snapping and smooth scrolling both animate the viewport, which can
@@ -126,29 +134,186 @@ html.is-scrolling {
     }
 }
 
-.navbar {
-    position: absolute;
+/* ==========================================================
+   Site navigation
+   Brand left, links centred, socials + CTA right. Rides
+   transparently over the hero, then script.js adds .is-solid
+   once the page scrolls so the links stay readable against
+   whatever section is passing underneath.
+   ========================================================== */
+
+.site-nav {
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 10;
+    z-index: 30;
 
     background-color: transparent;
-    padding-top: 1.5rem;
+    border-bottom: 1px solid transparent;
+    padding: 1.5rem 0;
+
+    transition: background-color 0.3s ease, padding 0.3s ease, border-color 0.3s ease;
+}
+
+.site-nav.is-solid {
+    background-color: rgba(13, 13, 13, 0.92);
+    /* Lets the section behind bleed through instead of reading as a
+       flat slab sitting on top of the page. */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom-color: #222222;
+    padding: 0.75rem 0;
+}
+
+.site-nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 2.5rem;
+}
+
+.site-nav .navbar-brand {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+}
+
+.site-nav-links .nav-link {
+    position: relative;
+    margin: 0 0.9rem;
+    padding: 0.5rem 0;
+
+    font-family: "Archivo Black", sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* Underline wipes in from the left rather than fading, so the
+   pointer reads as dragging it across the word. */
+.site-nav-links .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 2px;
+    background-color: #FA5B1C;
+
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+}
+
+.site-nav-links .nav-link:hover,
+.site-nav-links .nav-link:focus-visible,
+.site-nav-links .nav-link.active {
+    color: #ffffff;
+}
+
+.site-nav-links .nav-link:hover::after,
+.site-nav-links .nav-link:focus-visible::after,
+.site-nav-links .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.site-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+}
+
+.site-nav-social {
+    font-size: 1.05rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.65);
+    transition: color 0.2s ease;
+}
+
+.site-nav-social:hover,
+.site-nav-social:focus-visible {
+    color: #FA5B1C;
+}
+
+/* .btn is globally square, white and heavily padded; the nav wants a
+   compact orange pill. Scoped to .site-nav to outweigh .btn, which is
+   the same specificity but declared further down the file. */
+.site-nav .site-nav-cta {
+    margin-left: 0.5rem;
+    padding: 0.6rem 1.6rem;
+    border-radius: 999px;
+
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+
+    background-color: #FA5B1C;
+    border-color: #FA5B1C;
+    color: #ffffff;
+}
+
+.site-nav .site-nav-cta:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #000000;
 }
 
 /* The collapsed menu needs its own backdrop, or it opens as
-   unreadable text floating over the hero image. */
+   unreadable text floating over the hero. */
 @media (max-width: 991.98px) {
-    .navbar-collapse {
-        background-color: rgba(0, 0, 0, 0.85);
-        padding: 1rem;
+    .site-nav-inner {
+        padding: 0 1.25rem;
     }
-}
 
-.nav-item {
-    margin-left: 10px;
-    margin-right: 10px;
+    /* Opaque, not 0.92 — the hero headline is set large enough to read
+       straight through even a little transparency. */
+    .navbar-collapse {
+        background-color: #0d0d0d;
+        border-top: 1px solid #222222;
+
+        /* Cancels .site-nav-inner's padding so the panel reaches both
+           edges of the bar instead of floating inset from them. */
+        margin: 1rem -1.25rem 0;
+        padding: 1.25rem;
+    }
+
+    /* The bar itself has to go solid too, or the strip of nav padding
+       below the panel stays transparent and the hero shows through it. */
+    .site-nav:has(.navbar-collapse.show),
+    .site-nav:has(.navbar-collapse.collapsing) {
+        background-color: #0d0d0d;
+        border-bottom-color: #222222;
+    }
+
+    /* mx-auto and margin-left:auto both stop meaning anything once
+       the bar stacks — everything just runs down the left edge. */
+    .site-nav-links,
+    .site-nav-actions {
+        margin-left: 0;
+    }
+
+    .site-nav-links .nav-link {
+        margin: 0;
+    }
+
+    /* The underline spans the full row width when stacked, which reads
+       as a rule across the menu rather than a marker on the word. */
+    .site-nav-links .nav-link::after {
+        right: auto;
+        width: 2.5rem;
+    }
+
+    .site-nav-actions {
+        flex-wrap: wrap;
+        margin-top: 1.25rem;
+    }
+
+    .site-nav .site-nav-cta {
+        margin-left: auto;
+    }
 }
 
 .hero {
@@ -312,14 +477,226 @@ html.is-scrolling {
     }
 }
 
-.second-container {
+/* ==========================================================
+   Voucher  ·  last section of index.html
+   The pitch on the left, the ticket on the right. The ticket
+   is one image cut in two at its perforation so the stub can
+   tear away under the pointer.
+   ========================================================== */
+
+.voucher {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-items: center;
-    background-color: #ffffff;
+
+    background-color: #101010;
+    /* Lights the ticket from behind rather than sitting it on flat
+       black — the section reads as a spotlit prize. */
+    background-image: radial-gradient(circle at 68% 50%, rgba(250, 91, 28, 0.22), transparent 60%);
+    color: #ffffff;
+
     min-height: 20vh;
-    padding: 3rem;
+    padding: 4rem 1.5rem;
+    overflow: hidden;
+}
+
+.voucher-inner {
+    width: 100%;
+    max-width: 72rem;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    justify-items: center;
+    text-align: center;
+}
+
+.voucher-copy .about-title {
+    margin-bottom: 1.5rem;
+}
+
+.voucher-copy .about-text {
+    margin-bottom: 2rem;
+}
+
+/* Scoped past the global .btn, which is declared further down the
+   file and would otherwise win on equal specificity. */
+.voucher .voucher-cta {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    border-radius: 999px;
+
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+
+    background-color: #FA5B1C;
+    border-color: #FA5B1C;
+    color: #ffffff;
+}
+
+.voucher .voucher-cta:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #000000;
+}
+
+.voucher-claimed {
+    margin-top: 1rem;
+    margin-bottom: 0;
+
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: #7c7a85;
+}
+
+/* ---- the ticket ------------------------------------------------
+   Height comes from the viewport and the width follows the image's
+   own ratio, so the ticket can never outgrow its section the way the
+   raw 633x1263 <img> used to. */
+
+.voucher-ticket {
+    /* --tear is where the orange body meets the grey stub, measured
+       off the PNG: row 987 of 1263. Both halves derive from it, so
+       the seam stays put if the artwork is ever swapped. */
+    --tear: 78.15%;
+
+    position: relative;
+    display: block;
+    flex: none;
+
+    aspect-ratio: 633 / 1263;
+    height: min(64vh, 560px);
+
+    rotate: -5deg;
+    text-decoration: none;
+    transition: rotate 0.3s ease, translate 0.3s ease, filter 0.3s ease;
+}
+
+.voucher-ticket-top,
+.voucher-ticket-stub {
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    /* Both halves paint the same file; the offset is what decides
+       which slice of it shows through. */
+    background-image: url("images/TICKET.png");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+.voucher-ticket-top {
+    top: 0;
+    height: var(--tear);
+    background-position: center top;
+}
+
+.voucher-ticket-stub {
+    bottom: 0;
+    height: calc(100% - var(--tear));
+    background-position: center bottom;
+
+    transition: transform 0.3s ease;
+}
+
+/* The dashed line that shows up in the gap once the stub pulls away.
+   Hidden at rest so the ticket reads as one unbroken piece. */
+.voucher-ticket-top::after {
+    content: "";
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    bottom: 0;
+
+    border-bottom: 2px dashed #FA5B1C;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.voucher-ticket:hover,
+.voucher-ticket:focus-visible {
+    rotate: -2deg;
+    translate: 0 -6px;
+    filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.55));
+}
+
+.voucher-ticket:hover .voucher-ticket-stub,
+.voucher-ticket:focus-visible .voucher-ticket-stub {
+    transform: translateY(10px) rotate(1.5deg);
+}
+
+.voucher-ticket:hover .voucher-ticket-top::after,
+.voucher-ticket:focus-visible .voucher-ticket-top::after {
+    opacity: 1;
+}
+
+/* Rubber stamp, shown by script.js once the voucher has been claimed. */
+.voucher-stamp {
+    position: absolute;
+    top: 34%;
+    left: 50%;
+    translate: -50% -50%;
+    rotate: -12deg;
+
+    padding: 0.5rem 1.5rem;
+    border: 4px solid #FA5B1C;
+    border-radius: 0.5rem;
+
+    background-color: rgba(16, 16, 16, 0.82);
+    color: #FA5B1C;
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(1rem, 2.2vw, 1.6rem);
+    letter-spacing: 0.18em;
+    white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .voucher-ticket,
+    .voucher-ticket-stub,
+    .voucher-ticket-top::after {
+        transition: none;
+    }
+
+    .voucher-ticket:hover .voucher-ticket-stub,
+    .voucher-ticket:focus-visible .voucher-ticket-stub {
+        transform: none;
+    }
+}
+
+/* Side by side once there is room for a column of copy next to a
+   ticket that tall; stacked and centred below it. */
+@media (min-width: 992px) {
+    .voucher-inner {
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 4rem;
+        align-items: center;
+        justify-items: start;
+        text-align: left;
+    }
+
+    .voucher-ticket {
+        justify-self: center;
+    }
+}
+
+@media (max-width: 991.98px) {
+
+    /* Sized so the copy, the button and the whole ticket still land on
+       one phone screen — at 52vh and 4rem padding the stub fell below
+       the fold, and the claimed note pushed it further still. */
+    .voucher {
+        padding: 3rem 1.5rem;
+    }
+
+    .voucher-inner {
+        gap: 2rem;
+    }
+
+    .voucher-ticket {
+        height: min(46vh, 380px);
+        rotate: -3deg;
+    }
 }
 
 .plan {
@@ -337,7 +714,7 @@ html.is-scrolling {
        section that fills the viewport rather than a partial one.
        Desktop only — forcing 100vh on phones just causes overflow,
        since the content is taller than a phone screen to begin with. */
-    .second-container,
+    .voucher,
     .membership {
         min-height: 100vh;
     }
@@ -430,6 +807,82 @@ html.is-scrolling {
     .news {
         padding: 7rem 3rem;
     }
+}
+
+/* ==========================================================
+   Explore  ·  teasers for the pages the rest of the team owns
+   Built on the .news-* card grid above; only the differences
+   between a news item and a page teaser live here.
+   ========================================================== */
+
+/* .news-grid's 4rem gap and auto-fit tracks are sized for three
+   portrait stories. Four teasers need explicit counts instead: auto-fit
+   lands on three columns around tablet width, which leaves one card
+   orphaned on a second row. */
+.explore-grid {
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 576px) {
+    .explore-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .explore-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* Matches .about — a full-viewport scroll-snap stop with its content
+       centred. Only once all four fit on one row: wrapped to two rows
+       the cards are taller than the viewport, and forcing 100vh would
+       just hide the bottom one behind the next snap stop. */
+    .explore {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.explore-card {
+    /* The whole card is the link, so it has to carry the border and
+       drop the anchor's default underline and blue. */
+    text-decoration: none;
+    color: inherit;
+
+    background-color: #171717;
+    border: 1px solid #222222;
+    border-radius: 1rem;
+    padding: 1rem;
+
+    transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.explore-card:hover,
+.explore-card:focus-visible {
+    color: inherit;
+    border-color: #FA5B1C;
+    transform: translateY(-4px);
+}
+
+.explore-card img {
+    /* .news-card img is 3/4 portrait; four of those side by side run
+       off the bottom of a 1080p viewport. */
+    aspect-ratio: 4 / 3;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.explore-card .news-card-title {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+}
+
+.explore-card:hover .news-card-link {
+    color: #FA5B1C;
 }
 
 
@@ -681,4 +1134,269 @@ th {
     text-transform: uppercase;
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
+}
+
+
+/* ==========================================================
+   Placeholder pages  ·  about / tournament / events / contact
+   Shells for the rest of the team to overwrite. Everything
+   is borrowed from .pricing-*; this only centres it.
+   ========================================================== */
+
+.stub-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stub-note {
+    color: #7c7a85;
+    font-size: 0.8rem;
+    margin-top: 2.5rem;
+}
+
+
+/* ==========================================================
+   Registration modal  ·  index.html
+   Two steps: club details, then payment. script.js keeps a
+   draft of it in storage as it is typed.
+   ========================================================== */
+
+.reg-modal {
+    background-color: #171717;
+    border: 1px solid #222222;
+    border-radius: 1rem;
+    color: #ffffff;
+}
+
+.reg-modal .modal-header {
+    border-bottom-color: #222222;
+}
+
+.reg-modal .modal-title {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+}
+
+/* Step pips. The current one is orange and bright; the other
+   stays muted, so the pair reads as progress rather than tabs. */
+.reg-steps {
+    display: flex;
+    gap: 1.5rem;
+
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.75rem;
+}
+
+.reg-steps li {
+    position: relative;
+    padding-top: 0.75rem;
+    flex: 1;
+
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: #7c7a85;
+}
+
+.reg-steps li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+    background-color: #2c2c2c;
+    border-radius: 999px;
+    transition: background-color 0.25s ease;
+}
+
+.reg-steps li.is-current {
+    color: #ffffff;
+}
+
+.reg-steps li.is-current::before {
+    background-color: #FA5B1C;
+}
+
+.reg-step {
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+
+.reg-field {
+    margin-bottom: 1rem;
+}
+
+.reg-field label {
+    display: block;
+    margin-bottom: 0.35rem;
+
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: #a9a6b3;
+}
+
+.reg-field input,
+.reg-field select {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+
+    background-color: #101010;
+    border: 1px solid #2c2c2c;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.reg-field input:focus,
+.reg-field select:focus {
+    outline: none;
+    border-color: #FA5B1C;
+    box-shadow: 0 0 0 3px rgba(250, 91, 28, 0.2);
+}
+
+/* Two-up for the short fields — expiry next to CVV rather than
+   each one stretched across the whole dialog. */
+.reg-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+}
+
+.reg-plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.reg-plan {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+
+    padding: 0.75rem 0.9rem;
+    background-color: #101010;
+    border: 1px solid #2c2c2c;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease;
+}
+
+.reg-plan:hover {
+    border-color: #555555;
+}
+
+/* :has lets the whole tile light up from the radio inside it,
+   with no JS keeping a class in sync. */
+.reg-plan:has(input:checked) {
+    border-color: #FA5B1C;
+}
+
+.reg-plan input {
+    accent-color: #FA5B1C;
+}
+
+.reg-plan-price {
+    margin-left: auto;
+    color: #a9a6b3;
+    font-size: 0.8rem;
+}
+
+.reg-note {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #7c7a85;
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+}
+
+.reg-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+}
+
+/* Same pill treatment as the nav CTA — the global .btn is a
+   large square white block, which swamps a dialog this size. */
+.reg-footer .btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    /* The letter-spacing pushes "COMPLETE SIGN-UP" past the space it
+       has, and a wrapped label leaves the two buttons different heights. */
+    white-space: nowrap;
+}
+
+.reg-next,
+.reg-submit {
+    background-color: #FA5B1C;
+    border-color: #FA5B1C;
+    color: #ffffff;
+}
+
+.reg-next:hover,
+.reg-submit:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #000000;
+}
+
+.reg-back {
+    background-color: transparent;
+    border-color: #555555;
+    color: #ffffff;
+}
+
+/* Pushed to the right so the buttons stay grouped on the left.
+   This is where "Draft saved" / "Draft restored" shows up. */
+.reg-status {
+    margin-left: auto;
+    text-align: right;
+    /* Below this it squeezes the buttons rather than wrapping itself. */
+    min-width: 7rem;
+
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: #7c7a85;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.reg-status.is-visible {
+    opacity: 1;
+}
+
+.reg-status strong {
+    color: #FA5B1C;
+    font-weight: 700;
+}
+
+.reg-done {
+    text-align: center;
+    padding: 1.5rem 0 0.5rem;
+}
+
+.reg-done-title {
+    font-family: "Archivo Black", sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: 0.75rem;
+}
+
+.reg-done-text {
+    color: #a9a6b3;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0;
 }

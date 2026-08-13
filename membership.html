@@ -7,10 +7,10 @@
         <title>Membership &mdash; UTAR Esport Club</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+            rel="stylesheet">
         <link href="style.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link
             href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bitcount+Prop+Single:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Spray+Paint&display=swap"
@@ -18,22 +18,36 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
-            <a class="navbar-brand mx-5" href="index.html">UTAR Esport Club</a>
-            <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                aria-label="Toggle navigation">                                                         
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-item nav-link" href="index.html">Home</a>
-                    <a class="nav-item nav-link active" aria-current="page" href="membership.html">Membership</a>
-                    <a class="nav-item nav-link" href="#">Events</a>
+        <!-- Shared site nav. Copied verbatim into every page — only the
+             .active link moves. script.js adds .is-solid once scrolled. -->
+        <nav class="navbar navbar-expand-lg site-nav" data-bs-theme="dark">
+            <div class="container-fluid site-nav-inner">
+                <a class="navbar-brand" href="index.html">UTAR <span class="text-highlight">ESPORT</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <div class="navbar-nav site-nav-links mx-auto">
+                        <a class="nav-item nav-link" href="index.html">HOME</a>
+                        <a class="nav-item nav-link" href="about.html">ABOUT</a>
+                        <a class="nav-item nav-link" href="tournament.html">TOURNAMENT</a>
+                        <a class="nav-item nav-link" href="events.html">PAST EVENTS</a>
+                        <a class="nav-item nav-link active" aria-current="page" href="membership.html">MEMBERSHIP</a>
+                        <a class="nav-item nav-link" href="contact.html">CONTACT</a>
+                    </div>
+                    <div class="site-nav-actions">
+                        <a class="site-nav-social" href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="Discord"><i class="bi bi-discord"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a class="btn site-nav-cta" href="index.html#register">JOIN US</a>
+                    </div>
                 </div>
             </div>
         </nav>
-    
+
 
         <main class="pricing-page">
             <header class="pricing-header">
@@ -50,7 +64,9 @@
                         to a competitive schedule.</p>
                     <hr>
                     <p class="pricing-price">RM5 <span class="pricing-period">/ year*</span></p>
-                    <a class="btn pricing-cta" href="#">JOIN NOW</a>
+                    <!-- The hash opens the sign-up dialog on the home page
+                         with this plan already selected. -->
+                    <a class="btn pricing-cta" href="index.html#register-casual">JOIN NOW</a>
 
                     <p class="pricing-included">What's included:</p>
                     <ul class="pricing-features">
@@ -73,7 +89,7 @@
                         tournament fees.</p>
                     <hr>
                     <p class="pricing-price">RM15 <span class="pricing-period">/ year*</span></p>
-                    <a class="btn pricing-cta" href="#">JOIN NOW</a>
+                    <a class="btn pricing-cta" href="index.html#register-competitive">JOIN NOW</a>
 
                     <p class="pricing-included">What's included:</p>
                     <ul class="pricing-features">
@@ -162,12 +178,17 @@
             </div>
         </main>
 
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
             integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
             crossorigin="anonymous"></script>
+        <!-- Needed here for the scrolled state on the nav; the section
+             deck inside it no-ops on pages without [data-section]. -->
+        <script src="script.js"></script>
     </body>
 
 </html>
