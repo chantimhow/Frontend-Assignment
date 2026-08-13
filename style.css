@@ -239,28 +239,6 @@ html.has-modal {
     color: #FA5B1C;
 }
 
-/* .btn is globally square, white and heavily padded; the nav wants a
-   compact orange pill. Scoped to .site-nav to outweigh .btn, which is
-   the same specificity but declared further down the file. */
-.site-nav .site-nav-cta {
-    margin-left: 0.5rem;
-    padding: 0.6rem 1.6rem;
-    border-radius: 999px;
-
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
-
-    background-color: #FA5B1C;
-    border-color: #FA5B1C;
-    color: #ffffff;
-}
-
-.site-nav .site-nav-cta:hover {
-    background-color: #ffffff;
-    border-color: #ffffff;
-    color: #000000;
-}
-
 /* The collapsed menu needs its own backdrop, or it opens as
    unreadable text floating over the hero. */
 @media (max-width: 991.98px) {
@@ -309,10 +287,6 @@ html.has-modal {
     .site-nav-actions {
         flex-wrap: wrap;
         margin-top: 1.25rem;
-    }
-
-    .site-nav .site-nav-cta {
-        margin-left: auto;
     }
 }
 
