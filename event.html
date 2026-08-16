@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UTAR Esport Club - Events & Tournaments</title>
-  <!-- jQuery Library -->
+  <title>UTAR Esport Club - Past Events</title>
+  <!-- jQuery 3.7.1 CDN -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <style>
     :root {
@@ -94,38 +94,9 @@
     .section-desc {
       text-align: center;
       color: var(--text-secondary);
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto 2.5rem;
       font-size: 0.95rem;
-    }
-
-    /* Main Section Toggle Tabs */
-    .section-toggle-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .tab-btn {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-secondary);
-      padding: 0.8rem 1.8rem;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-
-    .tab-btn.active, .tab-btn:hover {
-      background: var(--accent-orange);
-      color: #fff;
-      border-color: var(--accent-orange);
-      box-shadow: 0 0 15px rgba(255, 85, 0, 0.4);
     }
 
     /* Controls Bar */
@@ -177,7 +148,7 @@
       border-color: var(--accent-orange);
     }
 
-    /* Events Grid */
+    /* Grid Layout */
     .events-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -248,44 +219,7 @@
       line-height: 1.6;
     }
 
-    /* Future Events Custom Countdown */
-    .countdown-timer {
-      display: flex;
-      gap: 0.5rem;
-      margin: 0.8rem 0;
-      background: rgba(255, 85, 0, 0.1);
-      padding: 0.5rem 0.8rem;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 85, 0, 0.2);
-    }
-
-    .timer-unit {
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--accent-orange);
-    }
-
-    .btn-register {
-      background: var(--accent-orange);
-      color: #fff;
-      border: none;
-      padding: 0.6rem 1rem;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      cursor: pointer;
-      margin-top: auto;
-      text-align: center;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-
-    .btn-register:hover {
-      background: var(--accent-orange-hover);
-    }
-
-    /* Modal */
+    /* Modal Lightbox */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -350,353 +284,207 @@
       .events-grid { grid-template-columns: 1fr; }
       .controls-bar { flex-direction: column; align-items: stretch; }
       .search-box { width: 100%; }
-      .section-toggle-tabs { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
   <!-- Navigation -->
-<header>
-  <a href="event.html" class="brand">UTAR Esport</a>
-  <ul class="nav-links">
-    <li><a href="event.html" class="active">Events & Tournaments</a></li>
-    <li><a href="contact.html">Contact Us</a></li>
-  </ul>
-</header>
+  <header>
+    <a href="index.html" class="brand">UTAR Esport</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="tournament.html">Tournaments</a></li>
+      <li><a href="event.html" class="active">Past Events</a></li>
+      <li><a href="membership.html">Membership</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </header>
 
   <main>
-    <h1 class="section-title">Esports Calendar & Archives</h1>
-    <p class="section-desc">Register for upcoming competitive LANs or browse our historical tournament hall of fame.</p>
-
-    <!-- Main View Switcher (Upcoming vs. Past) -->
-    <div class="section-toggle-tabs">
-      <button class="tab-btn active" id="tabUpcoming">🔥 Upcoming Events</button>
-      <button class="tab-btn" id="tabPast">🏆 Past Highlights</button>
-    </div>
+    <h1 class="section-title">Past Event Highlights</h1>
+    <p class="section-desc">Explore our historical tournament hall of fame, LAN victories, and past community scrims.</p>
 
     <!-- Controls (Filter & Search) -->
     <div class="controls-bar">
       <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="all">All Titles</button>
+        <button class="filter-btn active" data-filter="all">All Events</button>
         <button class="filter-btn" data-filter="tournament">Tournaments</button>
         <button class="filter-btn" data-filter="scrim">Community Scrims</button>
-        <button class="filter-btn" data-filter="social">Social & Watch Parties</button>
       </div>
-      <input type="text" id="searchInput" class="search-box" placeholder="Search events or games..." />
+      <input type="text" id="searchInput" class="search-box" placeholder="Search archive..." />
     </div>
 
-    <!-- SECTION 1: UPCOMING EVENTS SECTION -->
-    <div id="upcomingSection">
-      <div class="events-grid">
-        
-        <div class="event-card" 
-             data-category="tournament" 
-             data-title="Cologne Major Tournament 2026" 
-             data-date="September 12, 2026" 
-             data-badge="Open Qualifier" 
-             data-img="images/images (1).jpg"
-             data-desc="The annual inter-faculty showdown for CS2 teams. Top 2 teams from each campus progress to the regional finals with a RM 3,000 prize pool.">
-          <div class="event-img" style="background-image: url('images/images (1).jpg');">
-            <span class="event-badge">Open Qualifier</span>
-          </div>
-          <div class="event-body">
-            <h3>Cologne Major Tournament 2026</h3>
-            <div class="event-date">September 12, 2026</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Starts in 34 Days</span>
-            </div>
-            <p>Cologne Major Tournament 2026. Open registration for all students includes students from all faculties and campuses.</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Register Team</a>
-          </div>
+    <!-- Archive Grid -->
+    <div class="events-grid">
+      
+      <!-- Tournament 1 -->
+      <div class="event-card" 
+           data-category="tournament" 
+           data-title="TARUMT 2025: League of Legends Varsity Finals" 
+           data-date="June 17, 2025" 
+           data-badge="League of Legends" 
+           data-img="images/faker-skt-lol-worlds-season-6.avif" 
+           data-desc="Our varsity League of Legends team was the champion for the TARUMT 2025: League of Legends Varsity Finals.">
+        <div class="event-img" style="background-image: url('images/faker-skt-lol-worlds-season-6.avif');">
+          <span class="event-badge">League of Legends</span>
         </div>
-
-        <div class="event-card" 
-             data-category="tournament" 
-             data-title="Singapore PGL Major Tournament 2026" 
-             data-date="October 1, 2026" 
-             data-badge="Open Qualifier" 
-             data-img="images/PGL-brings-Counter-Strike-2-Major-to-Singapore-in-November-2026.jpg"
-             data-desc="S-Tier CS2 Tournament, Singapore PGL Major 2026. Winner team will gets RM 50k cash prize and Razer sponsored keyboard.">
-          <div class="event-img" style="background-image: url('images/PGL-brings-Counter-Strike-2-Major-to-Singapore-in-November-2026.jpg');">
-            <span class="event-badge">Open Qualifier</span>
-          </div>
-          <div class="event-body">
-            <h3>Singapore PGL Major Tournament 2026</h3>
-            <div class="event-date">October 1, 2026</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Starts in 69 Days</span>
-            </div>
-            <p>Singapore PGL Major Tournament 2026 in Singapore Indoor Stadium, The Kallang.</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Register Team</a>
-          </div>
+        <div class="event-body">
+          <h3>TARUMT 2025: League of Legends Varsity Finals</h3>
+          <div class="event-date">June 17, 2025</div>
+          <p>Our varsity League of Legends team took the champion title for the TARUMT 2025 Varsity Finals.</p>
         </div>
-
-        <div class="event-card" 
-             data-category="social" 
-             data-title="Worlds 2026 Viewing Party & Scrims" 
-             data-date="October 8, 2026" 
-             data-badge="Watch Party" 
-             data-img="images/476949487982478251-620bb179-c45e-401c-ac14-636bcd28cf83.webp" 
-             data-desc="Join 300+ students at the Pavillion Hall I for live broadcasts, free pizza, lucky draws, and 1v1 ARAM mini-tournaments.">
-          <div class="event-img" style="background-image: url('images/476949487982478251-620bb179-c45e-401c-ac14-636bcd28cf83.webp');">
-            <span class="event-badge">Watch Party</span>
-          </div>
-          <div class="event-body">
-            <h3>Worlds 2026 Grand Viewing Party</h3>
-            <div class="event-date">October 8, 2026</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Starts in 76 Days</span>
-            </div>
-            <p>Live stream party with free refreshments, gaming gear giveaways, and 1v1 mini-tournaments.</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Reserve Seat</a>
-          </div>
-        </div>
-
-        <div class="event-card" 
-             data-category="tournament" 
-             data-title="Valorant SEA Invitational Open 2026" 
-             data-date="December 30, 2026" 
-             data-badge="Open Qualifier" 
-             data-img="images/ee9399572076549b33d55aa7c88cbd9d8ab4f7f5-1920x1080.jpg" 
-             data-desc="Valorant Tournament organized by SEA Invitational. Open to all UTAR students to participate. Winner team will receive a RM 5000 cash prize and exclusive gaming peripherals.">
-          <div class="event-img" style="background-image: url('images/ee9399572076549b33d55aa7c88cbd9d8ab4f7f5-1920x1080.jpg');">
-            <span class="event-badge">Open Qualifier</span>
-          </div>
-          <div class="event-body">
-            <h3>Valorant SEA Invitational Open 2026</h3>
-            <div class="event-date">December 30, 2026</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Starts in 98 days</span>
-            </div>
-            <p>Valorant SEA Invitational Open 2026 which take place in UTAR Kampar campus Pavillion III.</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Register Team</a>
-          </div>
-        </div>
-
-                <div class="event-card" 
-             data-category="tournament" 
-             data-title="League of Legends: LCK 2026 Summer" 
-             data-date="January 5, 2027" 
-             data-badge="Open Qualifier" 
-             data-img="images/941a33d6b03052befc3a5ada376164224d415294-1080x613.webp" 
-             data-desc="League of Legends S-Tier Tournament organized by LCK. Open to all UTAR students to participate. Winner team will receive a RM 10k cash prize and ROG gaming peripherals.">
-          <div class="event-img" style="background-image: url('images/941a33d6b03052befc3a5ada376164224d415294-1080x613.webp');">
-            <span class="event-badge">Open Qualifier</span>
-          </div>
-          <div class="event-body">
-            <h3>League of Legends: LCK 2026 Summer</h3>
-            <div class="event-date">January 5, 2027</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Starts in 152 days</span>
-            </div>
-            <p>League of Legends: LCK 2026 Summer tournament taking place in UTAR Kampar campus Pavillion III.</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Register Team</a>
-          </div>
-        </div>
-
-        <div class="event-card" 
-             data-category="scrim" 
-             data-title="Community Scrim Night: CS2" 
-             data-date="Every Sunday and Friday" 
-             data-badge="Community Scrim" 
-             data-img="images/images.jpg" 
-             data-desc="Up to 300+ students at the Pavillion Hall IV for community scrimmages, free foods and beverages and lucky draws.">
-          <div class="event-img" style="background-image: url('images/images.jpg');">
-            <span class="event-badge">Community Scrim</span>
-          </div>
-          <div class="event-body">
-            <h3>Community Scrim Night: CS2</h3>
-            <div class="event-date">Every Sunday and Friday</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Next Scrim: This Friday</span>
-            </div>
-            <p>Community level scrims for all UTAR students every week.</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Join Discord</a>
-          </div>
-        </div>
-
-        <div class="event-card" 
-             data-category="scrim" 
-             data-title="Community Scrim Night: Valorant" 
-             data-date="Every Monday and Saturday" 
-             data-badge="Community Scrim" 
-             data-img="images/ps-f2p-val-console-launch-16x9.jpg" 
-             data-desc="Up to 300+ students at the Pavillion Hall II for community scrimmages, free foods and beverages and lucky draws.">
-          <div class="event-img" style="background-image: url('images/ps-f2p-val-console-launch-16x9.jpg');">
-            <span class="event-badge">Community Scrim</span>
-          </div>
-          <div class="event-body">
-            <h3>Community Scrim Night: Valorant</h3>
-            <div class="event-date">Every Monday and Saturday</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Next Scrim: This Monday</span>
-            </div>
-            <p>Community level scrims for all UTAR students every week.</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Join Discord</a>
-          </div>
-        </div>
-
-        <div class="event-card" 
-             data-category="scrim" 
-             data-title="Community Scrim Night: PUBG" 
-             data-date="Every Wednesday" 
-             data-badge="Community Scrim" 
-             data-img="images/unnamed.png" 
-             data-desc="Up to 300+ students at the Pavillion Hall II for community scrimmages, free foods and beverages and lucky draws.">
-          <div class="event-img" style="background-image: url('images/unnamed.png');">
-            <span class="event-badge">Community Scrim</span>
-          </div>
-          <div class="event-body">
-            <h3>Community Scrim Night: PUBG</h3>
-            <div class="event-date">Every Wednesday</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Next Scrim: This Wednesday</span>
-            </div>
-            <p>Community level scrims for all UTAR students every week.</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Join Discord</a>
-          </div>
-        </div>
-
-        <div class="event-card" 
-             data-category="social" 
-             data-title="PEC Watch Party with PUBG Partners" 
-             data-date="February 8, 2027" 
-             data-badge="Watch Party" 
-             data-img="images/752adc3717b7ec25_202303180113148251.jpg" 
-             data-desc="PUBG EMEA Championship Spring Watch Party with PUBG Partners. Famous PUBG streamers and pros will be present for meet & greet and free merch giveaways.">
-          <div class="event-img" style="background-image: url('images/752adc3717b7ec25_202303180113148251.jpg');">
-            <span class="event-badge">Watch Party</span>
-          </div>
-          <div class="event-body">
-            <h3>PEC Watch Party with PUBG Partners</h3>
-            <div class="event-date">February 8, 2027</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Starts in 180 Days</span>
-            </div>
-            <p>Join us for an exciting watch party with PUBG Partners!</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Reserve Seat</a>
-          </div>
-        </div>
-
-        <div class="event-card" 
-             data-category="social" 
-             data-title="Gamers Social Night" 
-             data-date="February 15, 2027" 
-             data-badge="Watch Party" 
-             data-img="images/images (2).jpg" 
-             data-desc="Gamers Social Night is a monthly where gaming enthusiasts can meet, play, and socialize in a fun and relaxed environment.">
-          <div class="event-img" style="background-image: url('images/images (2).jpg');">
-            <span class="event-badge">Watch Party</span>
-          </div>
-          <div class="event-body">
-            <h3>Gamers Social Night February 2027</h3>
-            <div class="event-date">February 15, 2027</div>
-            <div class="countdown-timer">
-              ⏳ <span class="timer-unit">Starts in 187 Days</span>
-            </div>
-            <p>Join us for an exciting social night with fellow gamers!</p>
-            <a href="contact.html" class="btn-register" style="margin-top: 1rem;">Reserve Seat</a>
-          </div>
-        </div>
-
       </div>
-    </div>
 
-    <!-- SECTION 2: PAST EVENTS ARCHIVE -->
-    <div id="pastSection" style="display: none;">
-      <div class="events-grid">
-        
-        <div class="event-card" 
-             data-category="tournament" 
-             data-title="TARUMT 2025: League of Legends Varsity Finals" 
-             data-date="June 17, 2025" 
-             data-badge="League of Legends" 
-             data-img="images/faker-skt-lol-worlds-season-6.avif" 
-             data-desc="Our varsity League of Legends team was the champion for the TARUMT 2025: League of Legends Varsity Finals.">
-          <div class="event-img" style="background-image: url('images/faker-skt-lol-worlds-season-6.avif');">
-            <span class="event-badge">League of Legends</span>
-          </div>
-          <div class="event-body">
-            <h3>TARUMT 2025: League of Legends Varsity Finals</h3>
-            <div class="event-date">June 17, 2025</div>
-            <p>Our varsity League of Legends team was the champion for the TARUMT 2025: League of Legends Varsity Finals.</p>
-          </div>
+      <!-- Tournament 2 -->
+      <div class="event-card" 
+           data-category="tournament" 
+           data-title="National Campus Championship 2025" 
+           data-date="December 15, 2025" 
+           data-badge="League of Legends" 
+           data-img="images/lol-worlds-2023-location-format-dates.jpg" 
+           data-desc="Our varsity League of Legends team claimed 1st place in the grand finals after an intense 5-game series against Monash Esports. Prize Pool: RM 5,000 + Custom Trophies.">
+        <div class="event-img" style="background-image: url('images/lol-worlds-2023-location-format-dates.jpg');">
+          <span class="event-badge">League of Legends</span>
         </div>
-
-        <div class="event-card" 
-             data-category="tournament" 
-             data-title="National Campus Championship 2025" 
-             data-date="December 15, 2025" 
-             data-badge="League of Legends" 
-             data-img="images/lol-worlds-2023-location-format-dates.jpg" 
-             data-desc="Our varsity League of Legends team claimed 1st place in the grand finals after an intense 5-game series against Monash Esports. Prize Pool: RM 5,000 + Custom Trophies.">
-          <div class="event-img" style="background-image: url('images/lol-worlds-2023-location-format-dates.jpg');">
-            <span class="event-badge">League of Legends</span>
-          </div>
-          <div class="event-body">
-            <h3>National Campus Championship 2025</h3>
-            <div class="event-date">December 15, 2025</div>
-            <p>Our varsity League of Legends team claimed 1st place in the grand finals after an intense 5-game series.</p>
-          </div>
+        <div class="event-body">
+          <h3>National Campus Championship 2025</h3>
+          <div class="event-date">December 15, 2025</div>
+          <p>Our varsity team claimed 1st place in the grand finals after an intense 5-game series.</p>
         </div>
-
-        <div class="event-card" 
-             data-category="tournament" 
-             data-title="Counter Strike 2" 
-             data-date="February 18, 2026" 
-             data-badge="CS2" 
-             data-img="images/0x0.webp" 
-             data-desc="UTAR Main CS2 squad locks in the final and won the final with a dominant performance, won with 3:0 score in a B07.">
-          <div class="event-img" style="background-image: url('images/0x0.webp');">
-            <span class="event-badge">Counter Strike 2</span>
-          </div>
-          <div class="event-body">
-            <h3>CS2 SHANGHAI Major 2026</h3>
-            <div class="event-date">February 18, 2026</div>
-            <p>UTAR CS2 squad gets the champion of the CS2 SHANGHAI Major 2026 tournament.</p>
-          </div>
-        </div>
-
-        <div class="event-card" 
-             data-category="scrim" 
-             data-title="UTAR Inter-Faculty Showdown" 
-             data-date="November 20, 2025" 
-             data-badge="Community Scrim" 
-             data-img="images/medium_b946296f-c363-452f-acd8-978a6092e639.jpg" 
-             data-desc="Over 120 student gamers competed across CS2, Valorant, and League of Legends for bragging rights and sponsored gaming peripherals.">
-          <div class="event-img" style="background-image: url('images/medium_b946296f-c363-452f-acd8-978a6092e639.jpg');">
-            <span class="event-badge">Community Scrim</span>
-          </div>
-          <div class="event-body">
-            <h3>UTAR Inter-Faculty Showdown</h3>
-            <div class="event-date">November 20, 2025</div>
-            <p>Over 120 student gamers competed across CS2, Valorant, and League of Legends for gear prizes.</p>
-          </div>
-        </div>
-
-        <div class="event-card" 
-             data-category="tournament" 
-             data-title="LOL Collegiate Invitational" 
-             data-date="March 10, 2026" 
-             data-badge="League of Legends" 
-             data-img="images/12729cf90524c101ea85a822f54ef1c57db5470f-1882x1059.avif" 
-             data-desc="Hosted at UTAR Kampar campus, bringing together 24 varsity rosters across Malaysia with over RM 8,000 in physical rewards.">
-          <div class="event-img" style="background-image: url('images/12729cf90524c101ea85a822f54ef1c57db5470f-1882x1059.avif');">
-            <span class="event-badge">League of Legends</span>
-          </div>
-          <div class="event-body">
-            <h3>LOL Collegiate Invitational</h3>
-            <div class="event-date">March 10, 2026</div>
-            <p>Hosted at UTAR Kampar campus bringing together 24 varsity rosters across Malaysia.</p>
-          </div>
-        </div>
-
       </div>
+
+      <!-- Tournament 3 -->
+      <div class="event-card" 
+           data-category="tournament" 
+           data-title="CS2 SHANGHAI Major 2026" 
+           data-date="February 18, 2026" 
+           data-badge="Counter Strike 2" 
+           data-img="images/0x0.webp" 
+           data-desc="UTAR Main CS2 squad locks in the final and won the final with a dominant performance, won with 3:0 score in a BO7 series.">
+        <div class="event-img" style="background-image: url('images/0x0.webp');">
+          <span class="event-badge">Counter Strike 2</span>
+        </div>
+        <div class="event-body">
+          <h3>CS2 SHANGHAI Major 2026</h3>
+          <div class="event-date">February 18, 2026</div>
+          <p>UTAR CS2 squad took home the championship trophy at the CS2 SHANGHAI Major 2026.</p>
+        </div>
+      </div>
+
+      <!-- Scrim 1 -->
+      <div class="event-card" 
+           data-category="scrim" 
+           data-title="UTAR Inter-Faculty Showdown" 
+           data-date="November 20, 2025" 
+           data-badge="Community Scrim" 
+           data-img="images/medium_b946296f-c363-452f-acd8-978a6092e639.jpg" 
+           data-desc="Over 120 student gamers competed across CS2, Valorant, and League of Legends for bragging rights and sponsored gaming peripherals.">
+        <div class="event-img" style="background-image: url('images/medium_b946296f-c363-452f-acd8-978a6092e639.jpg');">
+          <span class="event-badge">Community Scrim</span>
+        </div>
+        <div class="event-body">
+          <h3>UTAR Inter-Faculty Showdown</h3>
+          <div class="event-date">November 20, 2025</div>
+          <p>Over 120 student gamers competed across CS2, Valorant, and League of Legends for gear prizes.</p>
+        </div>
+      </div>
+
+      <!-- Scrim 2 -->
+      <div class="event-card" 
+           data-category="scrim" 
+           data-title="Valorant Community In-House Scrims" 
+           data-date="January 12, 2026" 
+           data-badge="Community Scrim" 
+           data-img="images/ps-f2p-val-console-launch-16x9.jpg" 
+           data-desc="Over 80 club members participated in our bi-weekly mixed-rank Valorant scrim lobbies, featuring custom map drafts and shoutcasted live matches on Discord.">
+        <div class="event-img" style="background-image: url('images/ps-f2p-val-console-launch-16x9.jpg');">
+          <span class="event-badge">Community Scrim</span>
+        </div>
+        <div class="event-body">
+          <h3>Valorant Community In-House Scrims</h3>
+          <div class="event-date">January 12, 2026</div>
+          <p>Bi-weekly community custom lobbies with over 80 active student players competing for club leaderboard points.</p>
+        </div>
+      </div>
+
+      <!-- Tournament 4 -->
+      <div class="event-card" 
+           data-category="tournament" 
+           data-title="LOL Collegiate Invitational" 
+           data-date="March 10, 2026" 
+           data-badge="League of Legends" 
+           data-img="images/12729cf90524c101ea85a822f54ef1c57db5470f-1882x1059.avif" 
+           data-desc="Hosted at UTAR Kampar campus, bringing together 24 varsity rosters across Malaysia with over RM 8,000 in physical rewards.">
+        <div class="event-img" style="background-image: url('images/12729cf90524c101ea85a822f54ef1c57db5470f-1882x1059.avif');">
+          <span class="event-badge">League of Legends</span>
+        </div>
+        <div class="event-body">
+          <h3>LOL Collegiate Invitational</h3>
+          <div class="event-date">March 10, 2026</div>
+          <p>Hosted at UTAR Kampar campus bringing together 24 varsity rosters across Malaysia.</p>
+        </div>
+      </div>
+
+      <!-- Tournament 5 (New) -->
+      <div class="event-card" 
+           data-category="tournament" 
+           data-title="Inter-College Valorant Masters 2026" 
+           data-date="April 22, 2026" 
+           data-badge="Valorant" 
+           data-img="images/ee9399572076549b33d55aa7c88cbd9d8ab4f7f5-1920x1080.jpg" 
+           data-desc="UTAR Gold Roster fought through the lower bracket to clinch the Perak State Championship title with a 2-1 victory in the Grand Finals.">
+        <div class="event-img" style="background-image: url('images/ee9399572076549b33d55aa7c88cbd9d8ab4f7f5-1920x1080.jpg');">
+          <span class="event-badge">Valorant</span>
+        </div>
+        <div class="event-body">
+          <h3>Inter-College Valorant Masters 2026</h3>
+          <div class="event-date">April 22, 2026</div>
+          <p>UTAR Gold Roster secured 1st place in the state finals after a clean lower-bracket playoff sweep.</p>
+        </div>
+      </div>
+
+      <!-- Tournament 6 (New) -->
+      <div class="event-card" 
+           data-category="tournament" 
+           data-title="PUBG Campus Championship (PMCC) Northern Qualifiers" 
+           data-date="May 14, 2026" 
+           data-badge="PUBG" 
+           data-img="images/752adc3717b7ec25_202303180113148251.jpg" 
+           data-desc="Featuring 32 university squads across 6 battle royale rounds. UTAR Squad Alpha finished top 3 to qualify directly for the National LAN Finals.">
+        <div class="event-img" style="background-image: url('images/752adc3717b7ec25_202303180113148251.jpg');">
+          <span class="event-badge">PUBG</span>
+        </div>
+        <div class="event-body">
+          <h3>PMCC Northern Qualifiers 2026</h3>
+          <div class="event-date">May 14, 2026</div>
+          <p>UTAR Squad Alpha placed top 3 overall to secure their official seed in the national PMCC LAN event.</p>
+        </div>
+      </div>
+
+      <!-- Scrim 3 (New) -->
+      <div class="event-card" 
+           data-category="scrim" 
+           data-title="CS2 Friday Night Tactical In-Houses" 
+           data-date="May 29, 2026" 
+           data-badge="Community Scrim" 
+           data-img="images/images.jpg" 
+           data-desc="Weekly community scrim series featuring mixed rank matchmaking, MR12 tournament settings, and community casted streams on our Discord.">
+        <div class="event-img" style="background-image: url('images/images.jpg');">
+          <span class="event-badge">Community Scrim</span>
+        </div>
+        <div class="event-body">
+          <h3>CS2 Friday Night Tactical In-Houses</h3>
+          <div class="event-date">May 29, 2026</div>
+          <p>Weekly MR12 custom matches for club members to practice team utility setups and tactical execute rounds.</p>
+        </div>
+      </div>
+
     </div>
   </main>
 
-  <!-- Modal Overlay -->
+  <!-- Modal Lightbox -->
   <div class="modal-overlay" id="eventModal">
     <div class="modal-card">
       <button class="modal-close" id="modalCloseBtn">&times;</button>
@@ -714,34 +502,27 @@
     &copy; 2026 UTAR Esport Club. All rights reserved.
   </footer>
 
-  <!-- JQUERY SCRIPTS -->
+  <!-- JQUERY & STORAGE SCRIPT -->
   <script>
     $(document).ready(function() {
 
-      // Toggle between Upcoming & Past Sections
-      $('#tabUpcoming').on('click', function() {
-        $('.tab-btn').removeClass('active');
-        $(this).addClass('active');
-        $('#pastSection').fadeOut(150, function() {
-          $('#upcomingSection').fadeIn(200);
-        });
-      });
+      // 1. SESSION STORAGE IMPLEMENTATION: Restore active filter state across page sessions
+      const savedFilter = sessionStorage.getItem('utar_event_filter') || 'all';
+      $(`.filter-btn[data-filter="${savedFilter}"]`).addClass('active').siblings().removeClass('active');
+      applyFilter(savedFilter);
 
-      $('#tabPast').on('click', function() {
-        $('.tab-btn').removeClass('active');
-        $(this).addClass('active');
-        $('#upcomingSection').fadeOut(150, function() {
-          $('#pastSection').fadeIn(200);
-        });
-      });
-      
-      // Category Filter Click Handler
+      // Category Filter Handler
       $('.filter-btn').on('click', function() {
+        const category = $(this).data('filter');
         $('.filter-btn').removeClass('active');
         $(this).addClass('active');
 
-        const category = $(this).data('filter');
+        // Store selected category in SessionStorage
+        sessionStorage.setItem('utar_event_filter', category);
+        applyFilter(category);
+      });
 
+      function applyFilter(category) {
         $('.event-card').each(function() {
           if (category === 'all' || $(this).data('category') === category) {
             $(this).fadeIn(250);
@@ -749,7 +530,7 @@
             $(this).fadeOut(250);
           }
         });
-      });
+      }
 
       // Live Search Input Handler
       $('#searchInput').on('keyup', function() {
@@ -768,10 +549,7 @@
       });
 
       // Open Modal Lightbox
-      $('.event-card').on('click', function(e) {
-        // Prevent opening modal if clicking direct register button
-        if ($(e.target).hasClass('btn-register')) return;
-
+      $('.event-card').on('click', function() {
         $('#modalTitle').text($(this).data('title'));
         $('#modalDate').text($(this).data('date'));
         $('#modalBadge').text($(this).data('badge'));
