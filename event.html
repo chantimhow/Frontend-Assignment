@@ -32,21 +32,25 @@
     <h1 class="section-headline">Past Event Highlights</h1>
     <p class="section-subheadline">Explore our historical tournament hall of fame, LAN victories, and past community scrims.</p>
 
-    <!-- Controls (Filter & Search) -->
+    <!-- Controls (Filter, Search & Dynamic Counter) -->
     <div class="controls-bar">
       <div class="filter-buttons">
         <button class="filter-btn active" data-filter="all">All Events</button>
         <button class="filter-btn" data-filter="tournament">Tournaments</button>
         <button class="filter-btn" data-filter="scrim">Community Scrims</button>
       </div>
-      <input type="text" id="searchInput" class="search-box" placeholder="Search archive..." />
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span id="eventCountBadge" style="font-size: 0.8rem; color: #a9a6b3; font-weight: 700;">Showing 9 events</span>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search past archive..." />
+      </div>
     </div>
 
     <!-- Archive Grid -->
-    <div class="events-grid">
+    <div class="events-grid" id="eventsGridContainer">
       
       <!-- Tournament 1 -->
       <div class="event-card" 
+           data-id="evt-1"
            data-category="tournament" 
            data-title="TARUMT 2025: League of Legends Varsity Finals" 
            data-date="June 17, 2025" 
@@ -55,6 +59,7 @@
            data-desc="Our varsity League of Legends team was the champion for the TARUMT 2025: League of Legends Varsity Finals.">
         <div class="event-img" style="background-image: url('images/faker-skt-lol-worlds-season-6.avif');">
           <span class="event-badge">League of Legends</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
         </div>
         <div class="event-body">
           <h3>TARUMT 2025: League of Legends Varsity Finals</h3>
@@ -65,6 +70,7 @@
 
       <!-- Tournament 2 -->
       <div class="event-card" 
+           data-id="evt-2"
            data-category="tournament" 
            data-title="National Campus Championship 2025" 
            data-date="December 15, 2025" 
@@ -73,6 +79,7 @@
            data-desc="Our varsity League of Legends team claimed 1st place in the grand finals after an intense 5-game series against Monash Esports. Prize Pool: RM 5,000 + Custom Trophies.">
         <div class="event-img" style="background-image: url('images/lol-worlds-2023-location-format-dates.jpg');">
           <span class="event-badge">League of Legends</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
         </div>
         <div class="event-body">
           <h3>National Campus Championship 2025</h3>
@@ -83,6 +90,7 @@
 
       <!-- Tournament 3 -->
       <div class="event-card" 
+           data-id="evt-3"
            data-category="tournament" 
            data-title="CS2 SHANGHAI Major 2026" 
            data-date="February 18, 2026" 
@@ -91,6 +99,7 @@
            data-desc="UTAR Main CS2 squad locks in the final and won the final with a dominant performance, won with 3:0 score in a BO7 series.">
         <div class="event-img" style="background-image: url('images/0x0.webp');">
           <span class="event-badge">Counter Strike 2</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
         </div>
         <div class="event-body">
           <h3>CS2 SHANGHAI Major 2026</h3>
@@ -101,6 +110,7 @@
 
       <!-- Scrim 1 -->
       <div class="event-card" 
+           data-id="evt-4"
            data-category="scrim" 
            data-title="UTAR Inter-Faculty Showdown" 
            data-date="November 20, 2025" 
@@ -109,6 +119,7 @@
            data-desc="Over 120 student gamers competed across CS2, Valorant, and League of Legends for bragging rights and sponsored gaming peripherals.">
         <div class="event-img" style="background-image: url('images/medium_b946296f-c363-452f-acd8-978a6092e639.jpg');">
           <span class="event-badge">Community Scrim</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
         </div>
         <div class="event-body">
           <h3>UTAR Inter-Faculty Showdown</h3>
@@ -119,6 +130,7 @@
 
       <!-- Scrim 2 -->
       <div class="event-card" 
+           data-id="evt-5"
            data-category="scrim" 
            data-title="Valorant Community In-House Scrims" 
            data-date="January 12, 2026" 
@@ -127,6 +139,7 @@
            data-desc="Over 80 club members participated in our bi-weekly mixed-rank Valorant scrim lobbies, featuring custom map drafts and shoutcasted live matches on Discord.">
         <div class="event-img" style="background-image: url('images/ps-f2p-val-console-launch-16x9.jpg');">
           <span class="event-badge">Community Scrim</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
         </div>
         <div class="event-body">
           <h3>Valorant Community In-House Scrims</h3>
@@ -137,6 +150,7 @@
 
       <!-- Tournament 4 -->
       <div class="event-card" 
+           data-id="evt-6"
            data-category="tournament" 
            data-title="LOL Collegiate Invitational" 
            data-date="March 10, 2026" 
@@ -145,6 +159,7 @@
            data-desc="Hosted at UTAR Kampar campus, bringing together 24 varsity rosters across Malaysia with over RM 8,000 in physical rewards.">
         <div class="event-img" style="background-image: url('images/12729cf90524c101ea85a822f54ef1c57db5470f-1882x1059.avif');">
           <span class="event-badge">League of Legends</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
         </div>
         <div class="event-body">
           <h3>LOL Collegiate Invitational</h3>
@@ -155,6 +170,7 @@
 
       <!-- Tournament 5 -->
       <div class="event-card" 
+           data-id="evt-7"
            data-category="tournament" 
            data-title="Perak Inter-College Valorant Masters 2026" 
            data-date="April 22, 2026" 
@@ -163,6 +179,7 @@
            data-desc="UTAR Gold Roster fought through the lower bracket to clinch the Perak State Championship title with a 2-1 victory in the Grand Finals.">
         <div class="event-img" style="background-image: url('images/ee9399572076549b33d55aa7c88cbd9d8ab4f7f5-1920x1080.jpg');">
           <span class="event-badge">Valorant</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
         </div>
         <div class="event-body">
           <h3>Perak Inter-College Valorant Masters 2026</h3>
@@ -173,6 +190,7 @@
 
       <!-- Tournament 6 -->
       <div class="event-card" 
+           data-id="evt-8"
            data-category="tournament" 
            data-title="PUBG Mobile Campus Championship (PMCC) Northern Qualifiers" 
            data-date="May 14, 2026" 
@@ -181,6 +199,7 @@
            data-desc="Featuring 32 university squads across 6 battle royale rounds. UTAR Squad Alpha finished top 3 to qualify directly for the National LAN Finals.">
         <div class="event-img" style="background-image: url('images/752adc3717b7ec25_202303180113148251.jpg');">
           <span class="event-badge">PUBG Mobile</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
         </div>
         <div class="event-body">
           <h3>PMCC Northern Qualifiers 2026</h3>
@@ -191,6 +210,7 @@
 
       <!-- Scrim 3 -->
       <div class="event-card" 
+           data-id="evt-9"
            data-category="scrim" 
            data-title="CS2 Friday Night Tactical In-Houses" 
            data-date="May 29, 2026" 
@@ -199,12 +219,19 @@
            data-desc="Weekly community scrim series featuring mixed rank matchmaking, MR12 tournament settings, and community casted streams on our Discord.">
         <div class="event-img" style="background-image: url('images/images.jpg');">
           <span class="event-badge">Community Scrim</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
         </div>
         <div class="event-body">
           <h3>CS2 Friday Night Tactical In-Houses</h3>
           <div class="event-date">May 29, 2026</div>
           <p>Weekly MR12 custom matches for club members to practice team utility setups and tactical execute rounds.</p>
         </div>
+      </div>
+
+      <!-- No Results Feedback State -->
+      <div id="noResultsState" style="display:none; grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #a9a6b3;">
+        <p style="font-size: 1.1rem; font-weight: 700; color: #ffffff;">No archived past events found matching your search.</p>
+        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Try searching for a different game title or switch back to "All Events".</p>
       </div>
 
     </div>
@@ -228,53 +255,88 @@
     &copy; 2026 UTAR Esport Club. All rights reserved.
   </footer>
 
-  <!-- JQUERY & STORAGE SCRIPT -->
+  <!-- JQUERY & STORAGE SCRIPTS -->
   <script>
     $(document).ready(function() {
 
-      // 1. SESSION STORAGE IMPLEMENTATION: Restore active filter state across page sessions
+      // 1. LOCAL STORAGE: Initialize & Load Bookmarked Matches
+      let savedBookmarks = JSON.parse(localStorage.getItem('utar_event_bookmarks') || '[]');
+      
+      function renderBookmarks() {
+        $('.event-card').each(function() {
+          const cardId = $(this).data('id');
+          const $btn = $(this).find('.btn-bookmark');
+          if (savedBookmarks.includes(cardId)) {
+            $btn.text('★').css({'color': '#FA5B1C', 'border-color': '#FA5B1C'});
+          } else {
+            $btn.text('☆').css({'color': '#ffffff', 'border-color': '#2f2f2f'});
+          }
+        });
+      }
+      renderBookmarks();
+
+      $('.btn-bookmark').on('click', function(e) {
+        e.stopPropagation(); // Stop opening the modal lightbox
+        const cardId = $(this).closest('.event-card').data('id');
+        if (savedBookmarks.includes(cardId)) {
+          savedBookmarks = savedBookmarks.filter(id => id !== cardId);
+        } else {
+          savedBookmarks.push(cardId);
+        }
+        localStorage.setItem('utar_event_bookmarks', JSON.stringify(savedBookmarks));
+        renderBookmarks();
+      });
+
+      // 2. SESSION STORAGE: Restore and Persist Active Filter State
       const savedFilter = sessionStorage.getItem('utar_event_filter') || 'all';
       $(`.filter-btn[data-filter="${savedFilter}"]`).addClass('active').siblings().removeClass('active');
-      applyFilter(savedFilter);
+      applyFiltering();
 
-      // Category Filter Handler
       $('.filter-btn').on('click', function() {
         const category = $(this).data('filter');
         $('.filter-btn').removeClass('active');
         $(this).addClass('active');
 
-        // Store selected category in SessionStorage
         sessionStorage.setItem('utar_event_filter', category);
-        applyFilter(category);
+        applyFiltering();
       });
 
-      function applyFilter(category) {
-        $('.event-card').each(function() {
-          if (category === 'all' || $(this).data('category') === category) {
-            $(this).fadeIn(250);
-          } else {
-            $(this).fadeOut(250);
-          }
-        });
-      }
-
-      // Live Search Input Handler
       $('#searchInput').on('keyup', function() {
-        const query = $(this).val().toLowerCase();
+        applyFiltering();
+      });
+
+      // Central Unified Filter & Search Function with Live Counter & Empty State
+      function applyFiltering() {
+        const activeCategory = $('.filter-btn.active').data('filter') || 'all';
+        const query = $('#searchInput').val().toLowerCase().trim();
+        let visibleCount = 0;
 
         $('.event-card').each(function() {
-          const title = $(this).find('h3').text().toLowerCase();
-          const desc = $(this).find('p').text().toLowerCase();
+          const matchesCategory = (activeCategory === 'all' || $(this).data('category') === activeCategory);
+          const titleText = $(this).find('h3').text().toLowerCase();
+          const descText = $(this).find('p').text().toLowerCase();
+          const matchesSearch = (titleText.indexOf(query) !== -1 || descText.indexOf(query) !== -1);
 
-          if (title.indexOf(query) !== -1 || desc.indexOf(query) !== -1) {
+          if (matchesCategory && matchesSearch) {
             $(this).fadeIn(200);
+            visibleCount++;
           } else {
             $(this).fadeOut(200);
           }
         });
-      });
 
-      // Open Modal Lightbox
+        // Update Dynamic Counter Badge
+        $('#eventCountBadge').text(`Showing ${visibleCount} event${visibleCount === 1 ? '' : 's'}`);
+
+        // Update Empty State Display
+        if (visibleCount === 0) {
+          $('#noResultsState').fadeIn(250);
+        } else {
+          $('#noResultsState').hide();
+        }
+      }
+
+      // 3. MODAL LIGHTBOX WITH KEYBOARD ACCESSIBILITY
       $('.event-card').on('click', function() {
         $('#modalTitle').text($(this).data('title'));
         $('#modalDate').text($(this).data('date'));
@@ -285,13 +347,19 @@
         $('#eventModal').css('display', 'flex').hide().fadeIn(250);
       });
 
-      // Close Modal Handlers
       $('#modalCloseBtn').on('click', function() {
         $('#eventModal').fadeOut(200);
       });
 
       $('#eventModal').on('click', function(e) {
         if ($(e.target).is('#eventModal')) {
+          $('#eventModal').fadeOut(200);
+        }
+      });
+
+      // Keyboard Accessibility: Close on Escape key
+      $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && $('#eventModal').is(':visible')) {
           $('#eventModal').fadeOut(200);
         }
       });
