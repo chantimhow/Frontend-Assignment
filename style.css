@@ -225,7 +225,9 @@ html {
 
 hr {
     height: 1px;
+        /* Sets the thickness */
     background-color: #333;
+        /* Sets the line color */
     border: none;
 }
 
@@ -253,6 +255,8 @@ hr {
 
 .pricing-header {
     text-align: center;
+        /* The navbar is position:absolute, so it takes up no space in
+       the flow. This top padding is what stops it overlapping. */
     padding: 8rem 1.5rem 3rem;
 }
 
@@ -309,6 +313,8 @@ hr {
 }
 
 .pricing-period {
+        /* Step back out of Archivo Black, which only ships one very heavy
+       weight and would swamp the price it sits next to. */
     font-family: var(--bs-body-font-family);
     font-size: 1rem;
     font-weight: 400;
@@ -343,10 +349,14 @@ hr {
     margin-bottom: 1rem;
 }
 
+/* .text-highlight carries its own margin-right for the index.html
+   markers; here the flex gap already handles the spacing. */
 .pricing-features .text-highlight {
     margin-right: 0;
 }
 
+/* Pins the footnote to the bottom of the card so the two cards line
+   up even when one has more features. Same trick as .news-card-link. */
 .pricing-footnote {
     margin-top: auto;
     font-size: 0.8rem;
@@ -357,6 +367,8 @@ hr {
 
 .container-spec-sheet {
     display: flex;
+        /* Column, so the heading stacks above the table instead of sitting
+       next to it. align-items centers them on the cross axis. */
     flex-direction: column;
     align-items: center;
     padding-bottom: 4rem;
