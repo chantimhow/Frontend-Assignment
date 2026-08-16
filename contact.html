@@ -40,7 +40,7 @@
           <div class="info-icon">📍</div>
           <div class="info-text">
             <strong>Location</strong>
-            <span>Universiti Tunku Abdul Rahman (UTAR)</span>
+            <span>Universiti Tunku Abdul Rahman (UTAR), Perak Campus</span>
           </div>
         </div>
 
@@ -56,7 +56,7 @@
         <div class="discord-card-widget">
           <div style="display: flex; align-items: center; justify-content: space-between;">
             <div style="display: flex; align-items: center; gap: 0.75rem;">
-              <div style="width: 40px; height: 40px; border-radius: 50%; background: #e31e1e; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #ffffff; font-size: 1.1rem; font-family: 'Archivo Black', sans-serif;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: #5865F2; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #ffffff; font-size: 1.1rem; font-family: 'Archivo Black', sans-serif;">
                 U
               </div>
               <div>
@@ -80,6 +80,9 @@
         <div class="alert-banner-custom" id="alertBanner">
           ✓ Thank you! Your message has been sent to the committee.
         </div>
+        <div class="alert-banner-custom" id="cooldownBanner" style="background: rgba(255, 68, 68, 0.15); border-color: #ff4444; color: #ff4444;">
+          ⚠️ Please wait a few moments before sending another inquiry.
+        </div>
 
         <div class="form-group-custom">
           <label>Your Name / IGN</label>
@@ -87,8 +90,8 @@
         </div>
         
         <div class="form-group-custom">
-          <label>Email Address</label>
-          <input type="email" id="contactEmail" placeholder="name@gmail.com" required />
+          <label>Student Email Address</label>
+          <input type="email" id="contactEmail" placeholder="name@utar.edu.my" required />
         </div>
 
         <div class="form-group-custom">
@@ -104,8 +107,11 @@
         </div>
 
         <div class="form-group-custom">
-          <label>Message / Team Details</label>
-          <textarea id="contactMessage" rows="4" placeholder="Type your message (autosaved automatically)..." required></textarea>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label>Message / Team Details</label>
+            <span id="charCounter" style="font-size: 0.75rem; color: #a9a6b3;">0 / 500</span>
+          </div>
+          <textarea id="contactMessage" rows="4" maxlength="500" placeholder="Type your message (autosaved automatically)..." required></textarea>
         </div>
 
         <button type="submit" class="btn-submit-orange">Send Message</button>
@@ -115,7 +121,11 @@
 
     <!-- FAQ Accordion -->
     <section class="faq-section-wrapper">
-      <h2 class="section-headline" style="font-size: 1.8rem; margin-bottom: 2rem;">Frequently Asked Questions</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto 1.5rem;">
+        <h2 class="section-headline" style="font-size: 1.8rem; margin: 0;">Frequently Asked Questions</h2>
+        <button id="toggleAllFaqBtn" style="background: #171717; border: 1px solid #2f2f2f; color: #a9a6b3; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Expand All</button>
+      </div>
+
       <div class="accordion-wrapper">
         
         <div class="accordion-item-box">
@@ -185,9 +195,9 @@
     $(document).ready(function() {
 
       // 1. COOKIES IMPLEMENTATION: Cookie helper functions
-      function setCookie(cname, cvalue, exdays) {
+      function setCookie(cname, cvalue, minutes) {
         const d = new Date();
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        d.setTime(d.getTime() + (minutes * 60 * 1000));
         document.cookie = cname + "=" + cvalue + ";expires=" + d.toUTCString() + ";path=/";
       }
 
@@ -201,15 +211,33 @@
         return "";
       }
 
-      // 2. SESSION STORAGE IMPLEMENTATION: Auto-restore message draft
-      $('#contactMessage').val(sessionStorage.getItem('utar_contact_draft') || '');
-      
-      // Auto-save message on input change
-      $('#contactMessage').on('input', function() {
-        sessionStorage.setItem('utar_contact_draft', $(this).val());
+      // 2. SESSION STORAGE IMPLEMENTATION: Auto-restore all form fields
+      $('#contactName').val(sessionStorage.getItem('utar_draft_name') || '');
+      $('#contactEmail').val(sessionStorage.getItem('utar_draft_email') || '');
+      $('#contactTopic').val(sessionStorage.getItem('utar_draft_topic') || '');
+      $('#contactMessage').val(sessionStorage.getItem('utar_draft_msg') || '');
+
+      function updateCharCounter() {
+        const len = $('#contactMessage').val().length;
+        $('#charCounter').text(`${len} / 500`);
+        if (len >= 450) {
+          $('#charCounter').css('color', '#FA5B1C');
+        } else {
+          $('#charCounter').css('color', '#a9a6b3');
+        }
+      }
+      updateCharCounter();
+
+      // Auto-save on any form field input
+      $('#contactName, #contactEmail, #contactTopic, #contactMessage').on('input change', function() {
+        sessionStorage.setItem('utar_draft_name', $('#contactName').val());
+        sessionStorage.setItem('utar_draft_email', $('#contactEmail').val());
+        sessionStorage.setItem('utar_draft_topic', $('#contactTopic').val());
+        sessionStorage.setItem('utar_draft_msg', $('#contactMessage').val());
+        updateCharCounter();
       });
 
-      // 3. JQUERY ACCORDION IMPLEMENTATION: slideToggle FAQ
+      // 3. JQUERY ACCORDION & TOGGLE ALL IMPLEMENTATION
       $('.accordion-header-box').on('click', function() {
         const $body = $(this).next('.accordion-body-box');
         const $symbol = $(this).find('.acc-symbol');
@@ -218,26 +246,51 @@
         $('.acc-symbol').not($symbol).text('+');
 
         $body.slideToggle(200, function() {
-          if ($body.is(':visible')) {
-            $symbol.text('-');
-          } else {
-            $symbol.text('+');
-          }
+          $symbol.text($body.is(':visible') ? '-' : '+');
         });
       });
 
-      // 4. Form Submission Handler with Cookie Timestamping
+      // Expand All / Collapse All Master Toggle
+      let allExpanded = false;
+      $('#toggleAllFaqBtn').on('click', function() {
+        if (!allExpanded) {
+          $('.accordion-body-box').slideDown(200);
+          $('.acc-symbol').text('-');
+          $(this).text('Collapse All');
+          allExpanded = true;
+        } else {
+          $('.accordion-body-box').slideUp(200);
+          $('.acc-symbol').text('+');
+          $(this).text('Expand All');
+          allExpanded = false;
+        }
+      });
+
+      // 4. FORM SUBMISSION WITH COOKIE THROTTLE & STORAGE CLEANUP
       $('#contactForm').on('submit', function(e) {
         e.preventDefault();
 
-        // Record submission timestamp in Cookies
-        setCookie('last_inquiry_sent', new Date().toISOString(), 3);
+        // Check if submission cooldown cookie exists (2-minute throttle)
+        if (getCookie('inquiry_cooldown')) {
+          $('#cooldownBanner').fadeIn(300);
+          setTimeout(function() {
+            $('#cooldownBanner').fadeOut(300);
+          }, 3500);
+          return;
+        }
 
-        // Clear SessionStorage draft
-        sessionStorage.removeItem('utar_contact_draft');
+        // Set 2-minute cooldown in Cookies
+        setCookie('inquiry_cooldown', 'active', 2);
+
+        // Clear SessionStorage drafts upon successful dispatch
+        sessionStorage.removeItem('utar_draft_name');
+        sessionStorage.removeItem('utar_draft_email');
+        sessionStorage.removeItem('utar_draft_topic');
+        sessionStorage.removeItem('utar_draft_msg');
 
         $('#alertBanner').fadeIn(300);
         this.reset();
+        updateCharCounter();
 
         setTimeout(function() {
           $('#alertBanner').fadeOut(300);
