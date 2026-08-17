@@ -48,10 +48,30 @@
 
     <!-- Archive Grid -->
     <div class="events-grid" id="eventsGridContainer">
-      
+
       <!-- Tournament 1 -->
       <div class="event-card" 
            data-id="evt-1"
+           data-category="tournament" 
+           data-title="PUBG ESPORTS WK CUP" 
+           data-date="March 7, 2025" 
+           data-badge="PUBG" 
+           data-img="images/The-Soniqs-the-winning-team-of-the-PUBG-Esports-World-Cup-tournament-celebrate-their-victory.-Photo-courtesy-of-EWC.jpg" 
+           data-desc="Facing off against 24 elite collegiate and amateur rosters across 8 intense Battle Royale matches on Erangel and Miramar, UTAR Squad Alpha showcased superior zone positioning and macro utility control. With 4 Chicken Dinners and an unmatched 78 total kill points, the squad locked in 1st place overall, lifting the WK Cup trophy and securing RM 6,000 in sponsored hardware and cash earnings.">
+        <div class="event-img" style="background-image: url('images/The-Soniqs-the-winning-team-of-the-PUBG-Esports-World-Cup-tournament-celebrate-their-victory.-Photo-courtesy-of-EWC.jpg');">
+          <span class="event-badge">PUBG</span>
+          <button class="btn-bookmark" title="Bookmark Match" style="position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.7); border:1px solid #2f2f2f; color:#fff; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">☆</button>
+        </div>
+        <div class="event-body">
+          <h3>PUBG ESPORTS WK CUP</h3>
+          <div class="event-date">March 7, 2025</div>
+          <p>UTAR Squad Alpha dominated the final circle rotations to secure the championship title at the PUBG Esports WK Cup, taking home RM 6,000 in cash prizes.</p>
+        </div>
+      </div>
+      
+      <!-- Tournament 2 -->
+      <div class="event-card" 
+           data-id="evt-2"
            data-category="tournament" 
            data-title="TARUMT 2025: League of Legends Varsity Finals" 
            data-date="June 17, 2025" 
@@ -69,9 +89,9 @@
         </div>
       </div>
 
-      <!-- Tournament 2 -->
+      <!-- Tournament 3 -->
       <div class="event-card" 
-           data-id="evt-2"
+           data-id="evt-3"
            data-category="tournament" 
            data-title="National Campus Championship 2025" 
            data-date="December 15, 2025" 
@@ -89,9 +109,9 @@
         </div>
       </div>
 
-      <!-- Tournament 3 -->
+      <!-- Tournament 4 -->
       <div class="event-card" 
-           data-id="evt-3"
+           data-id="evt-4"
            data-category="tournament" 
            data-title="CS2 SHANGHAI Major 2026" 
            data-date="February 18, 2026" 
@@ -111,7 +131,7 @@
 
       <!-- Scrim 1 -->
       <div class="event-card" 
-           data-id="evt-4"
+           data-id="evt-5"
            data-category="scrim" 
            data-title="UTAR Inter-Faculty Showdown" 
            data-date="November 20, 2025" 
@@ -131,7 +151,7 @@
 
       <!-- Scrim 2 -->
       <div class="event-card" 
-           data-id="evt-5"
+           data-id="evt-6"
            data-category="scrim" 
            data-title="Valorant Community In-House Scrims" 
            data-date="January 12, 2026" 
@@ -149,9 +169,9 @@
         </div>
       </div>
 
-      <!-- Tournament 4 -->
+      <!-- Tournament 5 -->
       <div class="event-card" 
-           data-id="evt-6"
+           data-id="evt-7"
            data-category="tournament" 
            data-title="LOL Collegiate Invitational" 
            data-date="March 10, 2026" 
@@ -169,9 +189,9 @@
         </div>
       </div>
 
-      <!-- Tournament 5 -->
+      <!-- Tournament 6 -->
       <div class="event-card" 
-           data-id="evt-7"
+           data-id="evt-8"
            data-category="tournament" 
            data-title="Perak Inter-College Valorant Masters 2026" 
            data-date="April 22, 2026" 
@@ -189,9 +209,9 @@
         </div>
       </div>
 
-      <!-- Tournament 6 -->
+      <!-- Tournament 7 -->
       <div class="event-card" 
-           data-id="evt-8"
+           data-id="evt-9"
            data-category="tournament" 
            data-title="PUBG Mobile Campus Championship (PMCC) Northern Qualifiers" 
            data-date="May 14, 2026" 
@@ -211,7 +231,7 @@
 
       <!-- Scrim 3 -->
       <div class="event-card" 
-           data-id="evt-9"
+           data-id="evt-10"
            data-category="scrim" 
            data-title="CS2 Friday Night Tactical In-Houses" 
            data-date="May 29, 2026" 
@@ -229,9 +249,9 @@
         </div>
       </div>
 
-      <!-- Tournament 7 -->
+      <!-- Tournament 8 -->
       <div class="event-card" 
-           data-id="evt-10"
+           data-id="evt-11"
            data-category="tournament" 
            data-title="PGL Major Singapore 2026" 
            data-date="June 20, 2026" 
@@ -249,9 +269,9 @@
         </div>
       </div>
 
-      <!-- Tournament 8 -->
+      <!-- Tournament 9 -->
       <div class="event-card" 
-           data-id="evt-11"
+           data-id="evt-12"
            data-category="tournament" 
            data-title="Counter-Strike 2 Cologne Major 2026" 
            data-date="July 11, 2026" 
@@ -269,9 +289,9 @@
         </div>
       </div>
 
-      <!-- Tournament 9 -->
+      <!-- Tournament 10 -->
       <div class="event-card" 
-           data-id="evt-12"
+           data-id="evt-13"
            data-category="tournament" 
            data-title="2026 LCK Cup" 
            data-date="August 2, 2026" 
@@ -298,20 +318,20 @@
     </div>
   </main>
 
-  <!-- Modal Lightbox with Share Action -->
-  <div class="modal-overlay" id="eventModal">
+  <!-- Modal Lightbox with Unified Typography -->
+  <div class="modal-overlay" id="eventModal" style="font-family: 'Roboto', sans-serif;">
     <div class="modal-card">
       <button class="modal-close" id="modalCloseBtn">&times;</button>
       <div class="modal-img" id="modalImg"></div>
       <div class="modal-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
           <span class="event-badge" id="modalBadge" style="position:static; display:inline-block; margin: 0;"></span>
-          <button id="copyShareBtn" style="background: transparent; border: 1px solid #2f2f2f; color: #FA5B1C; border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.75rem; font-weight: 700; cursor: pointer;">📋 Copy Summary</button>
+          <button id="copyShareBtn" style="background: transparent; border: 1px solid #2f2f2f; color: #FA5B1C; border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.75rem; font-weight: 700; font-family: 'Roboto', sans-serif; cursor: pointer;">📋 Copy Summary</button>
         </div>
         <h2 id="modalTitle" style="margin-bottom: 0.2rem; font-family: 'Archivo Black', sans-serif; color: #fff;"></h2>
-        <div class="event-date" id="modalDate" style="margin-bottom: 1rem;"></div>
-        <p id="modalDesc" style="color: #a9a6b3; font-size: 0.95rem; line-height: 1.6;"></p>
-        <div id="toastCopied" style="display: none; color: #00ff80; font-size: 0.8rem; font-weight: 700; margin-top: 0.8rem;">✓ Match details copied to clipboard!</div>
+        <div class="event-date" id="modalDate" style="margin-bottom: 1rem; font-family: 'Roboto', sans-serif;"></div>
+        <p id="modalDesc" style="color: #a9a6b3; font-size: 0.95rem; line-height: 1.6; font-family: 'Roboto', sans-serif; font-weight: 350;"></p>
+        <div id="toastCopied" style="display: none; color: #00ff80; font-size: 0.8rem; font-weight: 700; margin-top: 0.8rem; font-family: 'Roboto', sans-serif;">✓ Match details copied to clipboard!</div>
       </div>
     </div>
   </div>
@@ -324,7 +344,7 @@
   <script>
     $(document).ready(function() {
 
-      // 1. LOCAL STORAGE: Initialize & Load Bookmarked Matches[cite: 1]
+      // 1. LOCAL STORAGE: Initialize & Load Bookmarked Matches
       let savedBookmarks = JSON.parse(localStorage.getItem('utar_event_bookmarks') || '[]');
       
       function renderBookmarks() {
@@ -357,7 +377,7 @@
         }
       });
 
-      // 2. SESSION STORAGE: Restore and Persist Active Filter State[cite: 1]
+      // 2. SESSION STORAGE: Restore and Persist Active Filter State
       const savedFilter = sessionStorage.getItem('utar_event_filter') || 'all';
       $(`.filter-btn[data-filter="${savedFilter}"]`).addClass('active').siblings().removeClass('active');
       applyFiltering();
@@ -375,7 +395,7 @@
         applyFiltering();
       });
 
-      // Central Unified Filter & Search Function with Live Counter & Empty State[cite: 1]
+      // Central Unified Filter & Search Function with Live Counter & Empty State
       function applyFiltering() {
         const activeCategory = $('.filter-btn.active').data('filter') || 'all';
         const query = $('#searchInput').val().toLowerCase().trim();
