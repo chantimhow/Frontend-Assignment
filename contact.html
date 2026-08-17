@@ -90,8 +90,11 @@
         </div>
         
         <div class="form-group-custom">
-          <label>Student Email Address</label>
-          <input type="email" id="contactEmail" placeholder="name@utar.edu.my" required />
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label>Student Email Address</label>
+            <span id="emailValidationMsg" style="font-size: 0.72rem; font-weight: 700; display: none;"></span>
+          </div>
+          <input type="email" id="contactEmail" placeholder="name@1utar.my" required />
         </div>
 
         <div class="form-group-custom">
@@ -114,7 +117,7 @@
           <textarea id="contactMessage" rows="4" maxlength="500" placeholder="Type your message (autosaved automatically)..." required></textarea>
         </div>
 
-        <button type="submit" class="btn-submit-orange">Send Message</button>
+        <button type="submit" class="btn-submit-orange" id="submitBtn">Send Message</button>
       </form>
 
     </div>
@@ -186,10 +189,8 @@
     </section>
   </main>
 
-  <!-- ==========================================================
-       FLOATING CHATBOT AGENT WIDGET (BOTTOM-RIGHT)
-       ========================================================== -->
-  <button class="chatbot-toggler" id="botToggleBtn" title="Chat with Club Assistant">
+  <!-- Floating Chatbot Agent Widget (Clean, No Badge) -->
+  <button class="chatbot-toggler" id="botToggleBtn" title="Chat with Club Assistant" style="position: fixed; bottom: 30px; right: 30px;">
     <span id="botIcon">💬</span>
   </button>
 
@@ -223,7 +224,7 @@
   <script>
     $(document).ready(function() {
 
-      // 1. COOKIES IMPLEMENTATION: Cookie helper functions[cite: 1]
+      // 1. COOKIES: Helper functions & Rate Limiting
       function setCookie(cname, cvalue, minutes) {
         const d = new Date();
         d.setTime(d.getTime() + (minutes * 60 * 1000));
@@ -240,7 +241,7 @@
         return "";
       }
 
-      // 2. SESSION STORAGE: Auto-restore form drafts[cite: 1]
+      // 2. SESSION STORAGE: Auto-restore form draft fields
       $('#contactName').val(sessionStorage.getItem('utar_draft_name') || '');
       $('#contactEmail').val(sessionStorage.getItem('utar_draft_email') || '');
       $('#contactTopic').val(sessionStorage.getItem('utar_draft_topic') || '');
@@ -257,6 +258,28 @@
       }
       updateCharCounter();
 
+      // Live UTAR Student Email Domain Validator
+      function validateEmail() {
+        const email = $('#contactEmail').val().trim().toLowerCase();
+        const $msg = $('#emailValidationMsg');
+
+        if (email.length === 0) {
+          $msg.hide();
+          return true;
+        }
+
+        if (email.endsWith('@1utar.my') || email.endsWith('@utar.edu.my')) {
+          $msg.text('✓ Verified UTAR Domain').css('color', '#00ff80').fadeIn(150);
+          return true;
+        } else {
+          $msg.text('⚠️ Use official UTAR email (@1utar.my)').css('color', '#FA5B1C').fadeIn(150);
+          return false;
+        }
+      }
+
+      $('#contactEmail').on('input blur', validateEmail);
+
+      // Auto-save all fields to SessionStorage on input
       $('#contactName, #contactEmail, #contactTopic, #contactMessage').on('input change', function() {
         sessionStorage.setItem('utar_draft_name', $('#contactName').val());
         sessionStorage.setItem('utar_draft_email', $('#contactEmail').val());
@@ -265,7 +288,7 @@
         updateCharCounter();
       });
 
-      // 3. JQUERY FAQ ACCORDIONS[cite: 1]
+      // 3. JQUERY FAQ ACCORDIONS WITH SMOOTH TOGGLE
       $('.accordion-header-box').on('click', function() {
         const $body = $(this).next('.accordion-body-box');
         const $symbol = $(this).find('.acc-symbol');
@@ -293,10 +316,11 @@
         }
       });
 
-      // 4. CONTACT FORM SUBMIT WITH COOKIE COOLDOWN[cite: 1]
+      // 4. CONTACT FORM SUBMISSION WITH COOKIE COOLDOWN & BUTTON STATE
       $('#contactForm').on('submit', function(e) {
         e.preventDefault();
 
+        // Check if submission cooldown cookie exists (2-minute throttle)
         if (getCookie('inquiry_cooldown')) {
           $('#cooldownBanner').fadeIn(300);
           setTimeout(function() {
@@ -305,27 +329,36 @@
           return;
         }
 
-        setCookie('inquiry_cooldown', 'active', 2);
-
-        sessionStorage.removeItem('utar_draft_name');
-        sessionStorage.removeItem('utar_draft_email');
-        sessionStorage.removeItem('utar_draft_topic');
-        sessionStorage.removeItem('utar_draft_msg');
-
-        $('#alertBanner').fadeIn(300);
-        this.reset();
-        updateCharCounter();
+        const $btn = $('#submitBtn');
+        $btn.text('Transmitting...').prop('disabled', true).css('opacity', '0.7');
 
         setTimeout(function() {
-          $('#alertBanner').fadeOut(300);
-        }, 4000);
+          setCookie('inquiry_cooldown', 'active', 2);
+
+          // Clear SessionStorage drafts upon successful dispatch
+          sessionStorage.removeItem('utar_draft_name');
+          sessionStorage.removeItem('utar_draft_email');
+          sessionStorage.removeItem('utar_draft_topic');
+          sessionStorage.removeItem('utar_draft_msg');
+
+          $('#alertBanner').fadeIn(300);
+          $('#contactForm')[0].reset();
+          $('#emailValidationMsg').hide();
+          updateCharCounter();
+
+          $btn.text('Send Message').prop('disabled', false).css('opacity', '1');
+
+          setTimeout(function() {
+            $('#alertBanner').fadeOut(300);
+          }, 4000);
+        }, 600);
       });
 
       // ==========================================================
-      // 5. CHATBOT AGENT WIDGET LOGIC & SESSION STORAGE[cite: 1]
+      // 5. CHATBOT AGENT WIDGET LOGIC & SESSION STORAGE
       // ==========================================================
       
-      // Load saved chat session from sessionStorage[cite: 1]
+      // Load saved chat session from sessionStorage
       const savedChat = JSON.parse(sessionStorage.getItem('utar_chat_history') || '[]');
       if (savedChat.length > 0) {
         savedChat.forEach(msg => {
@@ -344,6 +377,7 @@
           if ($('#botPanel').is(':visible')) {
             $('#botIcon').text('✕');
             scrollChatToBottom();
+            $('#botInput').focus();
           } else {
             $('#botIcon').text('💬');
           }
@@ -353,18 +387,20 @@
       // Knowledge Base Auto-responder
       function getBotAnswer(query) {
         const q = query.toLowerCase();
-        if (q.includes('fee') || q.includes('price') || q.includes('cost') || q.includes('membership')) {
+        if (q.includes('fee') || q.includes('price') || q.includes('cost') || q.includes('membership') || q.includes('rm')) {
           return "Membership is split into Casual (RM5/semester) for social play and Competitive (RM15/semester) for varsity rosters and tournaments!";
-        } else if (q.includes('tryout') || q.includes('varsity') || q.includes('team')) {
-          return "Varsity tryouts are conducted at the start of each semester for CS2, Valorant, and League of Legends. Active Competitive Tier is required!";
-        } else if (q.includes('discord') || q.includes('scrim') || q.includes('server')) {
-          return "Our scrims run on Discord every Friday and Sunday at 8:00 PM! Join at discord.gg/utaresport";
+        } else if (q.includes('tryout') || q.includes('varsity') || q.includes('team') || q.includes('join')) {
+          return "Varsity tryouts are conducted at the start of each semester for CS2, Valorant, and League of Legends. An active Competitive Tier is required!";
+        } else if (q.includes('discord') || q.includes('scrim') || q.includes('server') || q.includes('custom')) {
+          return "Our weekly community scrims run on Discord every Friday and Sunday at 8:00 PM! Join our server at discord.gg/utaresport";
         } else if (q.includes('hello') || q.includes('hi') || q.includes('hey')) {
           return "Hello! How can I assist you with UTAR Esport Club today?";
-        } else if (q.includes('where') || q.includes('location') || q.includes('campus')) {
+        } else if (q.includes('where') || q.includes('location') || q.includes('campus') || q.includes('kampar')) {
           return "We are based at UTAR Perak Campus (Kampar). Physical LAN tournaments take place at the Pavilion halls.";
+        } else if (q.includes('tournament') || q.includes('bracket') || q.includes('schedule')) {
+          return "Check our Tournaments page for upcoming fixtures or check Past Events to view our championship match archives!";
         } else {
-          return "Thanks for asking! For specific inquiries, please fill out the contact form on this page or message us on Discord.";
+          return "Thanks for reaching out! For specific team or collaboration inquiries, please submit the contact form on this page or ask an admin in our Discord server.";
         }
       }
 
@@ -383,10 +419,10 @@
           savedChat.push({ sender: 'bot', text: reply });
           sessionStorage.setItem('utar_chat_history', JSON.stringify(savedChat));
           scrollChatToBottom();
-        }, 500);
+        }, 450);
       }
 
-      // Input Submit
+      // Input Form Submit
       $('#botForm').on('submit', function(e) {
         e.preventDefault();
         const userText = $('#botInput').val();
