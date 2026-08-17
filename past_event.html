@@ -22,7 +22,7 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="tournament.html">Tournaments</a></li>
-      <li><a href="event.html" class="active">Past Events</a></li>
+      <li><a href="past_event.html" class="active">Past Events</a></li>
       <li><a href="membership.html">Membership</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -32,14 +32,15 @@
     <h1 class="section-headline">Past Event Highlights</h1>
     <p class="section-subheadline">Explore our historical tournament hall of fame, LAN victories, and past community scrims.</p>
 
-    <!-- Controls (Filter, Search & Dynamic Counter) -->
+    <!-- Controls (Filter, Search, Favorites & Dynamic Counter) -->
     <div class="controls-bar">
       <div class="filter-buttons">
         <button class="filter-btn active" data-filter="all">All Events</button>
         <button class="filter-btn" data-filter="tournament">Tournaments</button>
         <button class="filter-btn" data-filter="scrim">Community Scrims</button>
+        <button class="filter-btn" data-filter="favorites" style="color: #FA5B1C; border-color: rgba(250, 91, 28, 0.4);">★ Saved Matches</button>
       </div>
-      <div style="display: flex; align-items: center; gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
         <span id="eventCountBadge" style="font-size: 0.8rem; color: #a9a6b3; font-weight: 700;">Showing 12 events</span>
         <input type="text" id="searchInput" class="search-box" placeholder="Search past archive..." />
       </div>
@@ -228,7 +229,7 @@
         </div>
       </div>
 
-      <!-- Tournament 7 (New) -->
+      <!-- Tournament 7 -->
       <div class="event-card" 
            data-id="evt-10"
            data-category="tournament" 
@@ -248,7 +249,7 @@
         </div>
       </div>
 
-      <!-- Tournament 8 (New) -->
+      <!-- Tournament 8 -->
       <div class="event-card" 
            data-id="evt-11"
            data-category="tournament" 
@@ -268,7 +269,7 @@
         </div>
       </div>
 
-      <!-- Tournament 9 (New) -->
+      <!-- Tournament 9 -->
       <div class="event-card" 
            data-id="evt-12"
            data-category="tournament" 
@@ -297,16 +298,20 @@
     </div>
   </main>
 
-  <!-- Modal Lightbox -->
+  <!-- Modal Lightbox with Share Action -->
   <div class="modal-overlay" id="eventModal">
     <div class="modal-card">
       <button class="modal-close" id="modalCloseBtn">&times;</button>
       <div class="modal-img" id="modalImg"></div>
       <div class="modal-content">
-        <span class="event-badge" id="modalBadge" style="position:static; display:inline-block; margin-bottom:0.5rem;"></span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span class="event-badge" id="modalBadge" style="position:static; display:inline-block; margin: 0;"></span>
+          <button id="copyShareBtn" style="background: transparent; border: 1px solid #2f2f2f; color: #FA5B1C; border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.75rem; font-weight: 700; cursor: pointer;">📋 Copy Summary</button>
+        </div>
         <h2 id="modalTitle" style="margin-bottom: 0.2rem; font-family: 'Archivo Black', sans-serif; color: #fff;"></h2>
         <div class="event-date" id="modalDate" style="margin-bottom: 1rem;"></div>
         <p id="modalDesc" style="color: #a9a6b3; font-size: 0.95rem; line-height: 1.6;"></p>
+        <div id="toastCopied" style="display: none; color: #00ff80; font-size: 0.8rem; font-weight: 700; margin-top: 0.8rem;">✓ Match details copied to clipboard!</div>
       </div>
     </div>
   </div>
@@ -319,7 +324,7 @@
   <script>
     $(document).ready(function() {
 
-      // 1. LOCAL STORAGE: Initialize & Load Bookmarked Matches
+      // 1. LOCAL STORAGE: Initialize & Load Bookmarked Matches[cite: 1]
       let savedBookmarks = JSON.parse(localStorage.getItem('utar_event_bookmarks') || '[]');
       
       function renderBookmarks() {
@@ -345,9 +350,14 @@
         }
         localStorage.setItem('utar_event_bookmarks', JSON.stringify(savedBookmarks));
         renderBookmarks();
+        
+        // Re-run filter in case user un-favorites while on the "Saved Matches" tab
+        if ($('.filter-btn.active').data('filter') === 'favorites') {
+          applyFiltering();
+        }
       });
 
-      // 2. SESSION STORAGE: Restore and Persist Active Filter State
+      // 2. SESSION STORAGE: Restore and Persist Active Filter State[cite: 1]
       const savedFilter = sessionStorage.getItem('utar_event_filter') || 'all';
       $(`.filter-btn[data-filter="${savedFilter}"]`).addClass('active').siblings().removeClass('active');
       applyFiltering();
@@ -365,14 +375,24 @@
         applyFiltering();
       });
 
-      // Central Unified Filter & Search Function with Live Counter & Empty State
+      // Central Unified Filter & Search Function with Live Counter & Empty State[cite: 1]
       function applyFiltering() {
         const activeCategory = $('.filter-btn.active').data('filter') || 'all';
         const query = $('#searchInput').val().toLowerCase().trim();
         let visibleCount = 0;
 
         $('.event-card').each(function() {
-          const matchesCategory = (activeCategory === 'all' || $(this).data('category') === activeCategory);
+          const cardId = $(this).data('id');
+          let matchesCategory = false;
+
+          if (activeCategory === 'all') {
+            matchesCategory = true;
+          } else if (activeCategory === 'favorites') {
+            matchesCategory = savedBookmarks.includes(cardId);
+          } else {
+            matchesCategory = ($(this).data('category') === activeCategory);
+          }
+
           const titleText = $(this).find('h3').text().toLowerCase();
           const descText = $(this).find('p').text().toLowerCase();
           const matchesSearch = (titleText.indexOf(query) !== -1 || descText.indexOf(query) !== -1);
@@ -390,21 +410,42 @@
 
         // Update Empty State Display
         if (visibleCount === 0) {
+          if (activeCategory === 'favorites') {
+            $('#noResultsState p:first-child').text('You have not bookmarked any past matches yet.');
+            $('#noResultsState p:last-child').text('Click the star icon (☆) on any event card to save it here.');
+          } else {
+            $('#noResultsState p:first-child').text('No archived past events found matching your search.');
+            $('#noResultsState p:last-child').text('Try searching for a different game title or switch back to "All Events".');
+          }
           $('#noResultsState').fadeIn(250);
         } else {
           $('#noResultsState').hide();
         }
       }
 
-      // 3. MODAL LIGHTBOX WITH KEYBOARD ACCESSIBILITY
+      // 3. MODAL LIGHTBOX WITH SHARE CLIPBOARD & KEYBOARD CONTROL
       $('.event-card').on('click', function() {
-        $('#modalTitle').text($(this).data('title'));
-        $('#modalDate').text($(this).data('date'));
-        $('#modalBadge').text($(this).data('badge'));
-        $('#modalDesc').text($(this).data('desc'));
+        const title = $(this).data('title');
+        const date = $(this).data('date');
+        const badge = $(this).data('badge');
+        const desc = $(this).data('desc');
+
+        $('#modalTitle').text(title);
+        $('#modalDate').text(date);
+        $('#modalBadge').text(badge);
+        $('#modalDesc').text(desc);
         $('#modalImg').css('background-image', 'url(' + $(this).data('img') + ')');
 
+        $('#toastCopied').hide();
         $('#eventModal').css('display', 'flex').hide().fadeIn(250);
+      });
+
+      // Copy Summary to Clipboard
+      $('#copyShareBtn').on('click', function() {
+        const summaryText = `[UTAR Esport Past Event] ${$('#modalTitle').text()} (${$('#modalDate').text()}) - ${$('#modalDesc').text()}`;
+        navigator.clipboard.writeText(summaryText).then(function() {
+          $('#toastCopied').fadeIn(200).delay(2000).fadeOut(200);
+        });
       });
 
       $('#modalCloseBtn').on('click', function() {
