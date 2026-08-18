@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UTAR Esport Club - Contact Us</title>
+  <!-- Google Fonts for Archivo Black and Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Shared Group Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- jQuery 3.7.1 CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body class="pricing-page">
+
+  <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg site-nav" data-bs-theme="dark">
+            <div class="container-fluid site-nav-inner">
+                <a class="navbar-brand" href="index.html">UTAR <span class="text-highlight">ESPORT</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <div class="navbar-nav site-nav-links mx-auto">
+                        <a class="nav-item nav-link" href="index.html">HOME</a>
+                        <a class="nav-item nav-link" href="about.html">ABOUT</a>
+                        <a class="nav-item nav-link" href="tournament.html">TOURNAMENT</a>
+                        <a class="nav-item nav-link" href="events.html">PAST EVENTS</a>
+                        <a class="nav-item nav-link" href="membership.html">MEMBERSHIP</a>
+                        <a class="nav-item nav-link active" aria-current="page" href="contact.html">CONTACT</a>
+                    </div>
+                    <div class="site-nav-actions">
+                        <a class="site-nav-social" href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="Discord"><i class="bi bi-discord"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+  <main class="main-content-layout">
+    <div class="contact-container">
+      
+      <!-- Contact Info -->
+      <div class="contact-info">
+        <h1>Get In Touch</h1>
+        <p>Have questions about joining, team registrations, or upcoming varsity tryouts? Reach out directly to the executive committee.</p>
+        
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-text">
+            <strong>Location</strong>
+            <span>Universiti Tunku Abdul Rahman (UTAR), Perak Campus</span>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">📧</div>
+          <div class="info-text">
+            <strong>Email Us</strong>
+            <a href="mailto:esport@utar.edu.my">esport@utar.edu.my</a>
+          </div>
+        </div>
+
+        <!-- Custom Interactive Discord Community Card -->
+        <div class="discord-card-widget">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: #5865F2; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #ffffff; font-size: 1.1rem; font-family: 'Archivo Black', sans-serif;">
+                U
+              </div>
+              <div>
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Archivo Black', sans-serif;">UTAR Esport Community</h4>
+                <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: #a9a6b3; margin-top: 0.2rem;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #23a55a; display: inline-block;"></span>
+                  <span>142 Members Online</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style="font-size: 0.8rem; color: #a9a6b3; margin: 0; line-height: 1.4;">
+            Join our verified Discord server for weekly in-house scrims, match lobbies, voice channels, and tournament announcements.
+          </p>
+          <a href="https://discord.gg" target="_blank" class="discord-btn-custom">Join Discord Server</a>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <form class="contact-form-card" id="contactForm">
+        <div class="alert-banner-custom" id="alertBanner">
+          ✓ Thank you! Your message has been sent to the committee.
+        </div>
+        <div class="alert-banner-custom" id="cooldownBanner" style="background: rgba(255, 68, 68, 0.15); border-color: #ff4444; color: #ff4444;">
+          ⚠️ Please wait a few moments before sending another inquiry.
+        </div>
+
+        <div class="form-group-custom">
+          <label>Your Name / IGN</label>
+          <input type="text" id="contactName" placeholder="e.g. Alex / Viper" required />
+        </div>
+        
+        <div class="form-group-custom">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label>Student Email Address</label>
+            <span id="emailValidationMsg" style="font-size: 0.72rem; font-weight: 700; display: none;"></span>
+          </div>
+          <input type="email" id="contactEmail" placeholder="name@1utar.my" required />
+        </div>
+
+        <div class="form-group-custom">
+          <label>Topic Category</label>
+          <select id="contactTopic" required>
+            <option value="">Select a topic...</option>
+            <option value="tournament-reg">Tournament Registration</option>
+            <option value="membership">Membership Inquiry</option>
+            <option value="tryout">Varsity Roster Tryouts</option>
+            <option value="sponsorship">Sponsorship & Collaboration</option>
+            <option value="other">General Inquiry</option>
+          </select>
+        </div>
+
+        <div class="form-group-custom">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label>Message / Team Details</label>
+            <span id="charCounter" style="font-size: 0.75rem; color: #a9a6b3;">0 / 500</span>
+          </div>
+          <textarea id="contactMessage" rows="4" maxlength="500" placeholder="Type your message (autosaved automatically)..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit-orange" id="submitBtn">Send Message</button>
+      </form>
+
+    </div>
+
+    <!-- FAQ Accordion -->
+    <section class="faq-section-wrapper">
+      <div style="display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto 1.5rem;">
+        <h2 class="section-headline" style="font-size: 1.8rem; margin: 0;">Frequently Asked Questions</h2>
+        <button id="toggleAllFaqBtn" style="background: #171717; border: 1px solid #2f2f2f; color: #a9a6b3; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Expand All</button>
+      </div>
+
+      <div class="accordion-wrapper">
+        
+        <div class="accordion-item-box">
+          <div class="accordion-header-box">
+            How do I join the competitive varsity team? <span class="acc-symbol" style="color: #FA5B1C;">+</span>
+          </div>
+          <div class="accordion-body-box">
+            You must be an active Competitive Tier member (RM15/semester). Tryouts are held at the beginning of each semester for major titles like CS2, Valorant, and League of Legends.
+          </div>
+        </div>
+
+        <div class="accordion-item-box">
+          <div class="accordion-header-box">
+            What is the difference between Casual and Competitive tier membership? <span class="acc-symbol" style="color: #FA5B1C;">+</span>
+          </div>
+          <div class="accordion-body-box">
+            Casual Tier (RM5/semester) grants access to our social Discord channels, weekly in-house scrim nights, and viewing parties. Competitive Tier (RM15/semester) includes varsity tryout eligibility, sponsored tournament entry fees, jersey discounts, and priority coaching sessions.
+          </div>
+        </div>
+
+        <div class="accordion-item-box">
+          <div class="accordion-header-box">
+            Can non-UTAR students join events? <span class="acc-symbol" style="color: #FA5B1C;">+</span>
+          </div>
+          <div class="accordion-body-box">
+            Social watch parties and open LAN scrims are open to the public! However, inter-varsity tournaments and main roster positions are restricted to current UTAR students.
+          </div>
+        </div>
+
+        <div class="accordion-item-box">
+          <div class="accordion-header-box">
+            Where do weekly club scrims take place? <span class="acc-symbol" style="color: #FA5B1C;">+</span>
+          </div>
+          <div class="accordion-body-box">
+            Most casual scrims take place online via our official Discord server on Friday and Sunday evenings at 8:00 PM MYT. Physical LAN scrims are held at Pavilion Hall during mid-semester breaks.
+          </div>
+        </div>
+
+        <div class="accordion-item-box">
+          <div class="accordion-header-box">
+            How do I register a team for upcoming tournaments? <span class="acc-symbol" style="color: #FA5B1C;">+</span>
+          </div>
+          <div class="accordion-body-box">
+            Team captains can submit a registration request through the Tournaments page or use the contact form above with the "Tournament Registration" topic, including all 5 players' student IDs and in-game names.
+          </div>
+        </div>
+
+        <div class="accordion-item-box">
+          <div class="accordion-header-box">
+            Does the club provide gaming equipment for LAN tournaments? <span class="acc-symbol" style="color: #FA5B1C;">+</span>
+          </div>
+          <div class="accordion-body-box">
+            For on-campus LAN tournaments, high-refresh-rate monitors and network switches are provided. Participants are encouraged to bring their own personal peripherals (mouse, keyboard, headset, and mousepad).
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Chatbot Agent Widget (Clean, No Badge) -->
+  <button class="chatbot-toggler" id="botToggleBtn" title="Chat with Club Assistant" style="position: fixed; bottom: 30px; right: 30px;">
+    <span id="botIcon">💬</span>
+  </button>
+
+  <div class="chatbot-panel" id="botPanel">
+    <div class="chatbot-header">
+      <h4><span class="chatbot-status-dot"></span> UTAR Bot Agent</h4>
+      <button class="chatbot-close-btn" id="botCloseBtn">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="botMessages">
+      <div class="chat-msg bot">
+        👋 Hey there! I'm your UTAR Esport Club assistant. Ask me about membership, scrims, or varsity tryouts!
+      </div>
+    </div>
+    <!-- Quick reply buttons -->
+    <div class="chatbot-quick-replies">
+      <button class="quick-btn" data-query="Membership fees">Membership Fees</button>
+      <button class="quick-btn" data-query="Tryouts">Varsity Tryouts</button>
+      <button class="quick-btn" data-query="Discord">Discord Link</button>
+    </div>
+    <form class="chatbot-input-area" id="botForm">
+      <input type="text" id="botInput" placeholder="Type a question..." autocomplete="off" required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <footer class="footer-custom">
+    &copy; 2026 UTAR Esport Club. All rights reserved.
+  </footer>
+
+  <!-- JQUERY & STORAGE SCRIPTS -->
+  <script>
+    $(document).ready(function() {
+
+      // 1. COOKIES: Helper functions & Rate Limiting
+      function setCookie(cname, cvalue, minutes) {
+        const d = new Date();
+        d.setTime(d.getTime() + (minutes * 60 * 1000));
+        document.cookie = cname + "=" + cvalue + ";expires=" + d.toUTCString() + ";path=/";
+      }
+
+      function getCookie(cname) {
+        const name = cname + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i].trim();
+          if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+        }
+        return "";
+      }
+
+      // 2. SESSION STORAGE: Auto-restore form draft fields
+      $('#contactName').val(sessionStorage.getItem('utar_draft_name') || '');
+      $('#contactEmail').val(sessionStorage.getItem('utar_draft_email') || '');
+      $('#contactTopic').val(sessionStorage.getItem('utar_draft_topic') || '');
+      $('#contactMessage').val(sessionStorage.getItem('utar_draft_msg') || '');
+
+      function updateCharCounter() {
+        const len = $('#contactMessage').val().length;
+        $('#charCounter').text(`${len} / 500`);
+        if (len >= 450) {
+          $('#charCounter').css('color', '#FA5B1C');
+        } else {
+          $('#charCounter').css('color', '#a9a6b3');
+        }
+      }
+      updateCharCounter();
+
+      // Live UTAR Student Email Domain Validator
+      function validateEmail() {
+        const email = $('#contactEmail').val().trim().toLowerCase();
+        const $msg = $('#emailValidationMsg');
+
+        if (email.length === 0) {
+          $msg.hide();
+          return true;
+        }
+
+        if (email.endsWith('@1utar.my') || email.endsWith('@utar.edu.my')) {
+          $msg.text('✓ Verified UTAR Domain').css('color', '#00ff80').fadeIn(150);
+          return true;
+        } else {
+          $msg.text('⚠️ Use official UTAR email (@1utar.my)').css('color', '#FA5B1C').fadeIn(150);
+          return false;
+        }
+      }
+
+      $('#contactEmail').on('input blur', validateEmail);
+
+      // Auto-save all fields to SessionStorage on input
+      $('#contactName, #contactEmail, #contactTopic, #contactMessage').on('input change', function() {
+        sessionStorage.setItem('utar_draft_name', $('#contactName').val());
+        sessionStorage.setItem('utar_draft_email', $('#contactEmail').val());
+        sessionStorage.setItem('utar_draft_topic', $('#contactTopic').val());
+        sessionStorage.setItem('utar_draft_msg', $('#contactMessage').val());
+        updateCharCounter();
+      });
+
+      // 3. JQUERY FAQ ACCORDIONS WITH SMOOTH TOGGLE
+      $('.accordion-header-box').on('click', function() {
+        const $body = $(this).next('.accordion-body-box');
+        const $symbol = $(this).find('.acc-symbol');
+
+        $('.accordion-body-box').not($body).slideUp(200);
+        $('.acc-symbol').not($symbol).text('+');
+
+        $body.slideToggle(200, function() {
+          $symbol.text($body.is(':visible') ? '-' : '+');
+        });
+      });
+
+      let allExpanded = false;
+      $('#toggleAllFaqBtn').on('click', function() {
+        if (!allExpanded) {
+          $('.accordion-body-box').slideDown(200);
+          $('.acc-symbol').text('-');
+          $(this).text('Collapse All');
+          allExpanded = true;
+        } else {
+          $('.accordion-body-box').slideUp(200);
+          $('.acc-symbol').text('+');
+          $(this).text('Expand All');
+          allExpanded = false;
+        }
+      });
+
+      // 4. CONTACT FORM SUBMISSION WITH COOKIE COOLDOWN & BUTTON STATE
+      $('#contactForm').on('submit', function(e) {
+        e.preventDefault();
+
+        // Check if submission cooldown cookie exists (2-minute throttle)
+        if (getCookie('inquiry_cooldown')) {
+          $('#cooldownBanner').fadeIn(300);
+          setTimeout(function() {
+            $('#cooldownBanner').fadeOut(300);
+          }, 3500);
+          return;
+        }
+
+        const $btn = $('#submitBtn');
+        $btn.text('Transmitting...').prop('disabled', true).css('opacity', '0.7');
+
+        setTimeout(function() {
+          setCookie('inquiry_cooldown', 'active', 2);
+
+          // Clear SessionStorage drafts upon successful dispatch
+          sessionStorage.removeItem('utar_draft_name');
+          sessionStorage.removeItem('utar_draft_email');
+          sessionStorage.removeItem('utar_draft_topic');
+          sessionStorage.removeItem('utar_draft_msg');
+
+          $('#alertBanner').fadeIn(300);
+          $('#contactForm')[0].reset();
+          $('#emailValidationMsg').hide();
+          updateCharCounter();
+
+          $btn.text('Send Message').prop('disabled', false).css('opacity', '1');
+
+          setTimeout(function() {
+            $('#alertBanner').fadeOut(300);
+          }, 4000);
+        }, 600);
+      });
+
+      // ==========================================================
+      // 5. CHATBOT AGENT WIDGET LOGIC & SESSION STORAGE
+      // ==========================================================
+      
+      // Load saved chat session from sessionStorage
+      const savedChat = JSON.parse(sessionStorage.getItem('utar_chat_history') || '[]');
+      if (savedChat.length > 0) {
+        savedChat.forEach(msg => {
+          $('#botMessages').append(`<div class="chat-msg ${msg.sender}">${msg.text}</div>`);
+        });
+        scrollChatToBottom();
+      }
+
+      function scrollChatToBottom() {
+        $('#botMessages').scrollTop($('#botMessages')[0].scrollHeight);
+      }
+
+      // Toggle Chatbot Panel
+      $('#botToggleBtn, #botCloseBtn').on('click', function() {
+        $('#botPanel').fadeToggle(200, function() {
+          if ($('#botPanel').is(':visible')) {
+            $('#botIcon').text('✕');
+            scrollChatToBottom();
+            $('#botInput').focus();
+          } else {
+            $('#botIcon').text('💬');
+          }
+        });
+      });
+
+      // Knowledge Base Auto-responder
+      function getBotAnswer(query) {
+        const q = query.toLowerCase();
+        if (q.includes('fee') || q.includes('price') || q.includes('cost') || q.includes('membership') || q.includes('rm')) {
+          return "Membership is split into Casual (RM5/semester) for social play and Competitive (RM15/semester) for varsity rosters and tournaments!";
+        } else if (q.includes('tryout') || q.includes('varsity') || q.includes('team') || q.includes('join')) {
+          return "Varsity tryouts are conducted at the start of each semester for CS2, Valorant, and League of Legends. An active Competitive Tier is required!";
+        } else if (q.includes('discord') || q.includes('scrim') || q.includes('server') || q.includes('custom')) {
+          return "Our weekly community scrims run on Discord every Friday and Sunday at 8:00 PM! Join our server at discord.gg/utaresport";
+        } else if (q.includes('hello') || q.includes('hi') || q.includes('hey')) {
+          return "Hello! How can I assist you with UTAR Esport Club today?";
+        } else if (q.includes('where') || q.includes('location') || q.includes('campus') || q.includes('kampar')) {
+          return "We are based at UTAR Perak Campus (Kampar). Physical LAN tournaments take place at the Pavilion halls.";
+        } else if (q.includes('tournament') || q.includes('bracket') || q.includes('schedule')) {
+          return "Check our Tournaments page for upcoming fixtures or check Past Events to view our championship match archives!";
+        } else {
+          return "Thanks for reaching out! For specific team or collaboration inquiries, please submit the contact form on this page or ask an admin in our Discord server.";
+        }
+      }
+
+      function handleSendMessage(text) {
+        if (!text.trim()) return;
+
+        // Render User Message
+        $('#botMessages').append(`<div class="chat-msg user">${text}</div>`);
+        savedChat.push({ sender: 'user', text: text });
+        scrollChatToBottom();
+
+        // Bot Response with simulated typing delay
+        setTimeout(function() {
+          const reply = getBotAnswer(text);
+          $('#botMessages').append(`<div class="chat-msg bot">${reply}</div>`);
+          savedChat.push({ sender: 'bot', text: reply });
+          sessionStorage.setItem('utar_chat_history', JSON.stringify(savedChat));
+          scrollChatToBottom();
+        }, 450);
+      }
+
+      // Input Form Submit
+      $('#botForm').on('submit', function(e) {
+        e.preventDefault();
+        const userText = $('#botInput').val();
+        handleSendMessage(userText);
+        $('#botInput').val('');
+      });
+
+      // Quick Reply Buttons Click
+      $('.quick-btn').on('click', function() {
+        const query = $(this).data('query');
+        handleSendMessage(query);
+      });
+
+    });
+  </script>
+
+  <!-- Bootstrap JS (navbar toggler) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Shared site script (adds .is-solid to the nav on scroll) -->
+  <script src="script.js"></script>
+
+</body>
+</html>
