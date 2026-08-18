@@ -1,11 +1,15 @@
 /* Site behaviour.
 
-   Four independent blocks, in order:
+   Five independent blocks, in order:
 
      1. Nav       — runs on every page.
      2. Register  — runs where the sign-up dialog exists (index.html).
      3. Voucher   — runs where the ticket exists (index.html).
      4. Deck      — runs where [data-section] sections exist (index.html).
+     5. Find team — runs where the LFG board exists (findteam.html).
+
+   Each guards on its own markup being present, so the five pages that
+   load this file only ever run the blocks that apply to them.
 
    They are separate $(function(){}) blocks on purpose: the deck used to
    early-return before anything else could run, which would have killed
@@ -665,4 +669,357 @@ $(function () {
 
     syncFromScroll();
     setActive(current);
+});
+
+
+/* ===================================================================
+   REST API client
+
+   The find-a-team board is the one part of this site not written by
+   hand into its HTML file: it is read over HTTP when the page loads
+   and added to when someone posts. One resource carries both halves,
+   on a hosted backend that stores what it is given:
+
+     GET  <BASE>/posts   -> 200 + array
+     POST <BASE>/posts   -> 201 + created, and it stays there
+
+   The URL itself is in the config block below rather than here, so
+   there is only one place to change if the project ever moves.
+
+   This sits between the page and the network so no rendering code has
+   to know a URL, a header or a status code. Both methods hand back
+   { status, data }, or throw an Error carrying a sentence that is
+   safe to show a visitor.
+
+   fetch does the HTTP, because that is the idiom REST is written in
+   now; jQuery does the DOM, to stay with the rest of this file.
+   =================================================================== */
+
+var UTARApi = (function () {
+    /* ---------------------------------------------------------------
+       The backend. These four lines are the whole of it — point them
+       somewhere else and nothing below has to change.
+
+       A mockapi.io project, which unlike the sandbox this started on
+       genuinely stores what it is sent: POST returns 201 and the record
+       is still there on the next GET, so a post outlives a refresh.
+
+       LIST_QUERY is deliberately empty. mockapi can sort and page
+       server-side, but its ids are strings — "9" sorts above "10" — so
+       asking it for "the newest six" starts returning the wrong six
+       once the board passes nine posts. Fetching the collection and
+       choosing the newest here costs nothing at this size and cannot
+       be wrong. MAX_POSTS is what keeps the board to a screenful.
+       --------------------------------------------------------------- */
+    var BASE = 'https://6a844fd853754283b0b85dd2.mockapi.io';
+    var RESOURCE = '/posts';
+    var LIST_QUERY = '';
+    var MAX_POSTS = 6;
+
+    var TIMEOUT_MS = 8000;
+
+    async function request(method, path, body) {
+        /* A request that never comes back would leave the placeholders
+           up forever, so give every one of them a deadline of its own. */
+        var controller = new AbortController();
+        var deadline = setTimeout(function () {
+            controller.abort();
+        }, TIMEOUT_MS);
+
+        var options = {
+            method: method,
+            headers: { 'Accept': 'application/json' },
+            signal: controller.signal
+        };
+
+        // Only a request that carries a body has one to describe.
+        if (body !== undefined) {
+            options.headers['Content-Type'] = 'application/json';
+            options.body = JSON.stringify(body);
+        }
+
+        try {
+            var response = await fetch(BASE + path, options);
+
+            /* fetch rejects only when the request never arrived — no
+               DNS, no network, blocked by CORS. A 404 or a 500 comes
+               back as a perfectly resolved promise, so the status has
+               to be checked by hand, or the page will cheerfully render
+               an error document as though it were data. */
+            if (!response.ok) {
+                /* HTTP/2 dropped the reason phrase, so statusText is an
+                   empty string on most live servers — appending it
+                   unguarded gives "answered 404 ." with a stray space. */
+                var reason = response.statusText ? ' ' + response.statusText : '';
+                throw new Error('The server answered ' + response.status + reason + '.');
+            }
+
+            return { status: response.status, data: await response.json() };
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                throw new Error('The request timed out after ' + (TIMEOUT_MS / 1000) + ' seconds.');
+            }
+            /* What fetch throws when it could not reach the host at all.
+               Every message thrown here ends up in front of a visitor,
+               so they say "the server" rather than naming the API. */
+            if (error instanceof TypeError) {
+                throw new Error('Could not reach the server — check your internet connection.');
+            }
+            throw error;
+        } finally {
+            clearTimeout(deadline);
+        }
+    }
+
+    return {
+        maxPosts: MAX_POSTS,
+
+        listTeamPosts: function () {
+            return request('GET', RESOURCE + LIST_QUERY);
+        },
+
+        createTeamPost: function (post) {
+            return request('POST', RESOURCE, post);
+        }
+    };
+})();
+
+
+/* ===================================================================
+   5 · Find a team  ·  findteam.html
+
+   A board of posts, read from the API and added to by the form above
+   it. Both halves talk to one resource — GET /comments fills the
+   board, POST /comments puts a new post on it — which is why a post
+   made here can be rendered with the same card the list uses.
+
+   Posts persist: the backend stores them, so one made here is still on
+   the board after a refresh and for anyone else who opens the page.
+   Nobody is monitoring it, though, which is what the note under the
+   form says rather than letting anyone believe otherwise.
+   =================================================================== */
+
+$(function () {
+    var $board = $('#lfgBoard');
+    if (!$board.length) {
+        return;   // Every page that is not findteam.html.
+    }
+
+    var $grid = $board.find('.lfg-grid');
+    var $count = $board.find('.lfg-count');
+    var $message = $board.find('.lfg-message');
+
+    var $form = $('#lfgForm');
+    var $submit = $form.find('.lfg-submit');
+    var $status = $form.find('.lfg-status');
+
+    var SKELETON_CARDS = 6;
+
+    // ---------------------------------------------------------------
+    // One shape for a post
+    // ---------------------------------------------------------------
+
+    /* A post already on the board and one we have just made are not the
+       same object: the first is whatever the API stores, the second is
+       the body we sent plus an id, and only the second carries a game
+       and a rank. Flattening both here means the card renderer never
+       reaches into a field that might not be there. */
+    function toPost(raw) {
+        return {
+            id: raw.id,
+            headline: raw.name || 'Looking for a team',
+            details: raw.body || '',
+            email: raw.email || '',
+            game: raw.game || '',
+            rank: raw.rank || '',
+            ign: raw.ign || ''
+        };
+    }
+
+    // ---------------------------------------------------------------
+    // Rendering
+    // ---------------------------------------------------------------
+
+    /* .text() for every value, without exception. Half of what lands
+       here was typed by a stranger and the other half came off the
+       network; neither is markup this page should be running. */
+    function card(post, isMine) {
+        var $card = $('<article class="lfg-card">');
+
+        if (isMine) {
+            $card.addClass('is-mine');
+        }
+
+        // Only a post made on this page carries these.
+        if (post.game || post.rank) {
+            var $tags = $('<p class="lfg-card-tags">');
+            if (post.game) {
+                $tags.append($('<span class="lfg-tag is-game">').text(post.game));
+            }
+            if (post.rank) {
+                $tags.append($('<span class="lfg-tag">').text(post.rank));
+            }
+            $card.append($tags);
+        }
+
+        $card.append($('<h3 class="lfg-card-headline">').text(post.headline));
+
+        if (post.details) {
+            $card.append($('<p class="lfg-card-details">').text(post.details));
+        }
+
+        var $foot = $('<p class="lfg-card-foot">');
+        if (post.ign) {
+            $foot.append($('<span class="lfg-card-ign">').text(post.ign));
+        }
+        if (post.email) {
+            $foot.append($('<span class="lfg-card-email">').text(post.email));
+        }
+        $card.append($foot);
+
+        return $card;
+    }
+
+    /* Grey placeholders while the request is in flight, so the board
+       holds its height instead of the page jumping when posts land. */
+    function showSkeletons() {
+        $grid.empty();
+
+        for (var i = 0; i < SKELETON_CARDS; i++) {
+            $grid.append(
+                $('<article class="lfg-card is-skeleton" aria-hidden="true">')
+                    .append($('<span class="api-skeleton-line is-sm">'))
+                    .append($('<span class="api-skeleton-line is-lg">'))
+                    .append($('<span class="api-skeleton-line">'))
+                    .append($('<span class="api-skeleton-line is-sm">'))
+            );
+        }
+    }
+
+    function showMessage(kind, title, text, withRetry) {
+        var $box = $('<div class="api-box">').addClass('is-' + kind)
+            .append($('<p class="api-box-title">').text(title))
+            .append($('<p class="api-box-text">').text(text));
+
+        if (withRetry) {
+            $box.append($('<button type="button" class="btn api-retry">').text('TRY AGAIN'));
+        }
+
+        $message.empty().append($box).prop('hidden', false);
+    }
+
+    function showStatus(kind, text) {
+        $status.removeClass('is-ok is-error').addClass('is-' + kind)
+            .text(text).prop('hidden', false);
+    }
+
+    function countPosts() {
+        $count.text('Showing ' + $grid.children('.lfg-card').length + ' posts');
+    }
+
+    // ---------------------------------------------------------------
+    // Reading the board
+    // ---------------------------------------------------------------
+
+    async function load() {
+        showSkeletons();
+        $message.prop('hidden', true).empty();
+        $count.text('Loading the board...');
+
+        try {
+            var result = await UTARApi.listTeamPosts();
+            /* Newest first, then trimmed. Sorted on Number(id) rather
+               than id itself because the backend hands ids back as
+               strings, where "9" sorts above "10" and the newest post
+               would quietly stop appearing once the board passed nine. */
+            var posts = $.map(result.data, toPost)
+                .sort(function (a, b) {
+                    return Number(b.id) - Number(a.id);
+                })
+                .slice(0, UTARApi.maxPosts);
+
+            $grid.empty();
+
+            if (!posts.length) {
+                $count.text('');
+                showMessage('empty', 'The board is empty',
+                    'Nobody is looking for a team right now — be the first to post.');
+                return;
+            }
+
+            $.each(posts, function (i, post) {
+                $grid.append(card(post, false));
+            });
+
+            countPosts();
+        } catch (error) {
+            $grid.empty();
+            $count.text('');
+            showMessage('error', 'Could not load the board', error.message, true);
+        }
+    }
+
+    /* The retry button is built long after this runs, so the listener
+       goes on the container rather than on the button itself. */
+    $message.on('click', '.api-retry', function () {
+        load();
+    });
+
+    // ---------------------------------------------------------------
+    // Adding to the board
+    // ---------------------------------------------------------------
+
+    function value(name) {
+        return $.trim($form.find('[name="' + name + '"]').val());
+    }
+
+    $form.on('submit', async function (e) {
+        e.preventDefault();
+
+        if (!this.checkValidity()) {
+            this.reportValidity();
+            return;
+        }
+
+        var payload = {
+            /* name and body are the fields this resource actually
+               stores; the rest ride along beside them and come back
+               untouched in the response. */
+            name: value('headline'),
+            body: value('details'),
+            email: value('email'),
+            ign: value('ign'),
+            // The option's label, not its value, so the tag reads
+            // "Valorant" rather than "valorant".
+            game: $form.find('[name="game"] option:selected').text(),
+            rank: value('rank')
+        };
+
+        $submit.prop('disabled', true).text('POSTING...');
+        $status.prop('hidden', true);
+
+        try {
+            var result = await UTARApi.createTeamPost(payload);
+
+            /* The response echoes the body back with an id, but merge it
+               over what we sent anyway: the card should still render if
+               a future backend answers 201 with an empty body. */
+            $message.prop('hidden', true).empty();
+            $grid.prepend(card(toPost($.extend({}, payload, result.data)), true));
+            countPosts();
+
+            this.reset();
+            showStatus('ok', 'Your post is up on the board.');
+        } catch (error) {
+            /* Nothing is cleared — whatever they typed is still in the
+               form to send again once the connection is back. */
+            showStatus('error', 'Could not post that. ' + error.message);
+        } finally {
+            $submit.prop('disabled', false).text('POST TO BOARD');
+        }
+    });
+
+    // ---------------------------------------------------------------
+
+    load();
 });

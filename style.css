@@ -2456,3 +2456,405 @@ th {
     border-top: 1px solid #2f2f2f;
     padding: 1.5rem 0;
 }
+
+
+/* ==========================================================
+   Shared API states  ·  .api-
+
+   The two things every page talking to the API needs: grey bars while
+   a request is in flight, and a box to explain it when one fails.
+   Prefixed .api- rather than after any one page, because the markup
+   that uses them is built in script.js and not written into any HTML
+   file. Only the find-a-team board uses them today; a second page
+   would use them as they stand.
+   ========================================================== */
+
+.api-skeleton-line {
+    display: block;
+    height: 0.7rem;
+    border-radius: 999px;
+
+    /* Two stops of a wider-than-the-element gradient, slid across. */
+    background: linear-gradient(90deg, #202020 25%, #2c2c2c 50%, #202020 75%);
+    background-size: 200% 100%;
+    animation: api-shimmer 1.4s linear infinite;
+}
+
+.api-skeleton-line.is-lg {
+    height: 1.1rem;
+    width: 70%;
+}
+
+.api-skeleton-line.is-sm {
+    width: 45%;
+}
+
+@keyframes api-shimmer {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+}
+
+/* A pulsing gradient is exactly the kind of motion this setting is
+   asking us to drop; the bars still read as placeholders standing still. */
+@media (prefers-reduced-motion: reduce) {
+    .api-skeleton-line {
+        animation: none;
+        background: #202020;
+    }
+}
+
+
+/* ==========================================================
+   Error / empty message
+   ========================================================== */
+
+.api-box {
+    background-color: #171717;
+    border: 1px solid #222222;
+    border-left: 3px solid #a9a6b3;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.api-box.is-error {
+    border-left-color: #FA5B1C;
+}
+
+.api-box-title {
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+
+.api-box-text {
+    color: #a9a6b3;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.api-retry {
+    background-color: #FA5B1C;
+    border-color: #FA5B1C;
+    border-radius: 999px;
+    padding: 0.4rem 1.5rem;
+    margin-top: 1rem;
+
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+}
+
+.api-retry:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #000000;
+}
+
+
+/* ==========================================================
+   Find a team  ·  findteam.html
+
+   The compose form and the board it writes to. Prefixed .lfg- so
+   nothing collides, and matching on markup that exists on one page
+   only — the other six load this file and none of it reaches them.
+
+   The loading bars and the error box are the shared .api- rules
+   above.
+   ========================================================== */
+
+.lfg-page {
+    background-color: #101010;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+.lfg-header {
+    text-align: center;
+    /* The navbar is fixed, so it takes up no space in the flow. This
+       top padding is what stops it overlapping the title. */
+    padding: 8rem 1.5rem 2.5rem;
+}
+
+.lfg-eyebrow {
+    color: #a9a6b3;
+    font-size: 0.875rem;
+    letter-spacing: 0.15rem;
+    margin-bottom: 0.5rem;
+}
+
+.lfg-subtitle {
+    color: #a9a6b3;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    max-width: 40rem;
+    margin: 1rem auto 0;
+}
+
+
+/* ==========================================================
+   Compose form
+   ========================================================== */
+
+.lfg-compose {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.lfg-compose-title,
+.lfg-board-title {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.lfg-form {
+    background-color: #171717;
+    border: 1px solid #222222;
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+/* The four short fields share a row on a desktop and stack once
+   there is no longer room for two of them side by side. */
+.lfg-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.lfg-field {
+    margin-bottom: 1rem;
+}
+
+.lfg-row .lfg-field {
+    margin-bottom: 0;
+}
+
+.lfg-row + .lfg-field {
+    margin-top: 1rem;
+}
+
+.lfg-field label {
+    display: block;
+    margin-bottom: 0.4rem;
+
+    color: #a9a6b3;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+}
+
+.lfg-optional {
+    color: #7c7a85;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: lowercase;
+}
+
+.lfg-field input,
+.lfg-field select,
+.lfg-field textarea {
+    width: 100%;
+    background-color: #101010;
+    border: 1px solid #2c2c2c;
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.75rem;
+
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.lfg-field textarea {
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.lfg-field input::placeholder,
+.lfg-field textarea::placeholder {
+    color: #5f5d68;
+}
+
+.lfg-field input:focus,
+.lfg-field select:focus,
+.lfg-field textarea:focus {
+    outline: none;
+    border-color: #FA5B1C;
+}
+
+.lfg-form-foot {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.lfg-submit {
+    background-color: #FA5B1C;
+    border-color: #FA5B1C;
+    border-radius: 999px;
+    padding: 0.6rem 1.75rem;
+
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+}
+
+.lfg-submit:hover:not(:disabled) {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #000000;
+}
+
+.lfg-submit:disabled {
+    opacity: 0.6;
+}
+
+.lfg-status {
+    margin-bottom: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.lfg-status.is-ok {
+    color: #FA5B1C;
+}
+
+.lfg-status.is-error {
+    color: #ff6b6b;
+}
+
+.lfg-note {
+    color: #7c7a85;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    margin: 1.25rem 0 0;
+}
+
+
+/* ==========================================================
+   The board
+   ========================================================== */
+
+.lfg-board {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+}
+
+/* Title left, count right, dropping to two lines on a phone. */
+.lfg-board-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.lfg-board-head .lfg-board-title {
+    margin-bottom: 0;
+}
+
+.lfg-count {
+    color: #7c7a85;
+    font-size: 0.8rem;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.lfg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.lfg-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #171717;
+    border: 1px solid #222222;
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+
+/* The one just posted, so it is obvious which card is yours. */
+.lfg-card.is-mine {
+    border-color: #FA5B1C;
+}
+
+.lfg-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.lfg-tag {
+    background-color: #101010;
+    border: 1px solid #2c2c2c;
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+
+    color: #a9a6b3;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+}
+
+.lfg-tag.is-game {
+    background-color: #FA5B1C;
+    border-color: #FA5B1C;
+    color: #ffffff;
+}
+
+.lfg-card-headline {
+    font-family: "Archivo Black", sans-serif;
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.lfg-card-details {
+    color: #a9a6b3;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Pushed to the bottom edge so the contact line sits level across a
+   row of cards whose posts are different lengths. */
+.lfg-card-foot {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-top: auto;
+    margin-bottom: 0;
+
+    font-size: 0.78rem;
+    overflow-wrap: anywhere;   /* Some of the emails are long. */
+}
+
+.lfg-card-ign {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.lfg-card-email {
+    color: #7c7a85;
+}
+
+/* No text of its own, so the bars have to carry the height. */
+.lfg-card.is-skeleton {
+    gap: 0.75rem;
+}
+
+
+@media (max-width: 575.98px) {
+    .lfg-form {
+        padding: 1.5rem;
+    }
+}

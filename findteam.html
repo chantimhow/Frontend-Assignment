@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Find a Team &mdash; UTAR Esport Club</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+            rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bitcount+Prop+Single:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Spray+Paint&display=swap"
+            rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Shared site nav. Copied verbatim into every page — only the
+             .active link moves. script.js adds .is-solid once scrolled. -->
+        <nav class="navbar navbar-expand-lg site-nav" data-bs-theme="dark">
+            <div class="container-fluid site-nav-inner">
+                <a class="navbar-brand" href="index.html">UTAR <span class="text-highlight">ESPORT</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <div class="navbar-nav site-nav-links mx-auto">
+                        <a class="nav-item nav-link" href="index.html">HOME</a>
+                        <a class="nav-item nav-link" href="about.html">ABOUT</a>
+                        <a class="nav-item nav-link" href="tournament.html">TOURNAMENT</a>
+                        <a class="nav-item nav-link" href="events.html">PAST EVENTS</a>
+                        <a class="nav-item nav-link active" aria-current="page" href="findteam.html">FIND A TEAM</a>
+                        <a class="nav-item nav-link" href="membership.html">MEMBERSHIP</a>
+                        <a class="nav-item nav-link" href="contact.html">CONTACT</a>
+                    </div>
+                    <div class="site-nav-actions">
+                        <a class="site-nav-social" href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="Discord"><i class="bi bi-discord"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+                        <a class="site-nav-social" href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <main class="lfg-page">
+            <header class="lfg-header">
+                <p class="lfg-eyebrow">UTAR ESPORT CLUB</p>
+                <h1 class="archivo-black-regular">FIND A TEAM</h1>
+                <p class="lfg-subtitle">Short a fifth, after a duo partner, or between rosters? Put a post up
+                    and let the club come to you.</p>
+            </header>
+
+            <!-- The form writes to the board below it. Both talk to the
+                 same resource, so a post made here is rendered with the
+                 card the board already uses — see block 6 of script.js. -->
+            <section class="lfg-compose">
+                <h2 class="lfg-compose-title">PUT UP A POST</h2>
+
+                <form class="lfg-form" id="lfgForm" novalidate>
+                    <div class="lfg-row">
+                        <div class="lfg-field">
+                            <label for="lfgIgn">YOUR IGN</label>
+                            <input type="text" id="lfgIgn" name="ign" maxlength="40" autocomplete="off"
+                                placeholder="e.g. Viper" required>
+                        </div>
+                        <div class="lfg-field">
+                            <label for="lfgEmail">EMAIL</label>
+                            <input type="email" id="lfgEmail" name="email" autocomplete="off"
+                                placeholder="name@1utar.my" required>
+                        </div>
+                        <div class="lfg-field">
+                            <label for="lfgGame">GAME</label>
+                            <select id="lfgGame" name="game">
+                                <option value="valorant">Valorant</option>
+                                <option value="mlbb">Mobile Legends</option>
+                                <option value="lol">League of Legends</option>
+                                <option value="cs2">Counter-Strike 2</option>
+                                <option value="dota2">Dota 2</option>
+                                <option value="other">Something else</option>
+                            </select>
+                        </div>
+                        <div class="lfg-field">
+                            <label for="lfgRank">RANK <span class="lfg-optional">optional</span></label>
+                            <input type="text" id="lfgRank" name="rank" maxlength="30" autocomplete="off"
+                                placeholder="e.g. Diamond 2">
+                        </div>
+                    </div>
+
+                    <div class="lfg-field">
+                        <label for="lfgHeadline">WHAT ARE YOU LOOKING FOR?</label>
+                        <input type="text" id="lfgHeadline" name="headline" maxlength="80" autocomplete="off"
+                            placeholder="e.g. LF duo for ranked, weeknights" required>
+                    </div>
+
+                    <div class="lfg-field">
+                        <label for="lfgDetails">DETAILS</label>
+                        <textarea id="lfgDetails" name="details" rows="3" maxlength="400"
+                            placeholder="Roles you play, when you are free, how serious you want to be about it."
+                            required></textarea>
+                    </div>
+
+                    <div class="lfg-form-foot">
+                        <button type="submit" class="btn lfg-submit">POST TO BOARD</button>
+                        <p class="lfg-status" role="status" aria-live="polite" hidden></p>
+                    </div>
+
+                    <p class="lfg-note">Your post stays on the board and everyone else can see it. Nobody on the
+                        committee is watching this page, though &mdash; use the Discord for anything you actually
+                        need an answer to.</p>
+                </form>
+            </section>
+
+            <!-- Filled by script.js. Empty on purpose: the posts are
+                 requested when the page loads, not written in here. -->
+            <section class="lfg-board" id="lfgBoard" aria-labelledby="lfgBoardTitle">
+                <div class="lfg-board-head">
+                    <h2 class="lfg-board-title" id="lfgBoardTitle">ON THE BOARD</h2>
+                    <!-- role="status" so a screen reader is told when the
+                         posts have arrived, without stealing focus. -->
+                    <p class="lfg-count" role="status" aria-live="polite"></p>
+                </div>
+
+                <div class="lfg-message" hidden></div>
+                <div class="lfg-grid"></div>
+            </section>
+        </main>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <!-- Bundle, for the navbar toggler on phones. Same tag
+             contact.html uses; no SRI hash, so it stays correct if the
+             pinned version is ever bumped. -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+
+</html>
