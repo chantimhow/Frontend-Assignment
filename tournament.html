@@ -1,73 +1,580 @@
-<!doctype html>
-<!-- PLACEHOLDER. Only here so the nav and the home page teasers have
-     somewhere to land — replace the <main> below with the real page. -->
+<!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scal=1.0">
+    <title>Tournament - UTAR Esport Club</title>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Tournament &mdash; UTAR Esport Club</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    <!-- Bootstrap css-->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-            rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
+    <!-- Google Fonts-->
+      <link
             href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bitcount+Prop+Single:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Spray+Paint&display=swap"
             rel="stylesheet">
-    </head>
+    <!-- CSS file -->
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <body>
-        <!-- Shared site nav. Copied verbatim into every page — only the
-             .active link moves. script.js adds .is-solid once scrolled. -->
-        <nav class="navbar navbar-expand-lg site-nav" data-bs-theme="dark">
-            <div class="container-fluid site-nav-inner">
-                <a class="navbar-brand" href="index.html">UTAR <span class="text-highlight">ESPORT</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="mainNav">
-                    <div class="navbar-nav site-nav-links mx-auto">
-                        <a class="nav-item nav-link" href="index.html">HOME</a>
-                        <a class="nav-item nav-link" href="about.html">ABOUT</a>
-                        <a class="nav-item nav-link active" aria-current="page" href="tournament.html">TOURNAMENT</a>
-                        <a class="nav-item nav-link" href="events.html">PAST EVENTS</a>
-                        <a class="nav-item nav-link" href="membership.html">MEMBERSHIP</a>
-                        <a class="nav-item nav-link" href="contact.html">CONTACT</a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white fw-blod" href="index.html">UTAR Esport Club</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation links -->
+            <div class="collapse navbar-collapse" id="navMenu">
+                <u1 class="navbar-nav ms-auto">
+                    <link class="nav-item"><a class="nav-link text-white" href="index.html">Home</a></li>
+                    <link class="nav-item"><a class="nav-link text-white" href="membership.html">Membership</a></li>
+                    <link class="nav-item"><a class="nav-link text-white active" href="tournament.html">Tournament</a></li>
+                    <link class="nav-item"><a class="nav-link text-white" href="pastEvent.html">Past Event</a></li>
+                    <link class="nav-item"><a class="nav-link text-white" href="contact.html">Contact</a></li>
+                    <link class="nav-item"><a class="nav-link text-white" href="about.html">About Us</a></li>
+                </u1>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Tournament container -->
+    <div class="tournament-page">
+        <!-- Tournament title -->
+         <header class="tournament-header">
+            <h1 class="archivo-black-regular">Gaming Tournaments</h1>
+            <p class="pricing-subtitle">Find your game - Join the fight!</p>
+         </header>
+        <!-- Tournament games -->
+         <section class="tournament-section" id="gameSelect">
+            <div class="container">
+                <div class="row g-4 justify-content-center">
+                    <!-- League of Legends -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="game-card" data-game="lol">
+                            <img src="images/lol.png" alt="League of Legends" class="game-card-img">
+                            <div class="game-card-body">
+                                <h5 class="game-card-title">LEAGUE OF LEGENDS</h5>
+                                <p class="game-card-text">5v5 MOBA</p>
+                                <span class="game-card-count">3 Tournaments</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="site-nav-actions">
-                        <a class="site-nav-social" href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                        <a class="site-nav-social" href="#" aria-label="Discord"><i class="bi bi-discord"></i></a>
-                        <a class="site-nav-social" href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                        <a class="site-nav-social" href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
-                        <a class="site-nav-social" href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <!-- Valorant -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="game-card" data-game="valorant">
+                            <img src="images/valorant.png" alt="Valorant" class="game-card-img">
+                            <div class="game-card-body">
+                                <h5 class="game-card-title">VALORANT</h5>
+                                <p class="game-card-text">5v5 Tactical Shooter</p>
+                                <span class="game-card-count">3 Tournaments</span>
+                            </div>
+                        </div>
                     </div>
+                    <!-- Dota 2 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="game-card" data-game="dota2">
+                            <img src="images/dota2.jpg" alt="Dota 2" class="game-card-img">
+                            <div class="game-card-body">
+                                <h5 class="game-card-title">DOTA 2</h5>
+                                <p class="game-card-text">5v5 MOBA</p>
+                                <span class="game-card-count">2 Tournaments</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Counter-Strike 2 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="game-card" data-game="cs2">
+                            <img src="images/cs2.jpeg" alt="Counter-Strike 2" class="game-card-img">
+                            <div class="game-card-body">
+                                <h5 class="game-card-title">COUNTER-STRIKE 2</h5>
+                                <p class="game-card-text">5v5 Tactical Shooter</p>
+                                <span class="game-card-count">2 Tournaments</span>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Street Fighter 6 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="game-card" data-game="SF6">
+                            <img src="images/streetFighter6.png" alt="Street Fighter 6" class="game-card-img">
+                            <div class="game-card-body">
+                                <h5 class="game-card-title">STREET FIGHTER 6</h5>
+                                <p class="game-card-text">1v1 Fighting</p>
+                                <span class="game-card-count">3 Tournaments</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Forza Horizon 6 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="game-card" data-game="FH6">
+                            <img src="images/forzaHorizon6.png" alt="Forza Horizon 6" class="game-card-img">
+                            <div class="game-card-body">
+                                <h5 class="game-card-title">FORZA HORIZON 6</h5>
+                                <p class="game-card-text">Open-World Racing</p>
+                                <span class="game-card-count">4 Tournaments</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PUBG Battlegrounds -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="game-card" data-game="Pubg">
+                            <img src="images/pubg.jpg" alt="PUBG Battlegrounds" class="game-card-img">
+                            <div class="game-card-body">
+                                <h5 class="game-card-title">PUBG BATTLEGROUNDS</h5>
+                                <p class="game-card-text">Battle Royale</p>
+                                <span class="game-card-count">4 Tournaments</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fortnite -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="game-card" data-game="fortnite">
+                            <img src="images/fortnite.jpg" alt="Fortnite" class="game-card-img">
+                            <div class="game-card-body">
+                                <h5 class="game-card-title">FORTNITE</h5>
+                                <p class="game-card-text">Battle Royale</p>
+                                <span class="game-card-count">6 Tournaments</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </nav>
+         </section>
 
-        <main class="pricing-page stub-page">
-            <header class="pricing-header">
-                <p class="pricing-eyebrow">UTAR ESPORT CLUB</p>
-                <h1 class="archivo-black-regular">TOURNAMENT</h1>
-                <p class="pricing-subtitle">This page is under construction &mdash; check back soon.</p>
-                <a class="btn" href="index.html">BACK TO HOME</a>
-                <p class="stub-note">Placeholder page &mdash; owned by another team member.</p>
-            </header>
-        </main>
+           <!-- Tournament list -->
+             <section class="tournament-section" id="tournamentList" style="display: none;">
+            <div class="container">
+                <div class="d-flex align-items-center mb-4">
+                    <button class="btn btn-back" id="backToGames">
+                        <i class="bi bi-arrow-left"></i> Back to Games Lists
+                    </button>
+                    <h3 class="archivo-black-regular ms-3" id="currentGameTitle"></h3>
+                </div>
+                <div class="row g-4" id="tournamentCards"></div>
+            </div>
+        </section>
 
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-            integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-            crossorigin="anonymous"></script>
-        <script src="script.js"></script>
-    </body>
+        <!-- Tournament details -->
+         <div class="modal fade" id="detailModal" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content tournament-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title archivo-black-regular" id="modalTitle"></h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="tournament-detail-label"><i class="bi bi-calendar-event"></i> Date</p>
+                                <p class="tournament-detail-value" id="modalDate"></p>
 
+                                <p class="tournament-detail-label"><i class="bi bi-clock"></i> Time</p>
+                                <p class="tournament-detail-value" id="modalTime"></p>
+
+                                <p class="tournament-detail-label"><i class="bi bi-geo-alt"></i> Venue</p>
+                                <p class="tournament-detail-value" id="modalVenue"></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="tournament-detail-label"><i class="bi bi-trophy"></i> Prize Pool</p>
+                                <p class="tournament-detail-value" id="modalPrize"></p>
+
+                                <p class="tournament-detail-label"><i class="bi bi-people"></i> Max Teams</p>
+                                <p class="tournament-detail-value" id="modalTeams"></p>
+
+                                <p class="tournament-detail-label"><i class="bi bi-diagram-3"></i> Format</p>
+                                <p class="tournament-detail-value" id="modalFormat"></p>
+                            </div>
+                        </div>
+                        <hr style="background-color: #2f2f2f;">
+                        <p class="tournament-detail-label"><i class="bi bi-info-circle"></i> Description</p>
+                        <p class="tournament-detail-value" id="modalDesc"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn tournament-cta" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn tournament-cta">Register Now</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="tournament-footer">
+        <div class="container text-center">
+            <p style="color: #a9a6b3; font-size: 0.85rem; margin: 0;">
+                &copy; 2026 UTAR Esport Club. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Tournament jQuery javascript -->
+     <script>
+        //Tournament information
+        var tournamentData = {
+            valorant: [
+                {
+                    name: "Valorant Campus Cup 2026",
+                    date: "15 August 2026",
+                    time: "10:00 AM - 8:00 PM",
+                    venue: "UTAR Cyber Cafe, Block K",
+                    prize: "RM 2,000",
+                    teams: "16 Teams (5v5)",
+                    format: "Single Elimination, BO3 Finals",
+                    desc: "Open to all UTAR students. Register your squad of 5 and battle through the bracket. Winner qualifies for the Inter-Varsity Championship. Bring your own peripherals. PCs provided."
+                },
+                {
+                    name: "Valorant Inter-Varsity Showdown",
+                    date: "20 September 2026",
+                    time: "9:00 AM - 9:00 PM",
+                    venue: "UTAR Main Hall",
+                    prize: "RM 5,000",
+                    teams: "32 Teams (5v5)",
+                    format: "Double Elimination, BO5 Grand Finals",
+                    desc: "The biggest Valorant event of the semester. Teams from 8 universities compete for the ultimate bragging rights. Live casted on Twitch. Audience welcome."
+                },
+                {
+                    name: "Valorant 1v1 Duel Night",
+                    date: "5 October 2026",
+                    time: "7:00 PM - 10:00 PM",
+                    venue: "UTAR Cyber Cafe, Block K",
+                    prize: "RM 300 + Merch",
+                    teams: "32 Players (1v1)",
+                    format: "Single Elimination, BO3",
+                    desc: "Casual fun event. No team needed — just you and your aim. All ranks welcome. Free snacks for participants."
+                }
+            ],
+            lol: [
+                {
+                    name: "LoL Summoner's Rift Clash",
+                    date: "22 August 2026",
+                    time: "10:00 AM - 8:00 PM",
+                    venue: "UTAR Cyber Cafe, Block J",
+                    prize: "RM 1,500",
+                    teams: "16 Teams (5v5)",
+                    format: "Single Elimination, BO3 Finals",
+                    desc: "Standard Summoner's Rift 5v5. Patch 14.15. All roles, no restrictions. Winner receives RP vouchers and club merch."
+                },
+                {
+                    name: "LoL ARAM Madness",
+                    date: "12 September 2026",
+                    time: "6:00 PM - 10:00 PM",
+                    venue: "UTAR Cyber Cafe, Block J",
+                    prize: "RM 500 + Merch",
+                    teams: "16 Teams (5v5)",
+                    format: "ARAM Only, BO1 until Finals (BO3)",
+                    desc: "All Random All Mid. Pure chaos. No drafting strategy, just teamfighting skill. Great for casual players."
+                },
+                {
+                    name: "LoL Inter-Varsity Championship",
+                    date: "18 October 2026",
+                    time: "9:00 AM - 9:00 PM",
+                    venue: "UTAR Main Hall",
+                    prize: "RM 8,000",
+                    teams: "32 Teams (5v5)",
+                    format: "Swiss Stage + Single Elim, BO5 Finals",
+                    desc: "The flagship LoL event. Teams from universities across Malaysia. Live on YouTube. Sponsored by Riot Games SEA."
+                }
+            ],
+            dota2: [
+                {
+                    name: "Dota 2 Campus League",
+                    date: "28 August 2026",
+                    time: "10:00 AM - 8:00 PM",
+                    venue: "UTAR Cyber Cafe, Block K",
+                    prize: "RM 2,000",
+                    teams: "12 Teams (5v5)",
+                    format: "Round Robin + Playoffs, BO3",
+                    desc: "Group stage followed by playoffs. Captain's Draft mode for tiebreakers. All MMR brackets welcome."
+                },
+                {
+                    name: "Dota 2 All-Star Battle",
+                    date: "25 October 2026",
+                    time: "2:00 PM - 10:00 PM",
+                    venue: "UTAR Main Hall",
+                    prize: "RM 3,000 + Cosplay Contest",
+                    teams: "8 Teams (5v5)",
+                    format: "Exhibition Matches + Audience Vote",
+                    desc: "Fun exhibition event. Audience votes on hero restrictions each round. Includes a cosplay side contest with extra prizes."
+                }
+            ],
+            cs2: [
+                {
+                    name: "CS2 Campus Showdown",
+                    date: "30 August 2026",
+                    time: "1:00 PM - 7:00 PM",
+                    venue: "UTAR Cyber Cafe, Block K",
+                    prize: "RM 1,000",
+                    teams: "16 Teams (5v5)",
+                    format: "Single Elimination, BO3 Finals (MR12)",
+                    desc: "Bring your own peripherals. PCs provided with CS2 pre-installed. Map pool: Mirage, Inferno, Dust2, Nuke, Anubis. Open to all ranks. Winner gets club merch."
+                },
+                {
+                    name: "CS2 Inter-Faculty War",
+                    date: "15 November 2026",
+                    time: "10:00 AM - 6:00 PM",
+                    venue: "UTAR Main Hall",
+                    prize: "RM 2,000 + Faculty Trophy",
+                    teams: "10 Teams (Faculty-based)",
+                    format: "Group Stage + Knockout, BO5 Finals",
+                    desc: "Each faculty sends their best squad. Represent your faculty and claim the annual trophy. Live streamed on the club's YouTube channel."
+                }
+            ],
+                        SF6: [
+                {
+                    name: "SF6 Campus Cup 2026",
+                    date: "6 September 2026",
+                    time: "2:00 PM - 8:00 PM",
+                    venue: "UTAR Student Lounge",
+                    prize: "RM 500 + Merch",
+                    teams: "32 Players (1v1)",
+                    format: "Single Elimination, BO3 (Grand Finals BO5)",
+                    desc: "Bring your own fight stick or pad. Consoles provided on site. Open to all Master Ranks. Top 8 get club merch."
+                },
+                {
+                    name: "SF6 Arcade Night Showdown",
+                    date: "24 October 2026",
+                    time: "7:00 PM - 11:00 PM",
+                    venue: "UTAR Cyber Cafe, Block K",
+                    prize: "RM 300",
+                    teams: "16 Players (1v1)",
+                    format: "Round Robin Groups + Top 8 Bracket",
+                    desc: "Casual arcade-style night. Perfect for newcomers who want to learn the fighting game community."
+                },
+                {
+                    name: "SF6 3v3 Team Battle",
+                    date: "29 November 2026",
+                    time: "1:00 PM - 7:00 PM",
+                    venue: "UTAR Main Hall",
+                    prize: "RM 800",
+                    teams: "8 Teams (3v3)",
+                    format: "Round Robin + Playoff Bracket, BO5 Sets",
+                    desc: "Squad-based team battle in the style of pro fighting game leagues. Each set is a 3v3 eliminator with one ban per round."
+                }
+            ],
+            FH6: [
+                {
+                    name: "FH6 Time Trial Championship",
+                    date: "13 September 2026",
+                    time: "10:00 AM - 4:00 PM",
+                    venue: "UTAR Cyber Cafe, Block J",
+                    prize: "RM 500",
+                    teams: "40 Racers (Solo)",
+                    format: "Qualifying Laps + Head-to-Head Finals",
+                    desc: "Set your fastest lap on the featured route, then race head-to-head in the finals. Steering wheels available on a first-come basis."
+                },
+                {
+                    name: "FH6 Night Street Race",
+                    date: "17 October 2026",
+                    time: "8:00 PM - 11:00 PM",
+                    venue: "UTAR Cyber Cafe, Block J",
+                    prize: "RM 400 + Merch",
+                    teams: "32 Racers (Solo)",
+                    format: "Elimination Races, Last Car Standing",
+                    desc: "High-speed street circuits at night. Every race eliminates the bottom half until one racer remains."
+                },
+                {
+                    name: "FH6 Inter-Faculty Race War",
+                    date: "8 November 2026",
+                    time: "1:00 PM - 6:00 PM",
+                    venue: "UTAR Main Hall",
+                    prize: "RM 1,000 + Faculty Trophy",
+                    teams: "10 Teams (Faculty-based)",
+                    format: "Team Endurance Race + Point System",
+                    desc: "Each faculty fields a racing crew. Points awarded per race finish. The faculty with the highest total lifts the annual trophy."
+                },
+                {
+                    name: "FH6 Off-Road Rally Challenge",
+                    date: "21 November 2026",
+                    time: "10:00 AM - 4:00 PM",
+                    venue: "UTAR Cyber Cafe, Block J",
+                    prize: "RM 600",
+                    teams: "24 Racers (Solo)",
+                    format: "Stage Rally, Combined Time",
+                    desc: "Mud, gravel and jungle trails. Three timed stages, combined time decides the champion. Co-driver calls optional but encouraged."
+                }
+            ],
+            Pubg: [
+                {
+                    name: "PUBG Campus Battle Royale",
+                    date: "27 September 2026",
+                    time: "1:00 PM - 7:00 PM",
+                    venue: "UTAR Student Lounge",
+                    prize: "RM 1,500",
+                    teams: "16 Squads (4-man)",
+                    format: "3 Matches, Placement + Kill Points",
+                    desc: "Bring your own devices. Stable LAN provided. Winner takes the chicken dinner and the prize."
+                },
+                {
+                    name: "PUBG Duo Night Cup",
+                    date: "16 October 2026",
+                    time: "7:00 PM - 11:00 PM",
+                    venue: "Online (Club Discord)",
+                    prize: "RM 600",
+                    teams: "25 Duos",
+                    format: "2 Matches, Standard Scoring",
+                    desc: "Online duo cup hosted on the club Discord. Relaxed evening scrims with cash for the top duo."
+                },
+                {
+                    name: "PUBG Freshman FFA",
+                    date: "30 October 2026",
+                    time: "2:00 PM - 6:00 PM",
+                    venue: "UTAR Student Lounge",
+                    prize: "RM 300 + Merch",
+                    teams: "64 Players (Solo FFA)",
+                    format: "Free-For-All, 2 Rounds",
+                    desc: "No squads, no duos — every player for themselves. A welcoming event for freshmen to experience club scrims."
+                },
+                {
+                    name: "PUBG Inter-Varsity Scrims",
+                    date: "22 November 2026",
+                    time: "9:00 AM - 6:00 PM",
+                    venue: "UTAR Cyber Cafe, Block K",
+                    prize: "RM 2,000",
+                    teams: "32 Squads (4-man)",
+                    format: "4 Matches, Super League Scoring",
+                    desc: "Squads from universities across the northern region. Top squad qualifies for the national qualifier."
+                }
+            ],
+            fortnite: [
+                {
+                    name: "Fortnite Friday Frenzy",
+                    date: "4 September 2026",
+                    time: "8:00 PM - 11:00 PM",
+                    venue: "Online (Club Discord)",
+                    prize: "RM 300 + V-Bucks",
+                    teams: "50 Players (Solos)",
+                    format: "2 Custom Lobbies, Total Points",
+                    desc: "Casual online night hosted on the club Discord. Points per placement and elimination. All ranks welcome."
+                },
+                {
+                    name: "Fortnite Zero Build Solos",
+                    date: "18 September 2026",
+                    time: "8:00 PM - 11:00 PM",
+                    venue: "Online (Club Discord)",
+                    prize: "RM 400",
+                    teams: "50 Players (Solos)",
+                    format: "Zero Build, 2 Lobbies, Total Points",
+                    desc: "No building, pure aim and positioning. For players who prefer gunfights over ramp battles."
+                },
+                {
+                    name: "Fortnite Duos Dash",
+                    date: "9 October 2026",
+                    time: "8:00 PM - 11:00 PM",
+                    venue: "Online (Club Discord)",
+                    prize: "RM 500",
+                    teams: "25 Duos",
+                    format: "3 Matches, Standard Scoring",
+                    desc: "Pair up with a partner. Points for placements and eliminations across three lobbies."
+                },
+                {
+                    name: "Fortnite Box Fight Championship",
+                    date: "23 October 2026",
+                    time: "7:00 PM - 10:00 PM",
+                    venue: "UTAR Cyber Cafe, Block K",
+                    prize: "RM 300 + Merch",
+                    teams: "16 Players (1v1)",
+                    format: "Single Elimination, BO3 (Finals BO5)",
+                    desc: "Classic 1v1 box fights on custom creative maps. Show off your edits, cranks and shotgun aim."
+                },
+                {
+                    name: "Fortnite Campus Cup",
+                    date: "1 November 2026",
+                    time: "2:00 PM - 7:00 PM",
+                    venue: "UTAR Student Lounge",
+                    prize: "RM 1,000",
+                    teams: "25 Duos",
+                    format: "3 Matches, Standard Scoring",
+                    desc: "Team up with a duo partner and battle through three custom lobbies. Top duo wins cash and club merch."
+                },
+                {
+                    name: "Fortnite Inter-Faculty Showdown",
+                    date: "13 November 2026",
+                    time: "1:00 PM - 6:00 PM",
+                    venue: "UTAR Main Hall",
+                    prize: "RM 1,500 + Faculty Trophy",
+                    teams: "10 Squads (Faculty-based)",
+                    format: "3 Matches, Faculty Point System",
+                    desc: "Each faculty fields a squad. Combined points across three matches decide which faculty lifts the trophy."
+                }
+            ]
+        };
+
+        //Tournament list
+        $('.game-card').on('click', function() {
+            var game = $(this).data('game'); //read the data of games
+
+            $('#gameSelect').fadeOut(200, function() {
+                $('#tournamentList').fadeIn(300); //display the tournament list
+            });
+
+            $('#currentGameTitle').text(game.toUpperCase()); //show the current game
+
+            renderTournamentList(game); //Clear old and render new ones
+
+            //Render the tournament list
+            function renderTournamentList(game) {
+            var container = $('#tournamentCards');
+            container.empty();
+
+            var tournaments = tournamentData[game];
+
+             tournaments.forEach(function(t, index) {
+                var card = ''
+                    + '<div class="col-lg-4 col-md-6">'
+                    + '  <div class="tournament-card" data-game="' + game + '" data-index="' + index + '">'
+                    + '    <div class="tournament-card-body">'
+                    + '      <span class="tournament-badge tournament-badge-game">' + game.toUpperCase() + '</span>'
+                    + '      <h5 class="tournament-card-title">' + t.name + '</h5>'
+                    + '      <p class="tournament-card-meta">'
+                    + '        <i class="bi bi-calendar-event"></i> ' + t.date + '<br>'
+                    + '        <i class="bi bi-trophy"></i> ' + t.prize + '<br>'
+                    + '        <i class="bi bi-people"></i> ' + t.teams
+                    + '      </p>'
+                    + '      <button class="btn tournament-cta view-detail-btn">View Details</button>'
+                    + '    </div>'
+                    + '  </div>'
+                    + '</div>';
+
+                container.append(card);
+            });
+        }
+
+        //View details
+         $(document).on('click', '.view-detail-btn', function() {
+            var game = $(this).closest('.tournament-card').data('game');
+            var index = $(this).closest('.tournament-card').data('index');
+            var t = tournamentData[game][index];
+
+            //fill in the data
+            $('#modalTitle').text(t.name);
+            $('#modalDate').text(t.date);
+            $('#modalTime').text(t.time);
+            $('#modalVenue').text(t.venue);
+            $('#modalPrize').text(t.prize);
+            $('#modalTeams').text(t.teams);
+            $('#modalFormat').text(t.format);
+            $('#modalDesc').text(t.desc);
+
+            var modal = new bootstrap.Modal(document.getElementById('detailModal'));
+            modal.show();
+        });
+
+        //Return to the tournament filter
+         $('#backToGames').on('click', function() {
+            $('#tournamentList').fadeOut(200, function() {
+                $('#gameSelect').fadeIn(300);
+            });
+        });
+    });
+    </script>
+
+</body>
 </html>
