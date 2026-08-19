@@ -1301,6 +1301,8 @@ th {
     max-width: 600px;
     width: 100%;
     overflow: hidden;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
     position: relative;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
@@ -1309,6 +1311,24 @@ th {
     height: 240px;
     background-size: cover;
     background-position: center;
+}
+
+/* Embedded YouTube highlight in the event modal */
+.modal-video {
+    display: none;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #000000;
+}
+
+.modal-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 
 .modal-content {

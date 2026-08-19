@@ -73,6 +73,7 @@
       <!-- Tournament 1 -->
       <div class="event-card" 
            data-id="evt-1"
+           data-video="OCtSFNcMMOc" 
            data-category="tournament" 
            data-title="PUBG ESPORTS WK CUP" 
            data-date="March 7, 2025" 
@@ -93,6 +94,7 @@
       <!-- Tournament 2 -->
       <div class="event-card" 
            data-id="evt-2"
+           data-video="3d7CbPj5HTw" 
            data-category="tournament" 
            data-title="TARUMT 2025: League of Legends Varsity Finals" 
            data-date="June 17, 2025" 
@@ -113,6 +115,7 @@
       <!-- Tournament 3 -->
       <div class="event-card" 
            data-id="evt-3"
+           data-video="mBMWbudfwyY" 
            data-category="tournament" 
            data-title="National Campus Championship 2025" 
            data-date="December 15, 2025" 
@@ -344,6 +347,9 @@
     <div class="modal-card">
       <button class="modal-close" id="modalCloseBtn">&times;</button>
       <div class="modal-img" id="modalImg"></div>
+      <div class="modal-video" id="modalVideo">
+        <iframe id="modalVideoFrame" src="" title="Event highlight video" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
       <div class="modal-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
           <span class="event-badge" id="modalBadge" style="position:static; display:inline-block; margin: 0;"></span>
@@ -477,6 +483,18 @@
         $('#modalDesc').text(desc);
         $('#modalImg').css('background-image', 'url(' + $(this).data('img') + ')');
 
+        // Show the YouTube highlight if this event has one, otherwise keep the still image
+        const videoId = $(this).data('video');
+        if (videoId) {
+          $('#modalVideoFrame').attr('src', 'https://www.youtube-nocookie.com/embed/' + videoId + '?rel=0');
+          $('#modalVideo').show();
+          $('#modalImg').hide();
+        } else {
+          $('#modalVideoFrame').attr('src', '');
+          $('#modalVideo').hide();
+          $('#modalImg').show();
+        }
+
         $('#toastCopied').hide();
         $('#eventModal').css('display', 'flex').hide().fadeIn(250);
       });
@@ -489,20 +507,27 @@
         });
       });
 
+      // Closing also unloads the iframe so the video stops playing
+      function closeEventModal() {
+        $('#eventModal').fadeOut(200, function() {
+          $('#modalVideoFrame').attr('src', '');
+        });
+      }
+
       $('#modalCloseBtn').on('click', function() {
-        $('#eventModal').fadeOut(200);
+        closeEventModal();
       });
 
       $('#eventModal').on('click', function(e) {
         if ($(e.target).is('#eventModal')) {
-          $('#eventModal').fadeOut(200);
+          closeEventModal();
         }
       });
 
       // Keyboard Accessibility: Close on Escape key
       $(document).on('keydown', function(e) {
         if (e.key === 'Escape' && $('#eventModal').is(':visible')) {
-          $('#eventModal').fadeOut(200);
+          closeEventModal();
         }
       });
 
