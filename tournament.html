@@ -548,7 +548,10 @@
                             + '        <i class="bi bi-trophy"></i> ' + t.prize + '<br>'
                             + '        <i class="bi bi-people"></i> ' + t.teams
                             + '      </p>'
-                            + '      <button class="btn tournament-cta view-detail-btn">View Details</button>'
+                            + '      <div class="tournament-card-actions">'
+                            + '        <button class="btn tournament-cta view-detail-btn">View Details</button>'
+                            + '        <button class="btn tournament-share-btn share-whatsapp-btn" type="button" title="Share on WhatsApp" aria-label="Share on WhatsApp"><i class="bi bi-whatsapp"></i></button>'
+                            + '      </div>'
                             + '    </div>'
                             + '  </div>'
                             + '</div>';
@@ -583,6 +586,30 @@
                         $('#gameSelect').fadeIn(300);
                     });
                 });
+            });
+
+            //Share a tournament to WhatsApp
+            $(document).on('click', '.share-whatsapp-btn', function () {
+                var card = $(this).closest('.tournament-card');
+                var game = card.data('game');
+                var index = card.data('index');
+                var t = tournamentData[game][index];
+
+                //Auto generate the message for the event
+                var message = ''
+                    + '🏆 *' + t.name + '*\n'
+                    + 'Hosted by UTAR Esport Club\n\n'
+                    + '📅 Date: ' + t.date + '\n'
+                    + '⏰ Time: ' + t.time + '\n'
+                    + '📍 Venue: ' + t.venue + '\n'
+                    + '💰 Prize: ' + t.prize + '\n'
+                    + '👥 Slots: ' + t.teams + '\n'
+                    + '🎮 Format: ' + t.format + '\n\n'
+                    + t.desc + '\n\n'
+                    + 'More info: ' + window.location.href;
+
+                //Redirect to WhatsApp with the message pre-filled
+                window.open('https://wa.me/?text=' + encodeURIComponent(message), '_blank');
             });
         </script>
 

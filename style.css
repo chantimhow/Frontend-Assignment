@@ -2402,6 +2402,42 @@ th {
     color: #ffffff;
 }
 
+
+/* Card button row */
+.tournament-card-actions {
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.tournament-card-actions .tournament-cta {
+    margin-top: 0;
+}
+
+/* Small WhatsApp share button */
+.tournament-share-btn {
+    flex: 0 0 auto;
+    background-color: rgba(37, 211, 102, 0.15);
+    color: #25D366;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    border-radius: 999px;
+    width: 2.5rem;
+    padding: 0;
+    font-size: 1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.tournament-share-btn:hover {
+    background-color: #25D366;
+    color: #ffffff;
+    border-color: #25D366;
+}
+
 /* Return button*/
 .btn-back {
     background-color: #171717;
