@@ -83,8 +83,8 @@
               <div>
                 <h4 style="font-size: 0.95rem; font-weight: 700; color: #ffffff; margin: 0; font-family: 'Archivo Black', sans-serif;">UTAR Esport Community</h4>
                 <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: #a9a6b3; margin-top: 0.2rem;">
-                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #23a55a; display: inline-block;"></span>
-                  <span>142 Members Online</span>
+                  <span id="discordDot" style="width: 8px; height: 8px; border-radius: 50%; background: #80848e; display: inline-block;"></span>
+                  <span id="discordCount">Checking server status...</span>
                 </div>
               </div>
             </div>
@@ -92,7 +92,7 @@
           <p style="font-size: 0.8rem; color: #a9a6b3; margin: 0; line-height: 1.4;">
             Join our verified Discord server for weekly in-house scrims, match lobbies, voice channels, and tournament announcements.
           </p>
-          <a href="https://discord.gg" target="_blank" class="discord-btn-custom">Join Discord Server</a>
+          <a href="https://discord.gg" target="_blank" rel="noopener" class="discord-btn-custom" id="discordJoinBtn">Join Discord Server</a>
         </div>
       </div>
 
@@ -244,6 +244,32 @@
   <!-- JQUERY & STORAGE SCRIPTS -->
   <script>
     $(document).ready(function() {
+
+      // 0. DISCORD: Live member counts straight from Discord's public invite API
+      //    Put your server's invite code here - the bit after discord.gg/
+      //    e.g. for https://discord.gg/aBcD1234 the code is "aBcD1234"
+      const DISCORD_INVITE_CODE = 'Z3myCa9VZ';
+
+      $('#discordJoinBtn').attr('href', 'https://discord.gg/' + DISCORD_INVITE_CODE);
+
+      function refreshDiscordCounts() {
+        $.getJSON('https://discord.com/api/v10/invites/' + DISCORD_INVITE_CODE + '?with_counts=true')
+          .done(function(data) {
+            const online = data.approximate_presence_count;
+            const total = data.approximate_member_count;
+            if (typeof online !== 'number') { return; }
+            $('#discordDot').css('background', '#23a55a');
+            $('#discordCount').text(online.toLocaleString() + ' Online  |  ' + total.toLocaleString() + ' Members');
+          })
+          .fail(function() {
+            // Bad/expired invite code, or Discord unreachable - say so rather than show a fake number
+            $('#discordDot').css('background', '#80848e');
+            $('#discordCount').text('Member count unavailable');
+          });
+      }
+
+      refreshDiscordCounts();
+      setInterval(refreshDiscordCounts, 60000); // refresh once a minute
 
       // 1. COOKIES: Helper functions & Rate Limiting
       function setCookie(cname, cvalue, minutes) {
@@ -413,7 +439,7 @@
         } else if (q.includes('tryout') || q.includes('varsity') || q.includes('team') || q.includes('join')) {
           return "Varsity tryouts are conducted at the start of each semester for CS2, Valorant, and League of Legends. An active Competitive Tier is required!";
         } else if (q.includes('discord') || q.includes('scrim') || q.includes('server') || q.includes('custom')) {
-          return "Our weekly community scrims run on Discord every Friday and Sunday at 8:00 PM! Join our server at discord.gg/utaresport";
+          return "Our weekly community scrims run on Discord every Friday and Sunday at 8:00 PM! Join our server at discord.gg/" + DISCORD_INVITE_CODE + "";
         } else if (q.includes('hello') || q.includes('hi') || q.includes('hey')) {
           return "Hello! How can I assist you with UTAR Esport Club today?";
         } else if (q.includes('where') || q.includes('location') || q.includes('campus') || q.includes('kampar')) {
