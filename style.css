@@ -308,7 +308,10 @@ html.has-modal {
 }
 
 .hero-text {
-    font-size: 3rem;
+    /* Was a flat 3rem, which stayed 48px down to a 320px screen and
+       pushed the headline to three tight lines. Every other display
+       heading on the site scales; this one now matches. */
+    font-size: clamp(1.9rem, 8vw, 3rem);
     font-family: "Archivo Black";
     font-weight: 400;
     color: #ffffff;
@@ -408,7 +411,7 @@ html.has-modal {
     margin-top: 3rem;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
     gap: 1.5rem;
 }
 
@@ -704,7 +707,10 @@ html.has-modal {
     font-family: "Archivo Black", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: clamp(2rem, 8vw, 4rem);
+    /* 2rem was the floor, but "TOURNAMENTS" set in Archivo Black at
+       32px is wider than a 320px screen's text column and painted
+       outside its box. */
+    font-size: clamp(1.75rem, 8vw, 4rem);
 }
 
 .news {
@@ -726,7 +732,7 @@ html.has-modal {
 
 .news-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
     gap: 4rem;
 
     margin-top: 3rem;
@@ -910,7 +916,7 @@ hr {
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
     gap: 1.5rem;
 
     max-width: 72rem;
@@ -1029,9 +1035,14 @@ table {
     width: 75%;
     table-layout: fixed;
     border-collapse: collapse;
+}
 
-
-
+/* The feature name is the only column carrying real text; the two plan
+   columns hold a single glyph each. Splitting the width evenly in three
+   left the names wrapping mid-word while the tick columns sat empty. */
+.container-spec-sheet th:not(.left-header):not(.left-data),
+.container-spec-sheet td {
+    width: 22%;
 }
 
 th,
@@ -1206,7 +1217,7 @@ th {
 /* Events Grid & Cards */
 .events-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 2rem;
     width: 100%;
 }
@@ -1639,8 +1650,14 @@ th {
     position: fixed;
     bottom: 95px;
     right: 30px;
-    width: 340px;
-    max-height: 480px;
+    /* A flat 340px plus the 30px offset ran off the left edge of any
+       phone narrower than 370px. min() keeps the panel inside the
+       viewport with a matching gutter on the far side. */
+    width: min(340px, calc(100vw - 60px));
+    /* Bounded by the space between the toggler and the top of the
+       screen, so a short/landscape viewport cannot push the header
+       off the top the way a fixed 480px did. */
+    max-height: min(480px, calc(100vh - 115px));
     background-color: #171717;
     border: 1px solid #2f2f2f;
     border-radius: 12px;
@@ -1689,7 +1706,11 @@ th {
 
 .chatbot-messages {
     padding: 1rem;
-    height: 300px;
+    /* Was a fixed 300px, which ignored the panel's max-height and let
+       the header, quick replies and input row overflow it. flex:1 lets
+       the transcript take whatever is left instead. */
+    flex: 1 1 auto;
+    min-height: 120px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -1943,13 +1964,13 @@ th {
    each one stretched across the whole dialog. */
 .reg-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr));
     gap: 1rem;
 }
 
 .reg-plans {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
     gap: 0.75rem;
     margin-bottom: 1rem;
 }
@@ -2122,7 +2143,9 @@ th {
 .about-stat-number {
     font-family: "Archivo Black", sans-serif;
     color: #FA5B1C;
-    font-size: 2rem;
+    /* Two of these share a row (col-6) down to the narrowest phone,
+       where a flat 2rem overran the column. */
+    font-size: clamp(1.4rem, 6vw, 2rem);
 }
 
 .about-stat-label {
@@ -2674,7 +2697,7 @@ th {
    there is no longer room for two of them side by side. */
 .lfg-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
     gap: 1rem;
 }
 
@@ -2823,7 +2846,7 @@ th {
 
 .lfg-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
     gap: 1rem;
 }
 
@@ -2912,5 +2935,249 @@ th {
 @media (max-width: 575.98px) {
     .lfg-form {
         padding: 1.5rem;
+    }
+}
+
+
+/* ==========================================================
+   Mobile pass  ·  cross-page
+
+   Rules that apply to every page rather than to one feature, kept
+   together at the end of the file so they land after the per-section
+   styles they correct. Ordered widest breakpoint first.
+   ========================================================== */
+
+/* ---- iOS focus zoom -------------------------------------------
+   Mobile Safari zooms the whole page in when a form control smaller
+   than 16px takes focus, and does not zoom back out afterwards — the
+   user is left on a page scrolled sideways. Every input on the site
+   was between 13.6px and 15.2px. Only the rendered size matters, so
+   this is scoped to touch pointers and the desktop sizes are kept. */
+@media (pointer: coarse) {
+
+    .reg-field input,
+    .reg-field select,
+    .lfg-field input,
+    .lfg-field select,
+    .lfg-field textarea,
+    .form-group-custom input,
+    .form-group-custom textarea,
+    .form-group-custom select,
+    .search-box,
+    .chatbot-input-area input {
+        font-size: 16px;
+    }
+}
+
+/* A <select> is sized to its longest <option>, and a grid/flex item
+   defaults to min-width:auto — so the widest option in the contact
+   topic list was propagating up and setting the form's width. Bumping
+   the font to 16px above made that wide enough to push the page into
+   horizontal scroll. These let the controls shrink with their column. */
+.contact-container > *,
+.form-group-custom,
+.lfg-field,
+.reg-field {
+    min-width: 0;
+}
+
+.form-group-custom input,
+.form-group-custom textarea,
+.form-group-custom select,
+.search-box {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+/* ---- Touch targets --------------------------------------------
+   Anything tapped rather than clicked needs a finger-sized box. The
+   bookmark toggle was 32px square. */
+@media (pointer: coarse) {
+
+    .btn-bookmark {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .filter-btn,
+    .quick-btn {
+        min-height: 40px;
+    }
+
+    .modal-close {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 767.98px) {
+
+    /* Snapping is mandatory, but .news (1872px), .about (999px) and
+       .voucher (754px) are all taller than a phone screen. A mandatory
+       snap point below a section that does not fit means the browser
+       drags the viewport on to the next section before the current one
+       has been read to the bottom. The dot indicator that this paired
+       with is already hidden at this width. */
+    html {
+        scroll-snap-type: none;
+    }
+
+    /* The hero is the one section that should still fill the screen.
+       dvh tracks the address bar as it collapses; the vh fallback is
+       for browsers without it. */
+    .hero {
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+
+    /* 100vh on a phone is measured against the *expanded* address bar,
+       so these sections were taller than the screen actually is and
+       left a strip of the next one showing. Content height is enough. */
+    .about {
+        min-height: 0;
+        padding: 4rem 1.25rem;
+    }
+
+    /* The global .btn is a big square block sized for a desktop hero;
+       at 2rem of side padding two of them no longer fit a phone row. */
+    .btn {
+        padding: 0.85rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .welcome-section-button {
+        min-width: 0;
+        width: auto;
+        margin: 1.5rem 0 0;
+    }
+
+    /* Fixed nav is ~60px once solid; 8rem of clearance is desktop
+       spacing and wastes most of the first screen on a phone. */
+    .pricing-header,
+    .about-header,
+    .tournament-header,
+    .lfg-header {
+        padding-top: 6rem;
+    }
+
+    /* ---- comparison table ----
+       75% of a 360px screen is 270px shared between three columns, so
+       the feature names wrapped to three lines each. Full width plus a
+       smaller indent gives the names room. */
+    .container-spec-sheet {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    /* table-layout:fixed does not shrink text to fit, so "COMPETITIVE"
+       was painting straight out of its 63px cell and dragging the page
+       into horizontal scroll. Smaller type plus a wrap rule keeps every
+       cell inside its column at any width. */
+    th,
+    td {
+        font-size: 0.78rem;
+        padding: 0.6em 0.25em;
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: auto;
+    }
+
+    /* The plan columns hold the longest single words in the table, so
+       on a phone they need more than the desktop 22%. */
+    .container-spec-sheet th:not(.left-header):not(.left-data),
+    .container-spec-sheet td {
+        width: 29%;
+    }
+
+    .left-header,
+    .left-data {
+        padding-left: 0.5rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+
+    /* The card grids sit inside 1.5rem gutters; on the narrowest
+       phones that leaves the cards too little room for their own
+       2rem of padding. */
+    .pricing-card,
+    .lfg-card,
+    .about-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .pricing-grid,
+    .lfg-board,
+    .lfg-compose {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .main-content-layout {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    /* Stacks the label above the buttons rather than letting a 7rem
+       min-width squeeze them off the row. */
+    .reg-status {
+        margin-left: 0;
+        min-width: 0;
+        text-align: left;
+        width: 100%;
+    }
+
+    /* The nav CTA and socials wrap to their own line in the open
+       menu; keeping them from stretching edge to edge. */
+    .reg-footer .btn {
+        flex: 1 1 auto;
+    }
+
+    /* The chatbot sits closer to the corner so it steals less of a
+       small screen, and the panel follows it. */
+    .chatbot-toggler {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .chatbot-panel {
+        bottom: 85px;
+        right: 20px;
+        width: min(340px, calc(100vw - 40px));
+        max-height: min(480px, calc(100vh - 105px));
+    }
+}
+
+/* Phones held sideways: the viewport is ~360px tall, so anything
+   pinned to a full screen height leaves no room for its own content. */
+@media (max-height: 480px) and (orientation: landscape) {
+
+    html {
+        scroll-snap-type: none;
+    }
+
+    .hero,
+    .about,
+    .voucher,
+    .membership,
+    .explore {
+        min-height: 0;
+    }
+
+    .hero {
+        padding-top: 5rem;
+        padding-bottom: 3rem;
+    }
+
+    /* Taller than the screen it opens on, so it scrolls internally
+       instead of running off the top. */
+    .chatbot-panel {
+        max-height: calc(100vh - 105px);
     }
 }
